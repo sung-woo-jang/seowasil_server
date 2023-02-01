@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
@@ -17,4 +18,9 @@ import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
   ],
 })
-export class AppModule {}
+export class AppModule {
+  // log middleware 적용
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
