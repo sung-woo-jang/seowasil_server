@@ -1,3 +1,4 @@
+import { CommonEntity } from 'src/common/entities/common.entity';
 import { Exclude } from 'class-transformer';
 import {
   IsBoolean,
@@ -7,7 +8,6 @@ import {
   IsString,
 } from 'class-validator';
 import { Column, Entity, Index } from 'typeorm';
-import { CommonEntity } from './../../../common/entities/common.entity';
 
 export enum Role {
   ADMIN = 'ADMIN',
