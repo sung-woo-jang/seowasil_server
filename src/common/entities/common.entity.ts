@@ -2,6 +2,7 @@ import {
   BaseEntity,
   CreateDateColumn,
   DeleteDateColumn,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,6 +17,7 @@ export abstract class CommonEntity extends BaseEntity {
     required: false,
   })
   @IsNumber()
+  @Index({ unique: true })
   @PrimaryGeneratedColumn('increment')
   id: number;
 

@@ -18,28 +18,28 @@ export enum Role {
 @Entity({ name: 'User' })
 export class User extends CommonEntity {
   @IsNotEmpty({ message: '아이디를 입력해주세요' })
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', comment: '계정', nullable: false })
   account: string;
 
   @Exclude()
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', comment: '비밀번호', nullable: false })
   password: string;
 
   @IsString()
   @IsNotEmpty({ message: '이름을 작성해주세요.' })
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'varchar', comment: '사용자 이름', nullable: false })
   name: string;
 
   @IsPhoneNumber()
   @IsNotEmpty({ message: '전화번호를 입력해주세요' })
-  @Column({ type: 'integer', nullable: false })
+  @Column({ type: 'integer', comment: '전화번호', nullable: false })
   phoneNumber: number;
 
   @IsEmail()
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', comment: '이메일', nullable: true })
   email: string;
 
   @IsBoolean()
-  @Column({ type: 'varchar', default: 'CUSTOMER' })
+  @Column({ type: 'varchar', comment: '유저 권한', default: 'CUSTOMER' })
   role: Role;
 }
