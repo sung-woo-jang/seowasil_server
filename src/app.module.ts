@@ -5,6 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { UsersModule } from './api/users/users.module';
+import { OrdersModule } from './api/orders/orders.module';
+import { DeliverAddressModule } from './api/deliver-address/deliver-address.module';
+import { OrderDetailsModule } from './api/order-details/order-details.module';
+import { ProductsModule } from './api/products/products.module';
+import { ProductImagesModule } from './api/product-images/product-images.module';
+import { ProductThumbnailModule } from './api/product-thumbnail/product-thumbnail.module';
+import { CategoriesModule } from './api/categories/categories.module';
+import { NoticesModule } from './api/notices/notices.module';
+import { CartsModule } from './api/carts/carts.module';
+import { ContactsModule } from './api/contacts/contacts.module';
+import { CommentsModule } from './api/comments/comments.module';
 
 @Module({
   imports: [
@@ -18,6 +29,17 @@ import { UsersModule } from './api/users/users.module';
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
     UsersModule,
+    OrdersModule,
+    DeliverAddressModule,
+    OrderDetailsModule,
+    ProductsModule,
+    ProductImagesModule,
+    ProductThumbnailModule,
+    CategoriesModule,
+    NoticesModule,
+    CartsModule,
+    ContactsModule,
+    CommentsModule,
   ],
 })
 export class AppModule {
