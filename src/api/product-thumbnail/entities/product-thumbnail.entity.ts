@@ -1,7 +1,7 @@
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Column, Entity } from 'typeorm';
 
-@Entity({ name: 'ProductThumbnail' })
+@Entity()
 export class ProductThumbnail extends CommonEntity {
   @Column({
     type: 'varchar',

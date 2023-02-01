@@ -7,7 +7,7 @@ export enum Status {
   SOLDOUT = '품절',
 }
 
-@Entity({ name: 'Product' })
+@Entity()
 export class Product extends CommonEntity {
   @Column({ type: 'varchar', comment: '상품명', nullable: false })
   title: string;

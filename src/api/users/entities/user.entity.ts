@@ -15,7 +15,7 @@ export enum Role {
 }
 
 @Index(['account', 'email', 'phoneNumber'], { unique: true })
-@Entity({ name: 'User' })
+@Entity()
 export class User extends CommonEntity {
   @IsNotEmpty({ message: '아이디를 입력해주세요' })
   @Column({ type: 'varchar', comment: '계정', nullable: false })

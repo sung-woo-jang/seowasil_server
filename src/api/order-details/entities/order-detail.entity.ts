@@ -1,7 +1,7 @@
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Entity, Column } from 'typeorm';
 
-@Entity({ name: 'OrderDetail' })
+@Entity()
 export class OrderDetail extends CommonEntity {
   @Column({ type: 'integer', comment: '주문수량', nullable: false })
   amount: number;

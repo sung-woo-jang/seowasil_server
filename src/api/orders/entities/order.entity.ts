@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 
-@Entity({ name: 'Order' })
+@Entity()
 export class Order extends CommonEntity {
   @Column({ type: 'varchar', comment: '우편번호', nullable: false })
   address1: string;
