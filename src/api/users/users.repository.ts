@@ -28,10 +28,10 @@ export class UsersRepository extends Repository<User> {
   }
 
   //로그인 유저 조회
-  async findByLogin(account: string, password: string): Promise<User> {
+  async findByLogin(account: string): Promise<User> {
     const user = await this.findOne({ where: { account } });
 
-    if (user && (await bcrypt.compare(password, user.password))) return user;
+    if (user) return user;
     else throw new ForbiddenException('아이디와 비밀번호를 다시 확인해주세요.');
   }
 }
