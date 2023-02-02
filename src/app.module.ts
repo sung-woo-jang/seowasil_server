@@ -16,6 +16,7 @@ import { NoticesModule } from './api/notices/notices.module';
 import { CartsModule } from './api/carts/carts.module';
 import { ContactsModule } from './api/contacts/contacts.module';
 import { CommentsModule } from './api/comments/comments.module';
+import { AuthModule } from './api/auth/auth.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { CommentsModule } from './api/comments/comments.module';
     CartsModule,
     ContactsModule,
     CommentsModule,
+    AuthModule,
   ],
 })
 export class AppModule {

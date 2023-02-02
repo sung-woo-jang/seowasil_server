@@ -1,6 +1,7 @@
 import { CreateUserDto } from './dto/create-user.dto';
 import {
   ConflictException,
+  ForbiddenException,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
@@ -24,5 +25,13 @@ export class UsersRepository extends Repository<User> {
         throw new ConflictException('이미 있는 ID입니다.');
       else throw new InternalServerErrorException();
     }
+  }
+
+  //로그인 유저 조회
+  async findByLogin(account: string, password: string): Promise<User> {
+    const user = await this.findOne({ where: { account } });
+
+    if (user && (await bcrypt.compare(password, user.password))) return user;
+    else throw new ForbiddenException('아이디와 비밀번호를 다시 확인해주세요.');
   }
 }

@@ -1,3 +1,4 @@
+import { SignInRequestDto } from './dto/signin-user.dto';
 import { User } from './entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,7 +15,7 @@ export class UsersService {
     return this.usersRepository.createUser(createUserDto);
   }
 
-  async signIn(createUserDto: CreateUserDto) {
+  async signIn(signInRequestDto: SignInRequestDto) {
     return `This action returns all users`;
   }
 }
