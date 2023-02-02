@@ -14,8 +14,6 @@ export class AuthService {
   ) {}
 
   async validateUser(account: string, password: string): Promise<any> {
-    console.log('AuthService');
-
     const user = await this.userRepository.findByLogin(account);
 
     //사용자가 요청한 비밀번호와 DB에서 조회한 비밀번호 일치여부 검사

@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from './api/auth/guards/jwt-auth.guard';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -17,6 +18,7 @@ import { CartsModule } from './api/carts/carts.module';
 import { ContactsModule } from './api/contacts/contacts.module';
 import { CommentsModule } from './api/comments/comments.module';
 import { AuthModule } from './api/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -43,6 +45,7 @@ import { AuthModule } from './api/auth/auth.module';
     CommentsModule,
     AuthModule,
   ],
+  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {
   // log middleware 적용

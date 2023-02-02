@@ -28,7 +28,6 @@ export class UsersController {
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
   signIn(@Request() req: any) {
-    console.log('Login Route');
     return this.authService.login(req.user);
   }
 
