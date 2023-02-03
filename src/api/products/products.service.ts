@@ -19,4 +19,10 @@ export class ProductsService {
     board.viewCount++;
     return await this.productsRepository.save({ ...board });
   }
+
+  async getProductList() {
+    return await this.productsRepository.find({
+      select: ['title', 'description'],
+    });
+  }
 }

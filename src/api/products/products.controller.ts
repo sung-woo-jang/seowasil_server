@@ -33,19 +33,19 @@ export class ProductsController {
     return this.productsService.getProductDetail(id);
   }
 
-  /* 
-  상품 리스트 가져오기
-  @Query(sort: 정렬)
-  @Query(search: 제목 키워드)
-  @Query(filter: 해시태그 키워드)
-  @Query(pagination: 페이지)
+  /**
+   * @description 상품 가져오기
+   * @Query (sort: 정렬)
+   * @Query (search: 제목 키워드)
+   * @Query (filter: 해시태그 키워드)
+   * @Query (pagination: 페이지)
+   */
+
   @Public()
   @Get()
-  getProductList(){
-    return {title, description}
-    return ''    
+  getProductList() {
+    return this.productsService.getProductList();
   }
-  */
 
   /* 
   상품 정보 수정
