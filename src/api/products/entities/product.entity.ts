@@ -1,5 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
+import { IsNumber } from 'class-validator';
 
 export enum Status {
   SALE = '판매중',
@@ -15,12 +16,15 @@ export class Product extends CommonEntity {
   @Column({ type: 'varchar', comment: '상품 설명', nullable: false })
   description: string;
 
+  @IsNumber()
   @Column({ type: 'integer', comment: '상품 가격', nullable: true })
   prevPrice: number;
 
+  @IsNumber()
   @Column({ type: 'integer', comment: '판매 가격', nullable: false })
   sellPrice: number;
 
+  @IsNumber()
   @Column({ type: 'integer', comment: '최소 주문 수량', nullable: false })
   minAmount: number;
 

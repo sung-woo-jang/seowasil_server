@@ -1,16 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Body } from '@nestjs/common';
+import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
-  /* 
-  상품 등록
+
   @Post()
-  createProduct(@Body() 상품등록DTO){
-    return ''    
+  async createProduct(@Body() createProductDto: CreateProductDto) {
+    return await this.productsService.createProduct(createProductDto);
   }
-  */
 
   /* 
   상품 정보 상세보기
