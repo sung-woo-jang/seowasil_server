@@ -1,11 +1,16 @@
+import { UsersRepository } from './../../users/users.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private configService: ConfigService) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  constructor(
+    private configService: ConfigService,
+    @InjectRepository(UsersRepository) private usersRepository: UsersRepository,
+  ) {
     super({
       //Request에서 JWT 토큰을 추출하는 방법을 설정 -> Authorization에서 Bearer Token에 JWT 토큰을 담아 전송해야한다.
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -20,6 +25,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    return { id: payload.sub, name: payload.username };
+    return this.usersRepository.getById(payload.id);
   }
 }

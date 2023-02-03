@@ -35,4 +35,8 @@ export class User extends CommonEntity {
   @IsBoolean()
   @Column({ type: 'varchar', comment: '유저 권한', default: 'CUSTOMER' })
   role: Role;
+
+  @Column({ nullable: true })
+  @Exclude()
+  currentHashedRefreshToken?: string;
 }

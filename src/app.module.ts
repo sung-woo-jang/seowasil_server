@@ -28,6 +28,13 @@ import { APP_GUARD } from '@nestjs/core';
       validationSchema: Joi.object({
         MODE: Joi.string().valid('dev', 'prod').required(),
         PORT: Joi.number().default(8000),
+        USERNAME: Joi.string().required(),
+        PASSWORD: Joi.string().required(),
+        DATABASE: Joi.string().required(),
+        JWT_SECRET_KEY: Joi.string().required(),
+        JWT_EXPIRESIN: Joi.number().required(),
+        JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+        JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.number().required(),
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),

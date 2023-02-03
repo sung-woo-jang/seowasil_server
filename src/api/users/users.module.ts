@@ -12,6 +12,7 @@ import { UsersController } from './users.controller';
     TypeOrmModule.forFeature([UsersRepository]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
+      inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return {
           secret: configService.get<string>('JWT_SECRET_KEY'),
@@ -20,7 +21,6 @@ import { UsersController } from './users.controller';
           },
         };
       },
-      inject: [ConfigService],
     }),
   ],
   controllers: [UsersController],

@@ -1,4 +1,3 @@
-import { SignInRequestDto } from './dto/signin-user.dto';
 import { User } from './entities/user.entity';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,7 +14,14 @@ export class UsersService {
     return this.usersRepository.createUser(createUserDto);
   }
 
-  async signIn(signInRequestDto: SignInRequestDto) {
-    return `This action returns all users`;
+  // DB에 발급받은 Refresh Token 암호화
+  async setCurrentRefreshToken(refreshToken: string, id: number) {
+    await this.usersRepository.setCurrentRefreshToken(refreshToken, id);
+  }
+
+  async removeRefreshToken(id: number) {
+    return this.usersRepository.update(id, {
+      currentHashedRefreshToken: null,
+    });
   }
 }

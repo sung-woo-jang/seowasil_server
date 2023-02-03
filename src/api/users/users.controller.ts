@@ -1,3 +1,4 @@
+import { JwtRefreshGuard } from './../auth/guards/jwt-refresh.guard';
 import { AuthService } from './../auth/auth.service';
 import { LocalAuthGuard } from './../auth/guards/local-auth.guard';
 import {
@@ -15,7 +16,6 @@ import { User } from './entities/user.entity';
 import { Response } from 'express';
 import { Public } from 'src/common/decorators/skip-auth.decorator';
 
-@Public()
 @Controller('users')
 export class UsersController {
   constructor(
@@ -23,36 +23,58 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
+  @Public()
   @Post('/signup')
   signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.signUp(createUserDto);
   }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
   async signIn(@Request() req, @Res({ passthrough: true }) res: Response) {
-    const token = await this.authService.login(req.user);
-    res.cookie('Authentication', token, {
-      domain: 'localhost',
-      path: '/',
-      httpOnly: true,
-    });
+    const { user } = req;
+    const { accessToken, ...accessOption } =
+      this.authService.getCookieWithJwtAccessToken(user.id);
+
+    const { refreshToken, ...refreshOption } =
+      this.authService.getCookieWithJwtRefreshToken(user.id);
+
+    await this.usersService.setCurrentRefreshToken(refreshToken, user.id);
+
+    res.cookie('Authentication', accessToken, accessOption);
+    res.cookie('Refresh', refreshToken, refreshOption);
+
+    return user;
   }
 
-  @Post('/logout')
-  logout(@Res() res: Response): any {
-    res
-      .cookie('Authentication', '', {
-        maxAge: 0,
-      })
-      .send({
-        message: 'success',
-      });
+  @Public()
+  @UseGuards(JwtRefreshGuard)
+  @Post('logout')
+  async logOut(@Request() req, @Res({ passthrough: true }) res: Response) {
+    const { accessOption, refreshOption } =
+      this.authService.getCookiesForLogOut();
+
+    await this.usersService.removeRefreshToken(req.user.id);
+
+    res.cookie('Authentication', '', accessOption);
+    res.cookie('Refresh', '', refreshOption);
   }
 
   @Get('/cookies')
   getCookies(@Request() req, @Res() res: Response): any {
     const jwt = req.cookies['Authentication'];
     return res.send(jwt);
+  }
+
+  @Public()
+  @UseGuards(JwtRefreshGuard)
+  @Get('refresh')
+  refresh(@Request() req, @Res({ passthrough: true }) res: Response) {
+    const user = req.user;
+    const { accessToken, ...accessOption } =
+      this.authService.getCookieWithJwtAccessToken(user.id);
+    res.cookie('Authentication', accessToken, accessOption);
+    return user;
   }
 }
