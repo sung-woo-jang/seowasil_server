@@ -1,4 +1,14 @@
-import { Controller, Post, Get, Patch, Delete, Body } from '@nestjs/common';
+import { Public } from './../../common/decorators/skip-auth.decorator';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 
@@ -6,20 +16,22 @@ import { ProductsService } from './products.service';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  /**
+   * @description 상품 등록
+   */
   @Post()
-  async createProduct(@Body() createProductDto: CreateProductDto) {
-    return await this.productsService.createProduct(createProductDto);
+  createProduct(@Body() createProductDto: CreateProductDto) {
+    return this.productsService.createProduct(createProductDto);
   }
 
-  /* 
-  상품 정보 상세보기
-  @Get("/:id")
+  /**
+   * @description 상품 정보 상세보기
+   */
+  @Get('/:id')
   @Public()
-  getProductDetail(){
-    TODO: 게시글 상세보기 호출 시 조회수 증가
-    return ''    
+  getProductDetail(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.getProductDetail(id);
   }
-  */
 
   /* 
   상품 리스트 가져오기

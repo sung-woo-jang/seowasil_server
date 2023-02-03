@@ -13,4 +13,10 @@ export class ProductsService {
   async createProduct(createProductDto: CreateProductDto) {
     return await this.productsRepository.save({ ...createProductDto });
   }
+
+  async getProductDetail(id: number) {
+    const board = await this.productsRepository.findOne(id);
+    board.viewCount++;
+    return await this.productsRepository.save({ ...board });
+  }
 }
