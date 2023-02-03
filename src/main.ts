@@ -18,7 +18,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ResponseInterceptor());
 
   // class-validation
-  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, forbidUnknownValues: false }),
+  );
 
   app.use(cookieParser());
 

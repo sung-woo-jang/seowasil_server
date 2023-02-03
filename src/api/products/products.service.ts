@@ -1,7 +1,9 @@
+import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
+import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -24,5 +26,23 @@ export class ProductsService {
     return await this.productsRepository.find({
       select: ['title', 'description'],
     });
+  }
+
+  async updateProduct(updateProductDto: UpdateProductDto, id: number) {
+    const board = await this.productsRepository
+      .createQueryBuilder('product')
+      .update(Product)
+      .set({ ...updateProductDto })
+      .where('id = :id', { id })
+      .execute();
+    return board;
+  }
+
+  async deleteProduct(id: number) {
+    return await this.productsRepository.softDelete(id);
+  }
+
+  async restoreProduct(id: number) {
+    return await this.productsRepository.restore(id);
   }
 }

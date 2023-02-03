@@ -1,3 +1,4 @@
+import { UpdateProductDto } from './dto/update-product.dto';
 import { Public } from './../../common/decorators/skip-auth.decorator';
 import {
   Controller,
@@ -47,27 +48,39 @@ export class ProductsController {
     return this.productsService.getProductList();
   }
 
-  /* 
-  상품 정보 수정
+  /**
+   * @description 상품 정보 수정
+   */
   @Patch('/:id')
-  updateProduct(@Body() 상품등록DTO, @Param() id:number){
-    return ''    
+  updateProduct(
+    @Body() updateProductDto: UpdateProductDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.productsService.updateProduct(updateProductDto, id);
   }
-  */
 
-  /* 
-  상품 삭제
+  /**
+   * @description 상품 삭제
+   */
   @Delete('/:id')
-  deleteProduct(@Body() 제목, 내용, 해시태그, @Param()){
-    TODO: 게시글 SoftDelete
+  deleteProduct(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.deleteProduct(id);
   }
-  
+
+  /**
+   * @description 삭제된 상품 복구
+   */
+  @Patch('/restore/:id')
+  restoreProduct(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.restoreProduct(id);
+  }
+
+  /*   
   하나로 합치는 쪽으로 구현
   삭제된 게시글 복구
   @Post('/:id')
   restorationProduct(@Body() 제목, 내용, 해시태그){
     TODO: Body내용 원본이랑 교체
     return ''    
-  }
-  */
+  } */
 }
