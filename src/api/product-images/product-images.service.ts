@@ -8,4 +8,14 @@ export class ProductImagesService {
     @InjectRepository(ProductImageRepository)
     private productImageRepository: ProductImageRepository,
   ) {}
+
+  async uploadImg(files: Express.Multer.File[]) {
+    const fileName = [];
+    files.forEach((el) => fileName.push(`${el.filename}`));
+    console.log(fileName);
+    const result = await this.productImageRepository.findByIdAndUpdateImg(
+      fileName,
+    );
+    return result;
+  }
 }

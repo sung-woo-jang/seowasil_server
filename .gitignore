@@ -1,6 +1,12 @@
 .env
 env_files/*
 
+uploads/*
+*.jpg
+*.jpeg
+*.png
+
+
 # compiled output
 /dist
 /node_modules
