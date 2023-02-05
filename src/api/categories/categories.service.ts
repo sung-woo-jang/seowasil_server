@@ -8,4 +8,20 @@ export class CategoriesService {
     @InjectRepository(CategoriesRepository)
     private categoriesRepository: CategoriesRepository,
   ) {}
+
+  createCategory() {
+    throw new Error('Method not implemented.');
+  }
+
+  getCategoryList() {
+    throw new Error('Method not implemented.');
+  }
+
+  updateCategory(id: number) {
+    throw new Error('Method not implemented.');
+  }
+
+  deleteCategory(id: number) {
+    throw new Error('Method not implemented.');
+  }
 }
