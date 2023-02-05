@@ -18,7 +18,8 @@ export class CategoriesService {
   }
 
   async getCategoryList() {
-    throw new Error('Method not implemented.');
+    const result = await this.categoriesRepository.find();
+    return result;
   }
 
   async updateCategory(id: number) {
