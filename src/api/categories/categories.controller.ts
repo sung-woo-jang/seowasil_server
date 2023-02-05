@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { Public } from 'src/common/decorators/skip-auth.decorator';
 import { CategoriesService } from './categories.service';
+import { CreateCategoryDto } from './dto/create-category.dto';
 
 @Public()
 @Controller('categories')
@@ -20,9 +21,8 @@ export class CategoriesController {
    * @description 카테고리 등록
    */
   @Post()
-  createCatrgory() {
-    // @Body() 카테고리 생성DTO
-    return this.categoriesService.createCategory();
+  createCatrgory(@Body() createCategoryDto: CreateCategoryDto) {
+    return this.categoriesService.createCategory(createCategoryDto);
   }
 
   /**

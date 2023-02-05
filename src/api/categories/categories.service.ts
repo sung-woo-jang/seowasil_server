@@ -1,3 +1,4 @@
+import { CreateCategoryDto } from './dto/create-category.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoriesRepository } from './categories.repository';
@@ -9,19 +10,22 @@ export class CategoriesService {
     private categoriesRepository: CategoriesRepository,
   ) {}
 
-  createCategory() {
+  async createCategory(createCategoryDto: CreateCategoryDto) {
+    const result = await this.categoriesRepository.save({
+      ...createCategoryDto,
+    });
+    return result;
+  }
+
+  async getCategoryList() {
     throw new Error('Method not implemented.');
   }
 
-  getCategoryList() {
+  async updateCategory(id: number) {
     throw new Error('Method not implemented.');
   }
 
-  updateCategory(id: number) {
-    throw new Error('Method not implemented.');
-  }
-
-  deleteCategory(id: number) {
+  async deleteCategory(id: number) {
     throw new Error('Method not implemented.');
   }
 }
