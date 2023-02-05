@@ -10,8 +10,11 @@ export class OrdersService {
     private ordersRepository: OrdersRepository,
   ) {}
 
-  createOrder(createOrderDto: CreateOrderDto) {
-    throw new Error('Method not implemented.');
+  async createOrder(createOrderDto: CreateOrderDto) {
+    const result = await this.ordersRepository.save({
+      ...createOrderDto,
+    });
+    return result;
   }
 
   getOrderList() {
