@@ -22,7 +22,7 @@ export class CategoriesController {
    * @description 카테고리 등록
    */
   @Post()
-  createCatrgory(@Body() createCategoryDto: CreateCategoryDto) {
+  createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
   }
 
@@ -30,7 +30,7 @@ export class CategoriesController {
    * @description 카테고리 가져오기
    */
   @Get()
-  getCatrgoryList() {
+  getCategoryList() {
     return this.categoriesService.getCategoryList();
   }
 
