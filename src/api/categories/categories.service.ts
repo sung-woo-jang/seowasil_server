@@ -1,7 +1,9 @@
+import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CategoriesRepository } from './categories.repository';
+import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategoriesService {
@@ -22,8 +24,15 @@ export class CategoriesService {
     return result;
   }
 
-  async updateCategory(id: number) {
-    throw new Error('Method not implemented.');
+  async updateCategory(updateCategoryDto: UpdateCategoryDto, id: number) {
+    const result = await this.categoriesRepository
+      .createQueryBuilder('category')
+      .update(Category)
+      .set({ ...updateCategoryDto })
+      .where('id = :id', { id })
+      .execute();
+
+    return result;
   }
 
   async deleteCategory(id: number) {

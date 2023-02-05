@@ -11,6 +11,7 @@ import {
 import { Public } from 'src/common/decorators/skip-auth.decorator';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Public()
 @Controller('categories')
@@ -38,10 +39,10 @@ export class CategoriesController {
    */
   @Patch('/:id')
   updateCategory(
-    // @Body() 카테고리 수정 DTO
+    @Body() updateCategoryDto: UpdateCategoryDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return this.categoriesService.updateCategory(id);
+    return this.categoriesService.updateCategory(updateCategoryDto, id);
   }
 
   /**
