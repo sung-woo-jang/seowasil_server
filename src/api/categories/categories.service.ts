@@ -36,6 +36,6 @@ export class CategoriesService {
   }
 
   async deleteCategory(id: number) {
-    throw new Error('Method not implemented.');
+    return await this.categoriesRepository.softDelete(id);
   }
 }
