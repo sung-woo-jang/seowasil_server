@@ -17,7 +17,8 @@ export class OrdersService {
     return result;
   }
 
-  getOrderList() {
-    throw new Error('Method not implemented.');
+  async getOrderList() {
+    const result = await this.ordersRepository.find();
+    return result;
   }
 }
