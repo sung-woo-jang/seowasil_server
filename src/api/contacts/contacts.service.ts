@@ -11,23 +11,26 @@ export class ContactsService {
     private contactsRepository: ContactsRepository,
   ) {}
 
-  createContact(createContactDto: CreateContactDto) {
+  async createContact(createContactDto: CreateContactDto) {
+    const result = await this.contactsRepository.save({
+      ...createContactDto,
+    });
+    return result;
+  }
+
+  async getContactList() {
     throw new Error('Method not implemented.');
   }
 
-  getContactList() {
+  async getContact() {
     throw new Error('Method not implemented.');
   }
 
-  getContact() {
+  async updateContact(updateContactDto: UpdateContactDto, id: number) {
     throw new Error('Method not implemented.');
   }
 
-  updateContact(updateContactDto: UpdateContactDto, id: number) {
-    throw new Error('Method not implemented.');
-  }
-
-  deleteContact(id: number) {
+  async deleteContact(id: number) {
     throw new Error('Method not implemented.');
   }
 }
