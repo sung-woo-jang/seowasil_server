@@ -34,7 +34,7 @@ export class ContactsService {
 
   async updateContact(updateContactDto: UpdateContactDto, id: number) {
     const result = await this.contactsRepository
-      .createQueryBuilder('product')
+      .createQueryBuilder('contact')
       .update(Contact)
       .set({ ...updateContactDto })
       .where('id = :id', { id })
