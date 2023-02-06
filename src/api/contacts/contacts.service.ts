@@ -43,6 +43,6 @@ export class ContactsService {
   }
 
   async deleteContact(id: number) {
-    throw new Error('Method not implemented.');
+    return await this.contactsRepository.softDelete(id);
   }
 }
