@@ -23,8 +23,9 @@ export class ContactsService {
     return result;
   }
 
-  async getContact() {
-    throw new Error('Method not implemented.');
+  async getContact(id: number) {
+    const result = await this.contactsRepository.findOne({ id });
+    return result;
   }
 
   async updateContact(updateContactDto: UpdateContactDto, id: number) {

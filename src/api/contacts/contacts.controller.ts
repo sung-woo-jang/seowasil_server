@@ -33,11 +33,11 @@ export class ContactsController {
   }
 
   /**
-   * @description 문의사항 목록 가져오기
+   * @description 문의사항 가져오기
    */
-  @Get()
-  getContact() {
-    return this.contactsService.getContact();
+  @Get('/:id')
+  getContact(@Param('id', ParseIntPipe) id: number) {
+    return this.contactsService.getContact(id);
   }
 
   /**
