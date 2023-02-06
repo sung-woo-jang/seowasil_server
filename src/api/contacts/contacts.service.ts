@@ -19,7 +19,8 @@ export class ContactsService {
   }
 
   async getContactList() {
-    throw new Error('Method not implemented.');
+    const result = await this.contactsRepository.find();
+    return result;
   }
 
   async getContact() {
