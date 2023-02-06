@@ -36,8 +36,8 @@ export class ContactsController {
    * @description 문의사항 가져오기
    */
   @Get('/:id')
-  getContact(@Param('id', ParseIntPipe) id: number) {
-    return this.contactsService.getContact(id);
+  getContact(@Param('id', ParseIntPipe) id: number, @Body() { password }) {
+    return this.contactsService.getContact(id, password);
   }
 
   /**

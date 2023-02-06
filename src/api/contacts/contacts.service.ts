@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { CreateContactDto } from './dto/create-contact.dto';
+import { Contact } from './entities/contact.entity';
 
 @Injectable()
 export class ContactsService {
@@ -23,13 +24,22 @@ export class ContactsService {
     return result;
   }
 
-  async getContact(id: number) {
+  async getContact(id: number, password: string) {
     const result = await this.contactsRepository.findOne({ id });
+    if (result.password !== password)
+      throw new Error('비밀번호가 맞지 않습니다.');
+
     return result;
   }
 
   async updateContact(updateContactDto: UpdateContactDto, id: number) {
-    throw new Error('Method not implemented.');
+    const result = await this.contactsRepository
+      .createQueryBuilder('product')
+      .update(Contact)
+      .set({ ...updateContactDto })
+      .where('id = :id', { id })
+      .execute();
+    return result;
   }
 
   async deleteContact(id: number) {
