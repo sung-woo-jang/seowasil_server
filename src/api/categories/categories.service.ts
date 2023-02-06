@@ -24,6 +24,11 @@ export class CategoriesService {
     return result;
   }
 
+  async getCategory(id: number) {
+    const result = await this.categoriesRepository.findOne({ id });
+    return result;
+  }
+
   async updateCategory(updateCategoryDto: UpdateCategoryDto, id: number) {
     const result = await this.categoriesRepository
       .createQueryBuilder('category')

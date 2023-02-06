@@ -1,6 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumber } from 'class-validator';
+import { Category } from 'src/api/categories/entities/category.entity';
 
 export enum Status {
   SALE = '판매중',
@@ -43,4 +44,14 @@ export class Product extends CommonEntity {
     default: 0,
   })
   viewCount: number;
+
+  @ManyToOne(() => Category, (category: Category) => category.product)
+  @JoinColumn([
+    // foreignkey 정보들
+    {
+      name: 'category_id' /* db에 저장되는 필드 이름 */,
+      referencedColumnName: 'id' /* USER의 id */,
+    },
+  ])
+  category: Category;
 }

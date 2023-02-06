@@ -27,11 +27,19 @@ export class CategoriesController {
   }
 
   /**
-   * @description 카테고리 가져오기
+   * @description 카테고리 목록 가져오기
    */
   @Get()
   getCategoryList() {
     return this.categoriesService.getCategoryList();
+  }
+
+  /**
+   * @description 카테고리 가져오기
+   */
+  @Get('/:id')
+  getCategory(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.getCategory(id);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { CategoriesRepository } from './../categories/categories.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,10 +11,18 @@ export class ProductsService {
   constructor(
     @InjectRepository(ProductsRepository)
     private productsRepository: ProductsRepository,
+    @InjectRepository(CategoriesRepository)
+    private categoriesRepository: CategoriesRepository,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto) {
-    return await this.productsRepository.save({ ...createProductDto });
+    const category = await this.categoriesRepository.findOne({
+      id: createProductDto.category_id,
+    });
+    return await this.productsRepository.save({
+      ...createProductDto,
+      category,
+    });
   }
 
   async getProductDetail(id: number) {
@@ -25,6 +34,7 @@ export class ProductsService {
   async getProductList() {
     return await this.productsRepository.find({
       select: ['title', 'description'],
+      relations: ['category_id'],
     });
   }
 
