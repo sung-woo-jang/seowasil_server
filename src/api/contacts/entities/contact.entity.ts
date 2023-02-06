@@ -1,5 +1,6 @@
+import { Comment } from 'src/api/comments/entities/comment.entity';
 import { CommonEntity } from 'src/common/entities/common.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Contact extends CommonEntity {
@@ -22,4 +23,8 @@ export class Contact extends CommonEntity {
     default: '.',
   })
   category: string;
+
+  @OneToOne(() => Comment)
+  @JoinColumn({ name: 'comment_id', referencedColumnName: 'id' })
+  comment: Comment;
 }
