@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { OrderDetail } from './../../order-details/entities/order-detail.entity';
+import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumber } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
@@ -54,4 +55,7 @@ export class Product extends CommonEntity {
     },
   ])
   category: Category;
+
+  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail)
+  orderDetail: OrderDetail[];
 }

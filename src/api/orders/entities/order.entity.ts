@@ -1,3 +1,4 @@
+import { Product } from 'src/api/products/entities/product.entity';
 import { OrderDetail } from './../../order-details/entities/order-detail.entity';
 import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
@@ -37,4 +38,13 @@ export class Order extends CommonEntity {
     },
   )
   orderDetail: OrderDetail[];
+
+  @ManyToOne(() => Product, (product: Product) => product.orderDetail)
+  @JoinColumn([
+    {
+      name: 'product_id',
+      referencedColumnName: 'id',
+    },
+  ])
+  product: Product;
 }
