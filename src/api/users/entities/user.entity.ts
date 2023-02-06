@@ -1,7 +1,15 @@
+import { Order } from './../../orders/entities/order.entity';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Exclude } from 'class-transformer';
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Column, Entity, Index, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
 import { DeliverAddress } from 'src/api/deliver-address/entities/deliver-address.entity';
 
 export enum Role {
@@ -44,4 +52,9 @@ export class User extends CommonEntity {
   @OneToOne(() => DeliverAddress) // 단방향 연결, 양방향도 가능
   @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
   address: DeliverAddress;
+
+  @OneToMany(() => Order, (order: Order) => order.user, {
+    cascade: true, // 사용자를 통해 주문정보가 추가, 수정, 삭제되고 사용자가 저장되면 추가된 주문내역도 저장된다.
+  })
+  orders: Order[];
 }
