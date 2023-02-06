@@ -38,7 +38,6 @@ export class CommentsService {
       .where('id = :id', { id })
       .execute();
     return result;
-    // return updateCommentDto;
   }
 
   async deleteComment(id: number) {
