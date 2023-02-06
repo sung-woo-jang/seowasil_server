@@ -1,7 +1,8 @@
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Exclude } from 'class-transformer';
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Column, Entity, Index } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, OneToOne } from 'typeorm';
+import { DeliverAddress } from 'src/api/deliver-address/entities/deliver-address.entity';
 
 export enum Role {
   ADMIN = 'ADMIN',
@@ -39,4 +40,8 @@ export class User extends CommonEntity {
   @Column({ nullable: true })
   @Exclude()
   currentHashedRefreshToken?: string;
+
+  @OneToOne(() => DeliverAddress) // 단방향 연결, 양방향도 가능
+  @JoinColumn({ name: 'address_id', referencedColumnName: 'id' })
+  address: DeliverAddress;
 }

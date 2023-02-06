@@ -28,16 +28,6 @@ export class AuthService {
     return null;
   }
 
-  // 별 필요 없으면 지우기
-  // async login(user: User) {
-  //   const payload = { username: user.name, sub: user.id };
-  //   console.log(payload);
-
-  //   return {
-  //     access_token: this.jwtService.sign(payload),
-  //   };
-  // }
-
   // Cookie Option과 AccessToken을 return하는 함수
   getCookieWithJwtAccessToken(id: number) {
     const payload = { id };
