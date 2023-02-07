@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumber } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
+import { ProductImage } from 'src/api/product-images/entities/product-image.entity';
 
 export enum Status {
   SALE = '판매중',
@@ -58,4 +59,13 @@ export class Product extends CommonEntity {
 
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail)
   orderDetail: OrderDetail[];
+
+  @OneToMany(
+    () => ProductImage,
+    (productImageUrl: ProductImage) => productImageUrl.product,
+    {
+      cascade: true,
+    },
+  )
+  productImageUrl: ProductImage[];
 }

@@ -22,7 +22,7 @@ export class ProductImagesService {
   }
 
   async uploadImg(file: Express.Multer.File, idx: number): Promise<string> {
-    const key = `${Date.now()}-${idx}${extname(file.originalname)}`;
+    const key = `${idx}-${Date.now()}${extname(file.originalname)}`;
     const params = {
       Bucket: process.env.AWS_S3_BUCKET_NAME,
       ACL: 'private',
