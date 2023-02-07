@@ -11,7 +11,7 @@ import { extname } from 'path';
 
 @Injectable()
 export class ProductsService {
-  private readonly s3;
+  private readonly s3: AWS.S3;
   constructor(
     @InjectRepository(ProductsRepository)
     private productsRepository: ProductsRepository,
