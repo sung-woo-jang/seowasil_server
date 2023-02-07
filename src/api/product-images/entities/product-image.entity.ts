@@ -5,11 +5,11 @@ import { Product } from 'src/api/products/entities/product.entity';
 @Entity()
 export class ProductImage extends CommonEntity {
   @Column({
-    type: 'simple-array',
+    type: 'varchar',
     comment: '서버에 저장 될 파일명',
     nullable: false,
   })
-  storedFileName: string[];
+  storedFileName: string;
 
   @ManyToOne(() => Product, (product: Product) => product.productImageUrl, {
     onDelete: 'CASCADE',

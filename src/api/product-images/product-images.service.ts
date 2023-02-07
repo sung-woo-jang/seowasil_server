@@ -38,12 +38,12 @@ export class ProductImagesService {
     });
   }
 
-  async registerImageUrl(imgurl: string[]) {
-    const result = await this.productImageRepository
-      .create({
-        storedFileName: imgurl,
-      })
-      .save();
-    return result;
-  }
+  // async registerImageUrl(imgurl: string[]) {
+  //   const result = await this.productImageRepository
+  //     .create({
+  //       storedFileName: imgurl,
+  //     })
+  //     .save();
+  //   return result;
+  // }
 }

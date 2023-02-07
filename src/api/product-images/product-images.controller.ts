@@ -11,7 +11,9 @@ import { ProductImagesService } from './product-images.service';
 @Controller('product-images')
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
-
+  /**
+   * @description 임시로 만든 API: 지울예정(컨트롤러 자체를 지울지도)
+   */
   @Post('/upload')
   @UseInterceptors(FilesInterceptor('files', 10))
   async uploadFileDiskDestination(
@@ -25,8 +27,8 @@ export class ProductImagesController {
       }),
     );
 
-    const result = this.productImagesService.registerImageUrl(imgurl);
+    // const result = this.productImagesService.registerImageUrl(imgurl);
 
-    return result;
+    // return result;
   }
 }
