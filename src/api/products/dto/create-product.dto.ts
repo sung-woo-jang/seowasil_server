@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/swagger';
-import { IsNumber } from 'class-validator';
+import { IsNumberString } from 'class-validator';
 import { Product } from '../entities/product.entity';
 
 export class CreateProductDto extends PickType(Product, [
@@ -10,6 +10,6 @@ export class CreateProductDto extends PickType(Product, [
   'minAmount',
   'status',
 ] as const) {
-  @IsNumber()
+  @IsNumberString()
   category_id: number;
 }

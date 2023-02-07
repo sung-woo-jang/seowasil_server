@@ -1,7 +1,7 @@
 import { OrderDetail } from './../../order-details/entities/order-detail.entity';
 import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
-import { IsNumber } from 'class-validator';
+import { IsNumberString } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
 import { ProductImage } from 'src/api/product-images/entities/product-image.entity';
 
@@ -19,15 +19,15 @@ export class Product extends CommonEntity {
   @Column({ type: 'varchar', comment: '상품 설명', nullable: false })
   description: string;
 
-  @IsNumber()
+  @IsNumberString()
   @Column({ type: 'integer', comment: '상품 가격', nullable: true })
   prevPrice: number;
 
-  @IsNumber()
+  @IsNumberString()
   @Column({ type: 'integer', comment: '판매 가격', nullable: false })
   sellPrice: number;
 
-  @IsNumber()
+  @IsNumberString()
   @Column({ type: 'integer', comment: '최소 주문 수량', nullable: false })
   minAmount: number;
 
