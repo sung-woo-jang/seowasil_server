@@ -5,25 +5,28 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { multerDiskOptions } from 'src/common/utils/multer.options';
+import { SharpPipe } from 'src/common/pipe/sharp.pipe';
 import { ProductImagesService } from './product-images.service';
 
 @Controller('product-images')
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
 
-  /**
-   * @description 디스크 방식 파일 업로드 (2)-> Destination 옵션 미설정
-   *
-   * @param {File[]} files 다중 파일
-   * @param  user_id 유저 아이디
-   * @param res Response 객체
-   */
   @Post('/upload')
-  @UseInterceptors(FilesInterceptor('files', 10, multerDiskOptions))
-  uploadFileDiskDestination(
-    @UploadedFiles() files: Array<Express.Multer.File>,
+  @UseInterceptors(FilesInterceptor('files', 10))
+  async uploadFileDiskDestination(
+    @UploadedFiles(SharpPipe) files: Array<Express.Multer.File>,
   ) {
-    return this.productImagesService.uploadImg(files);
+    const imgurl: string[] = [];
+    await Promise.all(
+      files.map(async (file: Express.Multer.File, idx: number) => {
+        const key = await this.productImagesService.uploadImg(file, idx);
+        imgurl.push(`${key}`);
+      }),
+    );
+
+    const result = this.productImagesService.registerImageUrl(imgurl);
+
+    return result;
   }
 }
