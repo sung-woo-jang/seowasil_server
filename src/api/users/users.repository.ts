@@ -42,6 +42,13 @@ export class UsersRepository extends Repository<User> {
     const user = await this.createQueryBuilder('user')
       .leftJoinAndSelect('user.address', 'address')
       .where('user.account = :account', { account })
+      .select([
+        'user.id',
+        'user.name',
+        'user.phoneNumber',
+        'user.role',
+        'user.password',
+      ])
       .getOne();
 
     if (user) return user;

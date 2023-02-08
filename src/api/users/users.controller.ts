@@ -35,7 +35,7 @@ export class UsersController {
   async signIn(@Request() req, @Res({ passthrough: true }) res: Response) {
     const { user } = req;
     const { accessToken, ...accessOption } =
-      this.authService.getCookieWithJwtAccessToken(user.id);
+      this.authService.getCookieWithJwtAccessToken(user);
 
     const { refreshToken, ...refreshOption } =
       this.authService.getCookieWithJwtRefreshToken(user.id);
@@ -45,7 +45,7 @@ export class UsersController {
     res.cookie('Authentication', accessToken, accessOption);
     res.cookie('Refresh', refreshToken, refreshOption);
 
-    return user;
+    return { accessToken };
   }
 
   @Public()

@@ -1,3 +1,4 @@
+import { User } from 'src/api/users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
@@ -29,9 +30,8 @@ export class AuthService {
   }
 
   // Cookie Option과 AccessToken을 return하는 함수
-  getCookieWithJwtAccessToken(id: number) {
-    const payload = { id };
-    const token = this.jwtService.sign(payload, {
+  getCookieWithJwtAccessToken(user: User) {
+    const token = this.jwtService.sign(user, {
       secret: this.configService.get('JWT_SECRET_KEY'),
       expiresIn: `${this.configService.get('JWT_EXPIRESIN')}s`,
     });
