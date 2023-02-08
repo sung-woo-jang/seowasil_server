@@ -42,10 +42,10 @@ export class UsersController {
 
     await this.usersService.setCurrentRefreshToken(refreshToken, user.id);
 
-    res.cookie('Authentication', accessToken, accessOption);
-    res.cookie('Refresh', refreshToken, refreshOption);
+    res.cookie('AccessToken', accessToken, accessOption);
+    res.cookie('RefreshToken', refreshToken, refreshOption);
 
-    return { accessToken };
+    return { accessToken, refreshToken, user };
   }
 
   @Public()
@@ -57,13 +57,13 @@ export class UsersController {
 
     await this.usersService.removeRefreshToken(req.user.id);
 
-    res.cookie('Authentication', '', accessOption);
-    res.cookie('Refresh', '', refreshOption);
+    res.cookie('AccessToken', '', accessOption);
+    res.cookie('RefreshToken', '', refreshOption);
   }
 
   @Get('/cookies')
   getCookies(@Request() req, @Res() res: Response): any {
-    const jwt = req.cookies['Authentication'];
+    const jwt = req.cookies['AccessToken'];
     return res.send(jwt);
   }
 
@@ -74,7 +74,7 @@ export class UsersController {
     const user = req.user;
     const { accessToken, ...accessOption } =
       this.authService.getCookieWithJwtAccessToken(user.id);
-    res.cookie('Authentication', accessToken, accessOption);
+    res.cookie('AccessToken', accessToken, accessOption);
     return user;
   }
 }
