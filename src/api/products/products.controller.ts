@@ -1,5 +1,3 @@
-import { FilesInterceptor } from '@nestjs/platform-express';
-import { SharpPipe } from 'src/common/pipe/sharp.pipe';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Public } from './../../common/decorators/skip-auth.decorator';
 import {
@@ -11,8 +9,6 @@ import {
   Body,
   Param,
   ParseIntPipe,
-  UseInterceptors,
-  UploadedFiles,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
@@ -24,16 +20,10 @@ export class ProductsController {
   /**
    * @description 상품 등록
    */
+  @Public()
   @Post()
-  @UseInterceptors(FilesInterceptor('files', 10))
-  async createProduct(
-    @Body() createProductDto: CreateProductDto,
-    @UploadedFiles(SharpPipe) files: Array<Express.Multer.File>,
-  ) {
-    const product = await this.productsService.createProduct(
-      createProductDto,
-      files,
-    );
+  async createProduct(@Body() createProductDto: CreateProductDto) {
+    const product = await this.productsService.createProduct(createProductDto);
 
     return product;
   }
