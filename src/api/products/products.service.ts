@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
+import { ProductImageRepository } from '../product-images/product-images.repository';
 
 @Injectable()
 export class ProductsService {
@@ -13,6 +14,8 @@ export class ProductsService {
     private productsRepository: ProductsRepository,
     @InjectRepository(CategoriesRepository)
     private categoriesRepository: CategoriesRepository,
+    @InjectRepository(ProductImageRepository)
+    private productImageRepository: ProductImageRepository,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -20,9 +23,14 @@ export class ProductsService {
       id: createProductDto.category_id,
     });
 
+    const productImageUrl = await this.productImageRepository.findOne({
+      id: createProductDto.productImage_id,
+    });
+
     const product = await this.productsRepository.save({
       ...createProductDto,
       category,
+      productImageUrl,
     });
 
     return this.getProductDetail(product.id);
@@ -40,17 +48,18 @@ export class ProductsService {
     const result = await query
       .leftJoinAndSelect('product.category', 'category')
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      // .select([
-      //   'product.title',
-      //   'product.description',
-      //   'product.prevPrice',
-      //   'product.sellPrice',
-      //   'product.minAmount',
-      //   'product.status',
-      //   'product.viewCount',
-      //   'category.name',
-      //   'productImageUrl.storedFileName',
-      // ])
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+        // 'product.status',
+        'product.viewCount',
+        'category.name',
+        'productImageUrl.storedFileName',
+      ])
       .where('product.id = :id', { id })
       .getOne();
 
@@ -58,10 +67,18 @@ export class ProductsService {
   }
 
   async getProductList() {
-    return await this.productsRepository.find({
-      select: ['title', 'description'],
-      relations: ['category_id'],
-    });
+    const query = this.productsRepository.createQueryBuilder('product');
+    const result = await query
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'productImageUrl.storedFileName',
+      ])
+      .getMany();
+    return result;
   }
 
   async updateProduct(updateProductDto: UpdateProductDto, id: number) {
