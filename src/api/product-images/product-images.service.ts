@@ -21,13 +21,15 @@ export class ProductImagesService {
     this.s3 = new AWS.S3();
   }
   async uploadProductImage(files: Array<Express.Multer.File>) {
+    const imageUrl = [];
     await Promise.all(
       files.map(async (file: Express.Multer.File, idx: number) => {
         const key = await this.uploadImageToAWS_s3(file, idx);
-        await this.registerImageUrl(key);
+        imageUrl.push(key);
       }),
     );
-    return '';
+    const result = await this.registerImageUrl(imageUrl);
+    return result;
   }
 
   async uploadImageToAWS_s3(
@@ -49,11 +51,11 @@ export class ProductImagesService {
       });
     });
   }
-  async registerImageUrl(imgurl: string) {
+  async registerImageUrl(imgurl: string[]) {
     const result = await this.productImageRepository
       .create({
         storedFileName: imgurl,
-        // product_id 로 product 가져와서 넣어주기
+        // product_id 로 product 가져와서 넣어주기.
       })
       .save();
     return result;

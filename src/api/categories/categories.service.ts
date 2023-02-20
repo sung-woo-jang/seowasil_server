@@ -25,7 +25,17 @@ export class CategoriesService {
   }
 
   async getCategory(id: number) {
-    const result = await this.categoriesRepository.findOne({ id });
+    const result = await this.categoriesRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.product', 'product')
+      .select([
+        'category.id',
+        'category.name',
+        'product.title',
+        'product.description',
+      ])
+      .where('category.id = :id', { id })
+      .getMany();
     return result;
   }
 

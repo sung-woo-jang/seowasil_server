@@ -12,4 +12,7 @@ export class CreateProductDto extends PickType(Product, [
 ] as const) {
   @IsNumberString()
   category_id: number;
+
+  @IsNumberString()
+  productImage_id: number;
 }
