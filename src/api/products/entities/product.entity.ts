@@ -1,5 +1,12 @@
 import { OrderDetail } from './../../order-details/entities/order-detail.entity';
-import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumberString } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
@@ -60,12 +67,7 @@ export class Product extends CommonEntity {
   @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail)
   orderDetail: OrderDetail[];
 
-  @OneToMany(
-    () => ProductImage,
-    (productImageUrl: ProductImage) => productImageUrl.product,
-    {
-      cascade: true,
-    },
-  )
-  productImageUrl: ProductImage[];
+  @OneToOne(() => ProductImage) // 단방향 연결, 양방향도 가능
+  @JoinColumn({ name: 'productImage_id', referencedColumnName: 'id' })
+  productImageUrl: ProductImage;
 }
