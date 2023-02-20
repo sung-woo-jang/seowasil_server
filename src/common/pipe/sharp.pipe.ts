@@ -7,7 +7,7 @@ export class SharpPipe implements PipeTransform<Array<Express.Multer.File>> {
     return await Promise.all(
       files.map(async (file) => {
         const resultBuffer = await sharp(file.buffer)
-          .resize(800, 800)
+          .resize(600, 600)
           .toBuffer();
         file.buffer = resultBuffer;
         return file;
