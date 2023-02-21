@@ -20,7 +20,7 @@ export class Contact extends CommonEntity {
     type: 'varchar',
     comment: '문의 카테고리',
     nullable: false,
-    default: '.',
+    default: '기타',
   })
   category: string;
 

@@ -1,3 +1,4 @@
+import { Public } from './../../common/decorators/skip-auth.decorator';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { CreateContactDto } from './dto/create-contact.dto';
 import {
@@ -12,6 +13,7 @@ import {
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 
+@Public()
 @Controller('contacts')
 export class ContactsController {
   constructor(private readonly contactsService: ContactsService) {}

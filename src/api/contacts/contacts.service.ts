@@ -20,7 +20,15 @@ export class ContactsService {
   }
 
   async getContactList() {
-    const result = await this.contactsRepository.find();
+    const result = await this.contactsRepository
+      .createQueryBuilder('contact')
+      .select([
+        'contact.id',
+        'contact.title',
+        'contact.name',
+        'contact.category',
+      ])
+      .getMany();
     return result;
   }
 
