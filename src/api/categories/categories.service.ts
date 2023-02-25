@@ -28,14 +28,11 @@ export class CategoriesService {
     const result = await this.categoriesRepository
       .createQueryBuilder('category')
       .leftJoinAndSelect('category.product', 'product')
-      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
       .select([
         'category.id',
         'category.name',
-        'product.id',
         'product.title',
         'product.description',
-        'productImageUrl.storedFileName',
       ])
       .where('category.id = :id', { id })
       .getMany();
