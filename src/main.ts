@@ -22,7 +22,7 @@ async function bootstrap() {
         'http://localhost:3000',
         'https://seowasil.s3.ap-northeast-2.amazonaws.com',
         'https://seowasil.s3.ap-northeast-2.amazonaws.com/index.html',
-        'https://peacemarket.site',
+        'https://seowasil.shop',
         'https://dtpju7c5zwxr0.cloudfront.net',
       ],
       credentials: true,

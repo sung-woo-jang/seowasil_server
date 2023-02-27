@@ -1,4 +1,5 @@
 .env
+.env*
 env_files/*
 
 uploads/*
@@ -9,6 +10,7 @@ uploads/*
 
 # compiled output
 /dist
+/dist/*
 /node_modules
 
 # Logs
