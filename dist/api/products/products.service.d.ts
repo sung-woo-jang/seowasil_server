@@ -13,6 +13,6 @@ export declare class ProductsService {
     getProductDetail(id: number): Promise<Product>;
     getProductList(): Promise<Product[]>;
     updateProduct(updateProductDto: UpdateProductDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteProduct(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteProduct(id: number): Promise<import("typeorm").DeleteResult>;
     restoreProduct(id: number): Promise<import("typeorm").UpdateResult>;
 }

@@ -6,11 +6,11 @@ export declare class NoticesService {
     private noticesRepository;
     constructor(noticesRepository: NoticesRepository);
     createNotice(createNoticeDto: CreateNoticeDto): Promise<{
-        description: string;
         title: string;
+        description: string;
     } & Notice>;
     getNoticeList(): Promise<Notice[]>;
     getNotice(id: number): Promise<Notice>;
     updateNotice(updateNoticeDto: UpdateNoticeDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteNotice(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteNotice(id: number): Promise<import("typeorm").DeleteResult>;
 }

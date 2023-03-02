@@ -18,6 +18,8 @@ export class Category extends CommonEntity {
   @Column({ type: 'varchar', comment: '과명(측백나무과)', nullable: true })
   department: string;
 
-  @OneToMany(() => Product, (product: Product) => product.category)
+  @OneToMany(() => Product, (product: Product) => product.category, {
+    onDelete: 'CASCADE',
+  })
   product: Product[];
 }

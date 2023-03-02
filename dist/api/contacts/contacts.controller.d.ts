@@ -5,10 +5,10 @@ export declare class ContactsController {
     private readonly contactsService;
     constructor(contactsService: ContactsService);
     createContact(createContactDto: CreateContactDto): Promise<{
+        title: string;
+        description: string;
         name: string;
         password: string;
-        description: string;
-        title: string;
         category: string;
     } & import("./entities/contact.entity").Contact>;
     getContactList(): Promise<import("./entities/contact.entity").Contact[]>;
@@ -16,5 +16,5 @@ export declare class ContactsController {
         password: any;
     }): Promise<import("./entities/contact.entity").Contact>;
     updateContact(updateContactDto: UpdateContactDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteContact(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteContact(id: number): Promise<import("typeorm").DeleteResult>;
 }

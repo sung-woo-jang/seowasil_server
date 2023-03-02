@@ -53,7 +53,7 @@ let ContactsService = class ContactsService {
         return result;
     }
     async deleteContact(id) {
-        return await this.contactsRepository.softDelete(id);
+        return await this.contactsRepository.delete(id);
     }
 };
 ContactsService = __decorate([

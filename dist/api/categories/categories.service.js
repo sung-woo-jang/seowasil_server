@@ -56,7 +56,7 @@ let CategoriesService = class CategoriesService {
         return result;
     }
     async deleteCategory(id) {
-        return await this.categoriesRepository.softDelete(id);
+        return await this.categoriesRepository.delete(id);
     }
 };
 CategoriesService = __decorate([

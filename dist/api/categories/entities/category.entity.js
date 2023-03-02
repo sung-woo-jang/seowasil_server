@@ -32,7 +32,9 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "department", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (product) => product.category),
+    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (product) => product.category, {
+        onDelete: 'CASCADE',
+    }),
     __metadata("design:type", Array)
 ], Category.prototype, "product", void 0);
 Category = __decorate([

@@ -43,7 +43,7 @@ let NoticesService = class NoticesService {
         return result;
     }
     async deleteNotice(id) {
-        return await this.noticesRepository.softDelete(id);
+        return await this.noticesRepository.delete(id);
     }
 };
 NoticesService = __decorate([

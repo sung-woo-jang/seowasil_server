@@ -41,6 +41,6 @@ export class CommentsService {
   }
 
   async deleteComment(id: number) {
-    return await this.commentsRepository.softDelete(id);
+    return await this.commentsRepository.delete(id);
   }
 }

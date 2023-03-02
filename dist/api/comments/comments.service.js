@@ -43,7 +43,7 @@ let CommentsService = class CommentsService {
         return result;
     }
     async deleteComment(id) {
-        return await this.commentsRepository.softDelete(id);
+        return await this.commentsRepository.delete(id);
     }
 };
 CommentsService = __decorate([

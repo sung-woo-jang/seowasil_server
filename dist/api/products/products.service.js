@@ -70,7 +70,10 @@ let ProductsService = class ProductsService {
             'product.id',
             'product.title',
             'product.description',
+            'product.sellPrice',
+            'product.createdAt',
             'productImageUrl.storedFileName',
+            'category.name',
         ])
             .getMany();
         return result;
@@ -85,7 +88,7 @@ let ProductsService = class ProductsService {
         return board;
     }
     async deleteProduct(id) {
-        return await this.productsRepository.softDelete(id);
+        return await this.productsRepository.delete(id);
     }
     async restoreProduct(id) {
         return await this.productsRepository.restore(id);

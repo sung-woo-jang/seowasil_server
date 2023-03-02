@@ -75,7 +75,10 @@ export class ProductsService {
         'product.id',
         'product.title',
         'product.description',
+        'product.sellPrice',
+        'product.createdAt',
         'productImageUrl.storedFileName',
+        'category.name',
       ])
       .getMany();
     return result;
@@ -92,7 +95,7 @@ export class ProductsService {
   }
 
   async deleteProduct(id: number) {
-    return await this.productsRepository.softDelete(id);
+    return await this.productsRepository.delete(id);
   }
 
   async restoreProduct(id: number) {

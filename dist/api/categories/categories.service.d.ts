@@ -13,5 +13,5 @@ export declare class CategoriesService {
     getCategoryList(): Promise<Category[]>;
     getCategory(id: number): Promise<Category[]>;
     updateCategory(updateCategoryDto: UpdateCategoryDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteCategory(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteCategory(id: number): Promise<import("typeorm").DeleteResult>;
 }

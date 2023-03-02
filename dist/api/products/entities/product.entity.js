@@ -66,7 +66,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "viewCount", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.product),
+    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.product, {
+        onDelete: 'CASCADE',
+    }),
     (0, typeorm_1.JoinColumn)([
         {
             name: 'category_id',

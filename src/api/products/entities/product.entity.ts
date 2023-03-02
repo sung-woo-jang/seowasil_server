@@ -54,7 +54,9 @@ export class Product extends CommonEntity {
   })
   viewCount: number;
 
-  @ManyToOne(() => Category, (category: Category) => category.product)
+  @ManyToOne(() => Category, (category: Category) => category.product, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn([
     // foreignkey 정보들
     {

@@ -12,5 +12,5 @@ export declare class CategoriesController {
     getCategoryList(): Promise<import("./entities/category.entity").Category[]>;
     getCategory(id: number): Promise<import("./entities/category.entity").Category[]>;
     updateCategory(updateCategoryDto: UpdateCategoryDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteCategory(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteCategory(id: number): Promise<import("typeorm").DeleteResult>;
 }

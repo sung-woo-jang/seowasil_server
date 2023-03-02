@@ -41,6 +41,6 @@ export class NoticesService {
   }
 
   async deleteNotice(id: number) {
-    return await this.noticesRepository.softDelete(id);
+    return await this.noticesRepository.delete(id);
   }
 }

@@ -51,6 +51,6 @@ export class ContactsService {
   }
 
   async deleteContact(id: number) {
-    return await this.contactsRepository.softDelete(id);
+    return await this.contactsRepository.delete(id);
   }
 }

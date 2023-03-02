@@ -45,6 +45,7 @@ AppModule = __decorate([
                     USERNAME: Joi.string().required(),
                     PASSWORD: Joi.string().required(),
                     DATABASE: Joi.string().required(),
+                    HOST: Joi.string().required(),
                     JWT_SECRET_KEY: Joi.string().required(),
                     JWT_EXPIRESIN: Joi.number().required(),
                     JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),

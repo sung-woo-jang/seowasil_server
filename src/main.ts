@@ -14,7 +14,7 @@ async function bootstrap() {
           key: fs.readFileSync('/home/ubuntu/privkey.pem'),
           cert: fs.readFileSync('/home/ubuntu/fullchain.pem'),
         }
-      : {};
+      : null;
 
   const app = await NestFactory.create(AppModule, {
     cors: {
@@ -59,6 +59,6 @@ async function bootstrap() {
     ),
   );
 
-  await app.listen(process.env.PORT);
+  await app.listen(+process.env.PORT);
 }
 bootstrap();

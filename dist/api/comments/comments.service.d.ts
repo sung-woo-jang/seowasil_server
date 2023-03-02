@@ -11,5 +11,5 @@ export declare class CommentsService {
     getCommentList(): Promise<Comment[]>;
     getComment(id: number): Promise<Comment>;
     updateComment(updateCommentDto: UpdateCommentDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteComment(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteComment(id: number): Promise<import("typeorm").DeleteResult>;
 }

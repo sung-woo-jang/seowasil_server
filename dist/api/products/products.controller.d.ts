@@ -8,6 +8,6 @@ export declare class ProductsController {
     getProductDetail(id: number): Promise<import("./entities/product.entity").Product>;
     getProductList(): Promise<import("./entities/product.entity").Product[]>;
     updateProduct(updateProductDto: UpdateProductDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteProduct(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteProduct(id: number): Promise<import("typeorm").DeleteResult>;
     restoreProduct(id: number): Promise<import("typeorm").UpdateResult>;
 }

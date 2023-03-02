@@ -10,5 +10,5 @@ export declare class CommentsController {
     getCommentList(): Promise<import("./entities/comment.entity").Comment[]>;
     getComment(id: number): Promise<import("./entities/comment.entity").Comment>;
     updateComment(updateCommentDto: UpdateCommentDto, id: number): Promise<import("typeorm").UpdateResult>;
-    deleteComment(id: number): Promise<import("typeorm").UpdateResult>;
+    deleteComment(id: number): Promise<import("typeorm").DeleteResult>;
 }
