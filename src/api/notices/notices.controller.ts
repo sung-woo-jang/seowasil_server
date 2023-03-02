@@ -11,6 +11,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { NoticesService } from './notices.service';
+import { Public } from 'src/common/decorators/skip-auth.decorator';
 
 @Controller('notices')
 export class NoticesController {
@@ -27,6 +28,7 @@ export class NoticesController {
   /**
    * @description 공지사항 목록 가져오기
    */
+  @Public()
   @Get()
   getNoticeList() {
     return this.noticesService.getNoticeList();
@@ -35,6 +37,7 @@ export class NoticesController {
   /**
    * @description 공지사항 가져오기
    */
+  @Public()
   @Get('/:id')
   getNotice(@Param('id', ParseIntPipe) id: number) {
     return this.noticesService.getNotice(id);

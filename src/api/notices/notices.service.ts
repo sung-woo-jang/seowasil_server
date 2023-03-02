@@ -20,7 +20,10 @@ export class NoticesService {
   }
 
   async getNoticeList() {
-    const result = await this.noticesRepository.find();
+    const result = await this.noticesRepository
+      .createQueryBuilder('notice')
+      .select(['notice.id', 'notice.title', 'notice.description'])
+      .getMany();
     return result;
   }
 
