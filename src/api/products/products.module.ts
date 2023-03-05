@@ -5,6 +5,7 @@ import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { ProductsRepository } from './products.repository';
 import { CategoriesRepository } from '../categories/categories.repository';
+import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CategoriesRepository } from '../categories/categories.repository';
       ProductsRepository,
       CategoriesRepository,
       ProductImageRepository,
+      ProductThumbnailRepository,
     ]),
   ],
   controllers: [ProductsController],

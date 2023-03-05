@@ -10,14 +10,10 @@ exports.SharpPipe = void 0;
 const common_1 = require("@nestjs/common");
 const sharp = require("sharp");
 let SharpPipe = class SharpPipe {
-    async transform(files) {
-        return await Promise.all(files.map(async (file) => {
-            const resultBuffer = await sharp(file.buffer)
-                .resize(600, 600)
-                .toBuffer();
-            file.buffer = resultBuffer;
-            return file;
-        }));
+    async transform(image) {
+        const result = await sharp(image.buffer).resize(600, 600).toBuffer();
+        image.buffer = result;
+        return image;
     }
 };
 SharpPipe = __decorate([

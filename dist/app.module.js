@@ -28,6 +28,8 @@ const contacts_module_1 = require("./api/contacts/contacts.module");
 const comments_module_1 = require("./api/comments/comments.module");
 const auth_module_1 = require("./api/auth/auth.module");
 const core_1 = require("@nestjs/core");
+const images_module_1 = require("./api/images/images.module");
+const s3_module_1 = require("./api/s3/s3.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -69,6 +71,8 @@ AppModule = __decorate([
             contacts_module_1.ContactsModule,
             comments_module_1.CommentsModule,
             auth_module_1.AuthModule,
+            images_module_1.ImagesModule,
+            s3_module_1.S3Module,
         ],
         providers: [{ provide: core_1.APP_GUARD, useClass: jwt_auth_guard_1.JwtAuthGuard }],
     })

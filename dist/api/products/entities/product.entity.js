@@ -16,6 +16,7 @@ const common_entity_1 = require("../../../common/entities/common.entity");
 const class_validator_1 = require("class-validator");
 const category_entity_1 = require("../../categories/entities/category.entity");
 const product_image_entity_1 = require("../../product-images/entities/product-image.entity");
+const product_thumbnail_entity_1 = require("../../product-thumbnail/entities/product-thumbnail.entity");
 var Status;
 (function (Status) {
     Status["SALE"] = "\uD310\uB9E4\uC911";
@@ -86,6 +87,14 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'productImage_id', referencedColumnName: 'id' }),
     __metadata("design:type", product_image_entity_1.ProductImage)
 ], Product.prototype, "productImageUrl", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => product_thumbnail_entity_1.ProductThumbnail),
+    (0, typeorm_1.JoinColumn)({
+        name: 'productThumbnailImageUrl_id',
+        referencedColumnName: 'id',
+    }),
+    __metadata("design:type", product_thumbnail_entity_1.ProductThumbnail)
+], Product.prototype, "productThumbnailImageUrl", void 0);
 Product = __decorate([
     (0, typeorm_1.Entity)()
 ], Product);

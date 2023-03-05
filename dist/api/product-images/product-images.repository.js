@@ -10,6 +10,12 @@ exports.ProductImageRepository = void 0;
 const typeorm_1 = require("typeorm");
 const product_image_entity_1 = require("./entities/product-image.entity");
 let ProductImageRepository = class ProductImageRepository extends typeorm_1.Repository {
+    async registerImageUrl(imgurl) {
+        const result = await this.create({
+            storedFileName: imgurl,
+        }).save();
+        return result;
+    }
 };
 ProductImageRepository = __decorate([
     (0, typeorm_1.EntityRepository)(product_image_entity_1.ProductImage)

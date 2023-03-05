@@ -16,58 +16,27 @@ exports.ProductImagesService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const product_images_repository_1 = require("./product-images.repository");
-const AWS = require("aws-sdk");
-const path_1 = require("path");
+const s3_service_1 = require("../s3/s3.service");
 let ProductImagesService = class ProductImagesService {
-    constructor(productImageRepository) {
+    constructor(productImageRepository, s3Service) {
         this.productImageRepository = productImageRepository;
-        AWS.config.update({
-            region: 'ap-northeast-2',
-            credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY,
-                secretAccessKey: process.env.AWS_SECRET_KEY,
-            },
-        });
-        this.s3 = new AWS.S3();
+        this.s3Service = s3Service;
     }
     async uploadProductImage(files) {
         const imageUrl = [];
         await Promise.all(files.map(async (file, idx) => {
-            const key = await this.uploadImageToAWS_s3(file, idx);
+            const key = await this.s3Service.uploadImageToAWS_s3(file, idx);
             imageUrl.push(key);
         }));
-        const result = await this.registerImageUrl(imageUrl);
-        return result;
-    }
-    async uploadImageToAWS_s3(file, idx) {
-        const key = `${idx}-${Date.now()}${(0, path_1.extname)(file.originalname)}`;
-        const params = {
-            Bucket: process.env.AWS_S3_BUCKET_NAME,
-            ACL: 'private',
-            Key: key,
-            Body: file.buffer,
-        };
-        return new Promise((resolve, reject) => {
-            this.s3.putObject(params, (err) => {
-                if (err)
-                    reject(err);
-                resolve(key);
-            });
-        });
-    }
-    async registerImageUrl(imgurl) {
-        const result = await this.productImageRepository
-            .create({
-            storedFileName: imgurl,
-        })
-            .save();
+        const result = await this.productImageRepository.registerImageUrl(imageUrl);
         return result;
     }
 };
 ProductImagesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(product_images_repository_1.ProductImageRepository)),
-    __metadata("design:paramtypes", [product_images_repository_1.ProductImageRepository])
+    __metadata("design:paramtypes", [product_images_repository_1.ProductImageRepository,
+        s3_service_1.S3Service])
 ], ProductImagesService);
 exports.ProductImagesService = ProductImagesService;
 //# sourceMappingURL=product-images.service.js.map

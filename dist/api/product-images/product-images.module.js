@@ -12,13 +12,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const common_1 = require("@nestjs/common");
 const product_images_controller_1 = require("./product-images.controller");
 const product_images_service_1 = require("./product-images.service");
+const s3_service_1 = require("../s3/s3.service");
 let ProductImagesModule = class ProductImagesModule {
 };
 ProductImagesModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([product_images_repository_1.ProductImageRepository])],
         controllers: [product_images_controller_1.ProductImagesController],
-        providers: [product_images_service_1.ProductImagesService],
+        providers: [product_images_service_1.ProductImagesService, s3_service_1.S3Service],
     })
 ], ProductImagesModule);
 exports.ProductImagesModule = ProductImagesModule;

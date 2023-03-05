@@ -19,11 +19,13 @@ const common_1 = require("@nestjs/common");
 const products_repository_1 = require("./products.repository");
 const product_entity_1 = require("./entities/product.entity");
 const product_images_repository_1 = require("../product-images/product-images.repository");
+const product_thumbnail_respsitory_1 = require("../product-thumbnail/product-thumbnail.respsitory");
 let ProductsService = class ProductsService {
-    constructor(productsRepository, categoriesRepository, productImageRepository) {
+    constructor(productsRepository, categoriesRepository, productImageRepository, productThumbnailRepository) {
         this.productsRepository = productsRepository;
         this.categoriesRepository = categoriesRepository;
         this.productImageRepository = productImageRepository;
+        this.productThumbnailRepository = productThumbnailRepository;
     }
     async createProduct(createProductDto) {
         const category = await this.categoriesRepository.findOne({
@@ -32,8 +34,12 @@ let ProductsService = class ProductsService {
         const productImageUrl = await this.productImageRepository.findOne({
             id: createProductDto.productImage_id,
         });
+        const productThumbnailImageUrl = await this.productThumbnailRepository.findOne({
+            id: createProductDto.productThumbnailImage_id,
+        });
         const product = await this.productsRepository.save(Object.assign(Object.assign({}, createProductDto), { category,
-            productImageUrl }));
+            productImageUrl,
+            productThumbnailImageUrl }));
         return this.getProductDetail(product.id);
     }
     async getProductDetail(id) {
@@ -46,6 +52,7 @@ let ProductsService = class ProductsService {
         const result = await query
             .leftJoinAndSelect('product.category', 'category')
             .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+            .leftJoinAndSelect('product.productThumbnailImageUrl', 'productThumbnailImageUrl')
             .select([
             'product.id',
             'product.title',
@@ -56,6 +63,7 @@ let ProductsService = class ProductsService {
             'product.viewCount',
             'category.name',
             'productImageUrl.storedFileName',
+            'productThumbnailImageUrl.storedFileName',
         ])
             .where('product.id = :id', { id })
             .getOne();
@@ -99,9 +107,11 @@ ProductsService = __decorate([
     __param(0, (0, typeorm_1.InjectRepository)(products_repository_1.ProductsRepository)),
     __param(1, (0, typeorm_1.InjectRepository)(categories_repository_1.CategoriesRepository)),
     __param(2, (0, typeorm_1.InjectRepository)(product_images_repository_1.ProductImageRepository)),
+    __param(3, (0, typeorm_1.InjectRepository)(product_thumbnail_respsitory_1.ProductThumbnailRepository)),
     __metadata("design:paramtypes", [products_repository_1.ProductsRepository,
         categories_repository_1.CategoriesRepository,
-        product_images_repository_1.ProductImageRepository])
+        product_images_repository_1.ProductImageRepository,
+        product_thumbnail_respsitory_1.ProductThumbnailRepository])
 ], ProductsService);
 exports.ProductsService = ProductsService;
 //# sourceMappingURL=products.service.js.map

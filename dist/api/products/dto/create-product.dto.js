@@ -30,5 +30,9 @@ __decorate([
     (0, class_validator_1.IsNumberString)(),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "productImage_id", void 0);
+__decorate([
+    (0, class_validator_1.IsNumberString)(),
+    __metadata("design:type", Number)
+], CreateProductDto.prototype, "productThumbnailImage_id", void 0);
 exports.CreateProductDto = CreateProductDto;
 //# sourceMappingURL=create-product.dto.js.map

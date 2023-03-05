@@ -19,6 +19,7 @@ async function bootstrap() {
         cors: {
             origin: [
                 'http://localhost:3000',
+                'http://127.0.0.1:3000',
                 'https://seowasil.s3.ap-northeast-2.amazonaws.com',
                 'https://seowasil.s3.ap-northeast-2.amazonaws.com/index.html',
                 'https://seowasil.shop',

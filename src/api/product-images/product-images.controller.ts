@@ -5,8 +5,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Public } from 'src/common/decorators/skip-auth.decorator';
-import { SharpPipe } from 'src/common/pipe/sharp.pipe';
+import { ArraySharpPipe } from 'src/common/pipe/arraySharp.pipe';
 import { ProductImagesService } from './product-images.service';
 
 @Controller('product-images')
@@ -18,10 +17,9 @@ export class ProductImagesController {
   // 이미지와 게시물을 연결시켜준다.
 
   @Post()
-  @Public()
   @UseInterceptors(FilesInterceptor('files', 10))
   async uploadProductImage(
-    @UploadedFiles(SharpPipe) files: Array<Express.Multer.File>,
+    @UploadedFiles(ArraySharpPipe) files: Array<Express.Multer.File>,
   ) {
     return await this.productImagesService.uploadProductImage(files);
   }

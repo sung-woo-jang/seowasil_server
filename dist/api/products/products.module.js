@@ -14,6 +14,7 @@ const products_service_1 = require("./products.service");
 const products_controller_1 = require("./products.controller");
 const products_repository_1 = require("./products.repository");
 const categories_repository_1 = require("../categories/categories.repository");
+const product_thumbnail_respsitory_1 = require("../product-thumbnail/product-thumbnail.respsitory");
 let ProductsModule = class ProductsModule {
 };
 ProductsModule = __decorate([
@@ -23,6 +24,7 @@ ProductsModule = __decorate([
                 products_repository_1.ProductsRepository,
                 categories_repository_1.CategoriesRepository,
                 product_images_repository_1.ProductImageRepository,
+                product_thumbnail_respsitory_1.ProductThumbnailRepository,
             ]),
         ],
         controllers: [products_controller_1.ProductsController],

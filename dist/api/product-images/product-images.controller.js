@@ -15,8 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductImagesController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
-const skip_auth_decorator_1 = require("../../common/decorators/skip-auth.decorator");
-const sharp_pipe_1 = require("../../common/pipe/sharp.pipe");
+const arraySharp_pipe_1 = require("../../common/pipe/arraySharp.pipe");
 const product_images_service_1 = require("./product-images.service");
 let ProductImagesController = class ProductImagesController {
     constructor(productImagesService) {
@@ -28,9 +27,8 @@ let ProductImagesController = class ProductImagesController {
 };
 __decorate([
     (0, common_1.Post)(),
-    (0, skip_auth_decorator_1.Public)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 10)),
-    __param(0, (0, common_1.UploadedFiles)(sharp_pipe_1.SharpPipe)),
+    __param(0, (0, common_1.UploadedFiles)(arraySharp_pipe_1.ArraySharpPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", Promise)

@@ -15,4 +15,7 @@ export class CreateProductDto extends PickType(Product, [
 
   @IsNumberString()
   productImage_id: number;
+
+  @IsNumberString()
+  productThumbnailImage_id: number;
 }

@@ -10,6 +10,12 @@ exports.ProductThumbnailRepository = void 0;
 const product_thumbnail_entity_1 = require("./entities/product-thumbnail.entity");
 const typeorm_1 = require("typeorm");
 let ProductThumbnailRepository = class ProductThumbnailRepository extends typeorm_1.Repository {
+    async registerThumbnailImageUrl(imgurl) {
+        const result = await this.create({
+            storedFileName: imgurl,
+        }).save();
+        return result;
+    }
 };
 ProductThumbnailRepository = __decorate([
     (0, typeorm_1.EntityRepository)(product_thumbnail_entity_1.ProductThumbnail)

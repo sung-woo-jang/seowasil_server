@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
 import { ProductImageRepository } from '../product-images/product-images.repository';
+import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
 
 @Injectable()
 export class ProductsService {
@@ -16,6 +17,8 @@ export class ProductsService {
     private categoriesRepository: CategoriesRepository,
     @InjectRepository(ProductImageRepository)
     private productImageRepository: ProductImageRepository,
+    @InjectRepository(ProductThumbnailRepository)
+    private productThumbnailRepository: ProductThumbnailRepository,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -27,10 +30,16 @@ export class ProductsService {
       id: createProductDto.productImage_id,
     });
 
+    const productThumbnailImageUrl =
+      await this.productThumbnailRepository.findOne({
+        id: createProductDto.productThumbnailImage_id,
+      });
+
     const product = await this.productsRepository.save({
       ...createProductDto,
       category,
       productImageUrl,
+      productThumbnailImageUrl,
     });
 
     return this.getProductDetail(product.id);
@@ -48,6 +57,10 @@ export class ProductsService {
     const result = await query
       .leftJoinAndSelect('product.category', 'category')
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+      .leftJoinAndSelect(
+        'product.productThumbnailImageUrl',
+        'productThumbnailImageUrl',
+      )
       .select([
         'product.id',
         'product.title',
@@ -59,6 +72,7 @@ export class ProductsService {
         'product.viewCount',
         'category.name',
         'productImageUrl.storedFileName',
+        'productThumbnailImageUrl.storedFileName',
       ])
       .where('product.id = :id', { id })
       .getOne();

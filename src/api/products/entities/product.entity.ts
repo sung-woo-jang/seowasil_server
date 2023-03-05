@@ -11,6 +11,7 @@ import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumberString } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
 import { ProductImage } from 'src/api/product-images/entities/product-image.entity';
+import { ProductThumbnail } from 'src/api/product-thumbnail/entities/product-thumbnail.entity';
 
 export enum Status {
   SALE = '판매중',
@@ -72,4 +73,11 @@ export class Product extends CommonEntity {
   @OneToOne(() => ProductImage) // 단방향 연결, 양방향도 가능
   @JoinColumn({ name: 'productImage_id', referencedColumnName: 'id' })
   productImageUrl: ProductImage;
+
+  @OneToOne(() => ProductThumbnail) // 단방향 연결, 양방향도 가능
+  @JoinColumn({
+    name: 'productThumbnailImageUrl_id',
+    referencedColumnName: 'id',
+  })
+  productThumbnailImageUrl: ProductThumbnail;
 }
