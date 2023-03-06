@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cart = void 0;
+const user_entity_1 = require("../../users/entities/user.entity");
+const product_entity_1 = require("../../products/entities/product.entity");
 const common_entity_1 = require("../../../common/entities/common.entity");
 const typeorm_1 = require("typeorm");
 let Cart = class Cart extends common_entity_1.CommonEntity {
@@ -18,6 +20,28 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'integer', comment: '주문 수량', nullable: false }),
     __metadata("design:type", Number)
 ], Cart.prototype, "amount", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, (product) => product.cart),
+    (0, typeorm_1.JoinColumn)([
+        {
+            name: 'product_id',
+            referencedColumnName: 'id',
+        },
+    ]),
+    __metadata("design:type", product_entity_1.Product)
+], Cart.prototype, "product", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.cart, {
+        onDelete: 'CASCADE',
+    }),
+    (0, typeorm_1.JoinColumn)([
+        {
+            name: 'user_id',
+            referencedColumnName: 'id',
+        },
+    ]),
+    __metadata("design:type", user_entity_1.User)
+], Cart.prototype, "user", void 0);
 Cart = __decorate([
     (0, typeorm_1.Entity)()
 ], Cart);

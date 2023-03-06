@@ -13,18 +13,53 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartsService = void 0;
+const users_repository_1 = require("./../users/users.repository");
 const typeorm_1 = require("@nestjs/typeorm");
 const common_1 = require("@nestjs/common");
 const carts_repository_1 = require("./carts.repository");
+const products_repository_1 = require("../products/products.repository");
 let CartsService = class CartsService {
-    constructor(cartsRepository) {
+    constructor(cartsRepository, productsRepository, usersRepository) {
         this.cartsRepository = cartsRepository;
+        this.productsRepository = productsRepository;
+        this.usersRepository = usersRepository;
+    }
+    async createCart(createCartDto) {
+        const product = await this.productsRepository.findOne({
+            id: createCartDto.product_id,
+        });
+        if (product.minAmount > createCartDto.amount)
+            throw new common_1.BadRequestException('최소 주문 수량이 맞지 않습니다.');
+        const user = await this.usersRepository.findOne({
+            id: createCartDto.user_id,
+        });
+        const cart = await this.cartsRepository
+            .create(Object.assign(Object.assign({}, createCartDto), { product,
+            user }))
+            .save();
+        return await this.cartsRepository.getCartDetail(cart.id);
+    }
+    async getCartDetail(id) {
+        return await this.cartsRepository.getCartDetail(id);
+    }
+    async getCartList() {
+        return await this.cartsRepository.find();
+    }
+    async updateCart() {
+        return await this.cartsRepository.find();
+    }
+    async deleteCart() {
+        return await this.cartsRepository.find();
     }
 };
 CartsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(carts_repository_1.CartsRepository)),
-    __metadata("design:paramtypes", [carts_repository_1.CartsRepository])
+    __param(1, (0, typeorm_1.InjectRepository)(products_repository_1.ProductsRepository)),
+    __param(2, (0, typeorm_1.InjectRepository)(users_repository_1.UsersRepository)),
+    __metadata("design:paramtypes", [carts_repository_1.CartsRepository,
+        products_repository_1.ProductsRepository,
+        users_repository_1.UsersRepository])
 ], CartsService);
 exports.CartsService = CartsService;
 //# sourceMappingURL=carts.service.js.map

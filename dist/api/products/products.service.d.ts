@@ -4,13 +4,11 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
 import { ProductImageRepository } from '../product-images/product-images.repository';
-import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
 export declare class ProductsService {
     private productsRepository;
     private categoriesRepository;
     private productImageRepository;
-    private productThumbnailRepository;
-    constructor(productsRepository: ProductsRepository, categoriesRepository: CategoriesRepository, productImageRepository: ProductImageRepository, productThumbnailRepository: ProductThumbnailRepository);
+    constructor(productsRepository: ProductsRepository, categoriesRepository: CategoriesRepository, productImageRepository: ProductImageRepository);
     createProduct(createProductDto: CreateProductDto): Promise<Product>;
     getProductDetail(id: number): Promise<Product>;
     getProductList(): Promise<Product[]>;

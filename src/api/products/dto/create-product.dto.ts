@@ -1,5 +1,6 @@
+import { Transform } from 'class-transformer';
 import { PickType } from '@nestjs/swagger';
-import { IsNumberString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 import { Product } from '../entities/product.entity';
 
 export class CreateProductDto extends PickType(Product, [
@@ -10,12 +11,14 @@ export class CreateProductDto extends PickType(Product, [
   'minAmount',
   'status',
 ] as const) {
-  @IsNumberString()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
   category_id: number;
 
-  @IsNumberString()
+  @Transform(({ value }) => Number(value))
+  @IsNumber()
   productImage_id: number;
 
-  @IsNumberString()
-  productThumbnailImage_id: number;
+  // @IsNumber()
+  // productThumbnailImage_id: number;
 }

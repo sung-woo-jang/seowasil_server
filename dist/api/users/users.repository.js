@@ -37,6 +37,10 @@ let UsersRepository = class UsersRepository extends typeorm_1.Repository {
             'user.phoneNumber',
             'user.role',
             'user.password',
+            'address.id',
+            'address.address1',
+            'address.address2',
+            'address.address3',
         ])
             .getOne();
         if (user)

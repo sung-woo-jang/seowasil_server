@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const product_entity_1 = require("../../products/entities/product.entity");
-const order_detail_entity_1 = require("./../../order-details/entities/order-detail.entity");
 const typeorm_1 = require("typeorm");
 const common_entity_1 = require("../../../common/entities/common.entity");
 const user_entity_1 = require("../../users/entities/user.entity");
@@ -34,6 +33,18 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "deliveryRequest", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'integer', comment: '주문 수량', nullable: false }),
+    __metadata("design:type", Number)
+], Order.prototype, "amount", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'integer',
+        comment: '주문 가격 (판매가격 * 주문 수량)',
+        nullable: false,
+    }),
+    __metadata("design:type", Number)
+], Order.prototype, "price", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.orders, {
         onDelete: 'CASCADE',
     }),
@@ -46,13 +57,7 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], Order.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => order_detail_entity_1.OrderDetail, (orderDetail) => orderDetail.orders, {
-        cascade: true,
-    }),
-    __metadata("design:type", Array)
-], Order.prototype, "orderDetail", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, (product) => product.orderDetail),
+    (0, typeorm_1.ManyToOne)(() => product_entity_1.Product, (product) => product.order),
     (0, typeorm_1.JoinColumn)([
         {
             name: 'product_id',

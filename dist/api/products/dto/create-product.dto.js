@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateProductDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const product_entity_1 = require("../entities/product.entity");
@@ -23,16 +24,14 @@ class CreateProductDto extends (0, swagger_1.PickType)(product_entity_1.Product,
 ]) {
 }
 __decorate([
-    (0, class_validator_1.IsNumberString)(),
+    (0, class_transformer_1.Transform)(({ value }) => Number(value)),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "category_id", void 0);
 __decorate([
-    (0, class_validator_1.IsNumberString)(),
+    (0, class_transformer_1.Transform)(({ value }) => Number(value)),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "productImage_id", void 0);
-__decorate([
-    (0, class_validator_1.IsNumberString)(),
-    __metadata("design:type", Number)
-], CreateProductDto.prototype, "productThumbnailImage_id", void 0);
 exports.CreateProductDto = CreateProductDto;
 //# sourceMappingURL=create-product.dto.js.map

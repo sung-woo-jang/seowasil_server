@@ -1,7 +1,13 @@
 import { Order } from './../../orders/entities/order.entity';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Exclude } from 'class-transformer';
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  // IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import {
   Column,
   Entity,
@@ -11,13 +17,14 @@ import {
   OneToMany,
 } from 'typeorm';
 import { DeliverAddress } from 'src/api/deliver-address/entities/deliver-address.entity';
+import { Cart } from 'src/api/carts/entities/cart.entity';
 
 export enum Role {
   ADMIN = 'ADMIN',
   CUSTOMER = 'CUSTOMER',
 }
 
-@Index(['account', 'email', 'phoneNumber'], { unique: true })
+@Index(['account', 'phoneNumber'], { unique: true })
 @Entity()
 export class User extends CommonEntity {
   @IsNotEmpty({ message: '아이디를 입력해주세요' })
@@ -37,7 +44,8 @@ export class User extends CommonEntity {
   @Column({ type: 'varchar', comment: '전화번호', nullable: false })
   phoneNumber: string;
 
-  @IsEmail()
+  @IsOptional()
+  // @IsEmail()
   @Column({ type: 'varchar', comment: '이메일', nullable: true })
   email: string;
 
@@ -57,4 +65,7 @@ export class User extends CommonEntity {
     cascade: true, // 사용자를 통해 주문정보가 추가, 수정, 삭제되고 사용자가 저장되면 추가된 주문내역도 저장된다
   })
   orders: Order[];
+
+  @OneToMany(() => Cart, (order: Cart) => order)
+  cart: Cart[];
 }

@@ -48,6 +48,10 @@ export class UsersRepository extends Repository<User> {
         'user.phoneNumber',
         'user.role',
         'user.password',
+        'address.id',
+        'address.address1',
+        'address.address2',
+        'address.address3',
       ])
       .getOne();
 

@@ -8,7 +8,6 @@ import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { UsersModule } from './api/users/users.module';
 import { OrdersModule } from './api/orders/orders.module';
 import { DeliverAddressModule } from './api/deliver-address/deliver-address.module';
-import { OrderDetailsModule } from './api/order-details/order-details.module';
 import { ProductsModule } from './api/products/products.module';
 import { ProductImagesModule } from './api/product-images/product-images.module';
 import { ProductThumbnailModule } from './api/product-thumbnail/product-thumbnail.module';
@@ -47,7 +46,6 @@ import { S3Module } from './api/s3/s3.module';
     UsersModule,
     OrdersModule,
     DeliverAddressModule,
-    OrderDetailsModule,
     ProductsModule,
     ProductImagesModule,
     ProductThumbnailModule,

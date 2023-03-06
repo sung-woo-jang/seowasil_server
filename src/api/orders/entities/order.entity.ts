@@ -1,6 +1,5 @@
 import { Product } from 'src/api/products/entities/product.entity';
-import { OrderDetail } from './../../order-details/entities/order-detail.entity';
-import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { User } from 'src/api/users/entities/user.entity';
 
@@ -18,6 +17,16 @@ export class Order extends CommonEntity {
   @Column({ type: 'varchar', comment: '배송 요청사항', nullable: true })
   deliveryRequest: string;
 
+  @Column({ type: 'integer', comment: '주문 수량', nullable: false })
+  amount: number;
+
+  @Column({
+    type: 'integer',
+    comment: '주문 가격 (판매가격 * 주문 수량)',
+    nullable: false,
+  })
+  price: number;
+
   @ManyToOne(() => User, (user: User) => user.orders, {
     onDelete: 'CASCADE', // 사용자가 삭제되면 주문내역도 삭제된다.
   })
@@ -30,16 +39,7 @@ export class Order extends CommonEntity {
   ])
   user: User;
 
-  @OneToMany(
-    () => OrderDetail,
-    (orderDetail: OrderDetail) => orderDetail.orders,
-    {
-      cascade: true,
-    },
-  )
-  orderDetail: OrderDetail[];
-
-  @ManyToOne(() => Product, (product: Product) => product.orderDetail)
+  @ManyToOne(() => Product, (product: Product) => product.order)
   @JoinColumn([
     {
       name: 'product_id',

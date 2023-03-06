@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
 import { ProductImageRepository } from '../product-images/product-images.repository';
-import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
+// import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
 
 @Injectable()
 export class ProductsService {
@@ -16,9 +16,8 @@ export class ProductsService {
     @InjectRepository(CategoriesRepository)
     private categoriesRepository: CategoriesRepository,
     @InjectRepository(ProductImageRepository)
-    private productImageRepository: ProductImageRepository,
-    @InjectRepository(ProductThumbnailRepository)
-    private productThumbnailRepository: ProductThumbnailRepository,
+    private productImageRepository: ProductImageRepository /* @InjectRepository(ProductThumbnailRepository)
+    private productThumbnailRepository: ProductThumbnailRepository, */,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -30,72 +29,27 @@ export class ProductsService {
       id: createProductDto.productImage_id,
     });
 
-    const productThumbnailImageUrl =
+    /* const productThumbnailImageUrl =
       await this.productThumbnailRepository.findOne({
         id: createProductDto.productThumbnailImage_id,
-      });
+      }); */
 
     const product = await this.productsRepository.save({
       ...createProductDto,
       category,
       productImageUrl,
-      productThumbnailImageUrl,
+      // productThumbnailImageUrl,
     });
 
-    return this.getProductDetail(product.id);
+    return this.productsRepository.getProductDetail(product.id);
   }
 
   async getProductDetail(id: number) {
-    const query = this.productsRepository.createQueryBuilder('product');
-
-    await query
-      .update()
-      .set({ viewCount: () => 'view_count + 1' })
-      .where('id =:id', { id })
-      .execute();
-
-    const result = await query
-      .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      .leftJoinAndSelect(
-        'product.productThumbnailImageUrl',
-        'productThumbnailImageUrl',
-      )
-      .select([
-        'product.id',
-        'product.title',
-        'product.description',
-        'product.prevPrice',
-        'product.sellPrice',
-        'product.minAmount',
-        // 'product.status',
-        'product.viewCount',
-        'category.name',
-        'productImageUrl.storedFileName',
-        'productThumbnailImageUrl.storedFileName',
-      ])
-      .where('product.id = :id', { id })
-      .getOne();
-
-    return result;
+    return await this.productsRepository.getProductDetail(id);
   }
 
   async getProductList() {
-    const query = this.productsRepository.createQueryBuilder('product');
-    const result = await query
-      .leftJoinAndSelect('product.category', 'category')
-      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      .select([
-        'product.id',
-        'product.title',
-        'product.description',
-        'product.sellPrice',
-        'product.createdAt',
-        'productImageUrl.storedFileName',
-        'category.name',
-      ])
-      .getMany();
-    return result;
+    return await this.productsRepository.getProductList();
   }
 
   async updateProduct(updateProductDto: UpdateProductDto, id: number) {

@@ -6,4 +6,6 @@ export class CreateOrderDto extends PickType(Order, [
   'address2',
   'address3',
   'deliveryRequest',
+  'amount',
+  'price',
 ] as const) {}

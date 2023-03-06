@@ -8,6 +8,8 @@ class CreateOrderDto extends (0, swagger_1.PickType)(order_entity_1.Order, [
     'address2',
     'address3',
     'deliveryRequest',
+    'amount',
+    'price',
 ]) {
 }
 exports.CreateOrderDto = CreateOrderDto;

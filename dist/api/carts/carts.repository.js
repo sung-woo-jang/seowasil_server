@@ -10,6 +10,21 @@ exports.CartsRepository = void 0;
 const cart_entity_1 = require("./entities/cart.entity");
 const typeorm_1 = require("typeorm");
 let CartsRepository = class CartsRepository extends typeorm_1.Repository {
+    async getCartDetail(id) {
+        const result = await this.createQueryBuilder('cart')
+            .leftJoinAndSelect('cart.product', 'product')
+            .select([
+            'cart.id',
+            'cart.amount',
+            'product.id',
+            'product.title',
+            'product.description',
+            'product.sellPrice',
+        ])
+            .where('cart.id = :id', { id })
+            .getOne();
+        return result;
+    }
 };
 CartsRepository = __decorate([
     (0, typeorm_1.EntityRepository)(cart_entity_1.Cart)

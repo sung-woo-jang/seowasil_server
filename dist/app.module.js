@@ -17,7 +17,6 @@ const typeorm_config_1 = require("./config/typeorm.config");
 const users_module_1 = require("./api/users/users.module");
 const orders_module_1 = require("./api/orders/orders.module");
 const deliver_address_module_1 = require("./api/deliver-address/deliver-address.module");
-const order_details_module_1 = require("./api/order-details/order-details.module");
 const products_module_1 = require("./api/products/products.module");
 const product_images_module_1 = require("./api/product-images/product-images.module");
 const product_thumbnail_module_1 = require("./api/product-thumbnail/product-thumbnail.module");
@@ -61,7 +60,6 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             orders_module_1.OrdersModule,
             deliver_address_module_1.DeliverAddressModule,
-            order_details_module_1.OrderDetailsModule,
             products_module_1.ProductsModule,
             product_images_module_1.ProductImagesModule,
             product_thumbnail_module_1.ProductThumbnailModule,

@@ -1,4 +1,3 @@
-import { OrderDetail } from './../../order-details/entities/order-detail.entity';
 import {
   Column,
   Entity,
@@ -11,7 +10,9 @@ import { CommonEntity } from 'src/common/entities/common.entity';
 import { IsNumberString } from 'class-validator';
 import { Category } from 'src/api/categories/entities/category.entity';
 import { ProductImage } from 'src/api/product-images/entities/product-image.entity';
+import { Order } from './../../orders/entities/order.entity';
 import { ProductThumbnail } from 'src/api/product-thumbnail/entities/product-thumbnail.entity';
+import { Cart } from 'src/api/carts/entities/cart.entity';
 
 export enum Status {
   SALE = '판매중',
@@ -67,8 +68,11 @@ export class Product extends CommonEntity {
   ])
   category: Category;
 
-  @OneToMany(() => OrderDetail, (orderDetail: OrderDetail) => orderDetail)
-  orderDetail: OrderDetail[];
+  @OneToMany(() => Order, (order: Order) => order)
+  order: Order[];
+
+  @OneToMany(() => Cart, (cart: Cart) => cart)
+  cart: Cart[];
 
   @OneToOne(() => ProductImage) // 단방향 연결, 양방향도 가능
   @JoinColumn({ name: 'productImage_id', referencedColumnName: 'id' })

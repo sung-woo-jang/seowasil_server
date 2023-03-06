@@ -10,13 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = exports.Status = void 0;
-const order_detail_entity_1 = require("./../../order-details/entities/order-detail.entity");
 const typeorm_1 = require("typeorm");
 const common_entity_1 = require("../../../common/entities/common.entity");
 const class_validator_1 = require("class-validator");
 const category_entity_1 = require("../../categories/entities/category.entity");
 const product_image_entity_1 = require("../../product-images/entities/product-image.entity");
+const order_entity_1 = require("./../../orders/entities/order.entity");
 const product_thumbnail_entity_1 = require("../../product-thumbnail/entities/product-thumbnail.entity");
+const cart_entity_1 = require("../../carts/entities/cart.entity");
 var Status;
 (function (Status) {
     Status["SALE"] = "\uD310\uB9E4\uC911";
@@ -79,9 +80,13 @@ __decorate([
     __metadata("design:type", category_entity_1.Category)
 ], Product.prototype, "category", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => order_detail_entity_1.OrderDetail, (orderDetail) => orderDetail),
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order),
     __metadata("design:type", Array)
-], Product.prototype, "orderDetail", void 0);
+], Product.prototype, "order", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cart_entity_1.Cart, (cart) => cart),
+    __metadata("design:type", Array)
+], Product.prototype, "cart", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => product_image_entity_1.ProductImage),
     (0, typeorm_1.JoinColumn)({ name: 'productImage_id', referencedColumnName: 'id' }),

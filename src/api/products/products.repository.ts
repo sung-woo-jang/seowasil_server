@@ -2,4 +2,57 @@ import { EntityRepository, Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 
 @EntityRepository(Product)
-export class ProductsRepository extends Repository<Product> {}
+export class ProductsRepository extends Repository<Product> {
+  async getProductDetail(id: number) {
+    const query = this.createQueryBuilder('product');
+
+    await query
+      .update()
+      .set({ viewCount: () => 'view_count + 1' })
+      .where('id =:id', { id })
+      .execute();
+
+    const result = await query
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+      /* .leftJoinAndSelect(
+        'product.productThumbnailImageUrl',
+        'productThumbnailImageUrl',
+      ) */
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+        // 'product.status',
+        'product.viewCount',
+        'category.name',
+        'productImageUrl.storedFileName',
+        // 'productThumbnailImageUrl.storedFileName',
+      ])
+      .where('product.id = :id', { id })
+      .getOne();
+
+    return result;
+  }
+
+  async getProductList() {
+    const query = this.createQueryBuilder('product');
+    const result = await query
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.sellPrice',
+        'product.createdAt',
+        'productImageUrl.storedFileName',
+        'category.name',
+      ])
+      .getMany();
+    return result;
+  }
+}

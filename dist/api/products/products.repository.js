@@ -10,6 +10,48 @@ exports.ProductsRepository = void 0;
 const typeorm_1 = require("typeorm");
 const product_entity_1 = require("./entities/product.entity");
 let ProductsRepository = class ProductsRepository extends typeorm_1.Repository {
+    async getProductDetail(id) {
+        const query = this.createQueryBuilder('product');
+        await query
+            .update()
+            .set({ viewCount: () => 'view_count + 1' })
+            .where('id =:id', { id })
+            .execute();
+        const result = await query
+            .leftJoinAndSelect('product.category', 'category')
+            .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+            .select([
+            'product.id',
+            'product.title',
+            'product.description',
+            'product.prevPrice',
+            'product.sellPrice',
+            'product.minAmount',
+            'product.viewCount',
+            'category.name',
+            'productImageUrl.storedFileName',
+        ])
+            .where('product.id = :id', { id })
+            .getOne();
+        return result;
+    }
+    async getProductList() {
+        const query = this.createQueryBuilder('product');
+        const result = await query
+            .leftJoinAndSelect('product.category', 'category')
+            .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+            .select([
+            'product.id',
+            'product.title',
+            'product.description',
+            'product.sellPrice',
+            'product.createdAt',
+            'productImageUrl.storedFileName',
+            'category.name',
+        ])
+            .getMany();
+        return result;
+    }
 };
 ProductsRepository = __decorate([
     (0, typeorm_1.EntityRepository)(product_entity_1.Product)

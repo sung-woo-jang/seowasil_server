@@ -16,6 +16,7 @@ const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 const deliver_address_entity_1 = require("../../deliver-address/entities/deliver-address.entity");
+const cart_entity_1 = require("../../carts/entities/cart.entity");
 var Role;
 (function (Role) {
     Role["ADMIN"] = "ADMIN";
@@ -45,7 +46,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "phoneNumber", void 0);
 __decorate([
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsOptional)(),
     (0, typeorm_1.Column)({ type: 'varchar', comment: '이메일', nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
@@ -70,8 +71,12 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], User.prototype, "orders", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cart_entity_1.Cart, (order) => order),
+    __metadata("design:type", Array)
+], User.prototype, "cart", void 0);
 User = __decorate([
-    (0, typeorm_1.Index)(['account', 'email', 'phoneNumber'], { unique: true }),
+    (0, typeorm_1.Index)(['account', 'phoneNumber'], { unique: true }),
     (0, typeorm_1.Entity)()
 ], User);
 exports.User = User;

@@ -10,11 +10,15 @@ exports.OrderDetailsModule = void 0;
 const order_details_repository_1 = require("./order-details.repository");
 const typeorm_1 = require("@nestjs/typeorm");
 const common_1 = require("@nestjs/common");
+const order_details_controller_1 = require("./order-details.controller");
+const order_details_service_1 = require("./order-details.service");
 let OrderDetailsModule = class OrderDetailsModule {
 };
 OrderDetailsModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([order_details_repository_1.OrderDetailsRepository])],
+        controllers: [order_details_controller_1.OrderDetailsController],
+        providers: [order_details_service_1.OrderDetailsService],
     })
 ], OrderDetailsModule);
 exports.OrderDetailsModule = OrderDetailsModule;
