@@ -10,7 +10,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { CartsService } from './carts.service';
+import { Public } from 'src/common/decorators/skip-auth.decorator';
 
+@Public()
 @Controller('carts')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
@@ -20,14 +22,14 @@ export class CartsController {
     return await this.cartsService.createCart(createCartDto);
   }
 
-  @Get('/:id')
-  async getCartDetail(@Param('id', ParseIntPipe) id: number) {
-    return await this.cartsService.getCartDetail(id);
-  }
+  // @Get('/:id')
+  // async getCartDetail(@Param('id', ParseIntPipe) id: number) {
+  //   return await this.cartsService.getCartDetail(id);
+  // }
 
-  @Get()
-  async getCartList() {
-    return await this.cartsService.getCartList();
+  @Get('/:user_id')
+  async getCartByUser(@Param('user_id', ParseIntPipe) userId: number) {
+    return await this.cartsService.getCartByUser(userId);
   }
 
   @Patch('/:id')

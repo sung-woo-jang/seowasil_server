@@ -26,6 +26,7 @@ export class CartsService {
     const user = await this.usersRepository.findOne({
       id: createCartDto.user_id,
     });
+
     const cart = await this.cartsRepository
       .create({
         ...createCartDto,
@@ -41,8 +42,8 @@ export class CartsService {
     return await this.cartsRepository.getCartDetail(id);
   }
 
-  async getCartList() {
-    return await this.cartsRepository.find();
+  async getCartByUser(userId: number) {
+    return await this.cartsRepository.getCartByUser(userId);
   }
 
   async updateCart() {
