@@ -12,12 +12,19 @@ export class DeliverAddressService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
   ) {}
+
   async createAddress(createDeliverAddressDto: CreateDeliverAddressDto) {
     const { user_id } = createDeliverAddressDto;
     const user = await this.usersRepository.getById(user_id);
     return await this.deliverAddressRepository.createAddress(
       createDeliverAddressDto,
       user,
+    );
+  }
+
+  async getDeliveryAddressesListByUserId(user_id: number) {
+    return await this.deliverAddressRepository.getDeliveryAddressesListByUserId(
+      user_id,
     );
   }
 }

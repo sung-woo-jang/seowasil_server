@@ -9,6 +9,8 @@ import {
   Request,
   Get,
   Res,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -76,5 +78,11 @@ export class UsersController {
       this.authService.getCookieWithJwtAccessToken(user.id);
     res.cookie('AccessToken', accessToken, accessOption);
     return user;
+  }
+
+  @Public()
+  @Get('/:id')
+  async getUserById(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.getUserById(id);
   }
 }

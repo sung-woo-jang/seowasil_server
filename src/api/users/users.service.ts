@@ -3,14 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsersRepository } from './users.repository';
-import { DeliverAddressRepository } from '../deliver-address/deliver-address.repository';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UsersRepository) private usersRepository: UsersRepository,
-    @InjectRepository(DeliverAddressRepository)
-    private deliverAddressRepository: DeliverAddressRepository,
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
@@ -26,5 +23,9 @@ export class UsersService {
     return this.usersRepository.update(id, {
       currentHashedRefreshToken: null,
     });
+  }
+
+  async getUserById(id: number) {
+    return await this.usersRepository.getById(id);
   }
 }

@@ -1,4 +1,3 @@
-import { DeliverAddressRepository } from './../deliver-address/deliver-address.repository';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './../auth/auth.service';
@@ -10,7 +9,7 @@ import { UsersController } from './users.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UsersRepository, DeliverAddressRepository]),
+    TypeOrmModule.forFeature([UsersRepository]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
