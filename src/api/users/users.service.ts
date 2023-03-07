@@ -14,13 +14,7 @@ export class UsersService {
   ) {}
 
   async signUp(createUserDto: CreateUserDto): Promise<User> {
-    const { address1, address2, address3 } = createUserDto;
-    const address = await this.deliverAddressRepository.createAddress(
-      address1,
-      address2,
-      address3,
-    );
-    return this.usersRepository.createUser(createUserDto, address);
+    return this.usersRepository.createUser(createUserDto);
   }
 
   // DB에 발급받은 Refresh Token 암호화

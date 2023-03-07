@@ -11,8 +11,4 @@ export class CreateUserDto extends PickType(User, [
   @IsString()
   @IsNotEmpty({ message: '비밀번호를 작성해주세요.' })
   password: string;
-
-  address1: string;
-  address2: string;
-  address3: string;
 }

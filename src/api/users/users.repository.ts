@@ -1,4 +1,3 @@
-import { DeliverAddress } from './../deliver-address/entities/deliver-address.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import {
   ConflictException,
@@ -13,16 +12,12 @@ import * as bcrypt from 'bcryptjs';
 
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
-  async createUser(
-    createUserDto: CreateUserDto,
-    address: DeliverAddress,
-  ): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
 
     try {
       const user = await this.save({
-        address,
         ...createUserDto,
         password: hashedPassword,
       });
@@ -59,7 +54,7 @@ export class UsersRepository extends Repository<User> {
     else throw new ForbiddenException('아이디와 비밀번호를 다시 확인해주세요.');
   }
 
-  async getById(id: number) {
+  async getById(id: number): Promise<User> {
     const user = await this.findOne({ id });
     if (user) {
       return user;
