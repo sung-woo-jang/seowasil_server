@@ -30,7 +30,6 @@ async function bootstrap() {
     },
     httpsOptions,
   });
-
   app.setGlobalPrefix('/api');
 
   // HttpException Filter

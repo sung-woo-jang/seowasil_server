@@ -28,6 +28,7 @@ export class ContactsService {
         'contact.name',
         'contact.category',
       ])
+      .orderBy('contact.createdAt', 'DESC')
       .getMany();
     return result;
   }

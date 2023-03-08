@@ -40,7 +40,7 @@ export class ProductsRepository extends Repository<Product> {
 
   async getProductList() {
     const query = this.createQueryBuilder('product');
-    const result = await query
+    query
       .leftJoinAndSelect('product.category', 'category')
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
       .select([
@@ -51,8 +51,8 @@ export class ProductsRepository extends Repository<Product> {
         'product.createdAt',
         'productImageUrl.storedFileName',
         'category.name',
-      ])
-      .getMany();
+      ]);
+    const result = await query.getMany();
     return result;
   }
 }

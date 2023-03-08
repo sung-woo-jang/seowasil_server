@@ -41,6 +41,13 @@ export class Product extends CommonEntity {
   minAmount: number;
 
   @Column({
+    type: 'boolean',
+    comment: '최고 인기상품',
+    default: false,
+  })
+  isBest: boolean;
+
+  @Column({
     type: 'varchar',
     comment: '판매 상태',
     nullable: false,
