@@ -5,6 +5,15 @@ import { User } from 'src/api/users/entities/user.entity';
 
 @Entity()
 export class Order extends CommonEntity {
+  @Column({ type: 'varchar', comment: '주문자명', nullable: false })
+  name: string;
+
+  @Column({ type: 'varchar', comment: '주문자 전화번호', nullable: false })
+  phoneNumber: string;
+
+  @Column({ type: 'varchar', comment: '배송 요청사항', nullable: true })
+  deliveryRequest: string;
+
   @Column({ type: 'varchar', comment: '우편번호', nullable: false })
   address1: string;
 
@@ -13,9 +22,6 @@ export class Order extends CommonEntity {
 
   @Column({ type: 'varchar', comment: '상세주소', nullable: false })
   address3: string;
-
-  @Column({ type: 'varchar', comment: '배송 요청사항', nullable: true })
-  deliveryRequest: string;
 
   @Column({ type: 'integer', comment: '주문 수량', nullable: false })
   amount: number;
