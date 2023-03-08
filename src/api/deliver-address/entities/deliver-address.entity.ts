@@ -13,6 +13,14 @@ export class DeliverAddress extends CommonEntity {
   @Column({ type: 'varchar', comment: '상세주소', nullable: false })
   address3: string;
 
+  @Column({
+    type: 'boolean',
+    comment: '기본 배송 주소',
+    nullable: false,
+    default: false,
+  })
+  isDefault: boolean;
+
   @ManyToOne(() => User, (user: User) => user.address, {
     onDelete: 'CASCADE', // 사용자가 삭제되면 연결된 것도 삭제된다.
   })

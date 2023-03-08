@@ -1,3 +1,4 @@
+import { UpdateDeliverAddressDto } from './dto/update-deliver-address.dto';
 import { CreateDeliverAddressDto } from './dto/create-deliver-address.dto';
 import { DeliverAddressRepository } from './deliver-address.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,6 +26,14 @@ export class DeliverAddressService {
   async getDeliveryAddressesListByUserId(user_id: number) {
     return await this.deliverAddressRepository.getDeliveryAddressesListByUserId(
       user_id,
+    );
+  }
+
+  async updateDefaultDeliverAddressByUserId(
+    updateDeliverAddressDto: UpdateDeliverAddressDto,
+  ) {
+    return await this.deliverAddressRepository.updateDefaultDeliverAddressByUserId(
+      updateDeliverAddressDto,
     );
   }
 }

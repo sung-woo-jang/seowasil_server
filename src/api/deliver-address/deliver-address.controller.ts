@@ -1,3 +1,4 @@
+import { UpdateDeliverAddressDto } from './dto/update-deliver-address.dto';
 import { Public } from './../../common/decorators/skip-auth.decorator';
 import { CreateDeliverAddressDto } from './dto/create-deliver-address.dto';
 import {
@@ -7,6 +8,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
 } from '@nestjs/common';
 import { DeliverAddressService } from './deliver-address.service';
 
@@ -34,4 +36,12 @@ export class DeliverAddressController {
   }
 
   // 기본 배송지 설정
+  @Patch()
+  async updateDefaultDeliverAddressByUserId(
+    @Body() updateDeliverAddressDto: UpdateDeliverAddressDto,
+  ) {
+    return await this.deliverAddressService.updateDefaultDeliverAddressByUserId(
+      updateDeliverAddressDto,
+    );
+  }
 }

@@ -6,7 +6,6 @@ import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/product.entity';
 import { ProductImageRepository } from '../product-images/product-images.repository';
-// import { ProductThumbnailRepository } from '../product-thumbnail/product-thumbnail.respsitory';
 
 @Injectable()
 export class ProductsService {

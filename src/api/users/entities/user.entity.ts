@@ -50,7 +50,7 @@ export class User extends CommonEntity {
   @Exclude()
   currentHashedRefreshToken?: string;
 
-  @OneToMany(() => DeliverAddress, (order: Order) => order.user, {
+  @OneToMany(() => DeliverAddress, (address: DeliverAddress) => address.user, {
     cascade: true,
   }) // 단방향 연결, 양방향도 가능
   address: DeliverAddress[];
@@ -60,6 +60,6 @@ export class User extends CommonEntity {
   })
   orders: Order[];
 
-  @OneToMany(() => Cart, (order: Cart) => order)
+  @OneToMany(() => Cart, (cart: Cart) => cart)
   cart: Cart[];
 }
