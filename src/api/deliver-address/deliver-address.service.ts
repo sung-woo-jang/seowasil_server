@@ -29,6 +29,12 @@ export class DeliverAddressService {
     );
   }
 
+  async getDefaultDeliveryAddressesListByUserId(user_id: number) {
+    return await this.deliverAddressRepository.getDefaultDeliveryAddressesListByUserId(
+      user_id,
+    );
+  }
+
   async updateDefaultDeliverAddressByUserId(
     updateDeliverAddressDto: UpdateDeliverAddressDto,
   ) {

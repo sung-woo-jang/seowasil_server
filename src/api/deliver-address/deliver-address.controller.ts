@@ -35,6 +35,16 @@ export class DeliverAddressController {
     );
   }
 
+  // 사용자별 기본 배송지 가져오기
+  @Get('/isDefault/:user_id')
+  async getDefaultDeliveryAddressesListByUserId(
+    @Param('user_id', ParseIntPipe) user_id: number,
+  ) {
+    return await this.deliverAddressService.getDefaultDeliveryAddressesListByUserId(
+      user_id,
+    );
+  }
+
   // 기본 배송지 설정
   @Patch()
   async updateDefaultDeliverAddressByUserId(
