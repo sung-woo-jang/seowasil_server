@@ -10,6 +10,7 @@ import {
   Delete,
   Param,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 
@@ -37,8 +38,11 @@ export class ContactsController {
   /**
    * @description 문의사항 가져오기
    */
-  @Get('/:id')
-  getContact(@Param('id', ParseIntPipe) id: number, @Body() { password }) {
+  @Get('/detail')
+  getContact(
+    @Query('id', ParseIntPipe) id: number,
+    @Query('password') password: string,
+  ) {
     return this.contactsService.getContact(id, password);
   }
 

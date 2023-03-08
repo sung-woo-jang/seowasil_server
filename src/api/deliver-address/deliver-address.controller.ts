@@ -27,20 +27,16 @@ export class DeliverAddressController {
 
   // 사용자별 배송지 목록 가져오기
   @Get('/:user_id')
-  async getDeliveryAddressesListByUserId(
-    @Param('user_id', ParseIntPipe) user_id: number,
-  ) {
-    return await this.deliverAddressService.getDeliveryAddressesListByUserId(
-      user_id,
-    );
+  async getDeliveryAddresses(@Param('user_id', ParseIntPipe) user_id: number) {
+    return await this.deliverAddressService.getDeliveryAddresses(user_id);
   }
 
   // 사용자별 기본 배송지 가져오기
   @Get('/isDefault/:user_id')
-  async getDefaultDeliveryAddressesListByUserId(
+  async getDefaultDeliveryAddresses(
     @Param('user_id', ParseIntPipe) user_id: number,
   ) {
-    return await this.deliverAddressService.getDefaultDeliveryAddressesListByUserId(
+    return await this.deliverAddressService.getDefaultDeliveryAddresses(
       user_id,
     );
   }

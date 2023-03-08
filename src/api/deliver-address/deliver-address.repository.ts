@@ -17,7 +17,8 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
     return result;
   }
 
-  async getDeliveryAddressesListByUserId(user_id: number) {
+  // 사용자별 배송지 목록 가져오기
+  async getDeliveryAddresses(user_id: number) {
     const query = this.createQueryBuilder('deliver_address')
       .leftJoinAndSelect('deliver_address.user', 'user')
       .select([
@@ -33,7 +34,8 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
     return result;
   }
 
-  async getDefaultDeliveryAddressesListByUserId(user_id: number) {
+  // 사용자별 기본 배송지 가져오기
+  async getDefaultDeliveryAddresses(user_id: number) {
     const query = this.createQueryBuilder('deliver_address')
       .leftJoinAndSelect('deliver_address.user', 'user')
       .select([
@@ -46,7 +48,7 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
       .where('user.id = :user_id', { user_id })
       .andWhere('deliver_address.is_default = :isDefault', { isDefault: true });
 
-    const result = await query.getRawMany();
+    const result = await query.getRawOne();
     return result;
   }
 

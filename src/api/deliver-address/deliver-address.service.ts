@@ -23,14 +23,14 @@ export class DeliverAddressService {
     );
   }
 
-  async getDeliveryAddressesListByUserId(user_id: number) {
-    return await this.deliverAddressRepository.getDeliveryAddressesListByUserId(
-      user_id,
-    );
+  // 사용자별 배송지 목록 가져오기
+  async getDeliveryAddresses(user_id: number) {
+    return await this.deliverAddressRepository.getDeliveryAddresses(user_id);
   }
 
-  async getDefaultDeliveryAddressesListByUserId(user_id: number) {
-    return await this.deliverAddressRepository.getDefaultDeliveryAddressesListByUserId(
+  // 사용자별 기본 배송지 가져오기
+  async getDefaultDeliveryAddresses(user_id: number) {
+    return await this.deliverAddressRepository.getDefaultDeliveryAddresses(
       user_id,
     );
   }
