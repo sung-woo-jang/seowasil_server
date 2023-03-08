@@ -50,7 +50,7 @@ export class CartsService {
     return await this.cartsRepository.find();
   }
 
-  async deleteCart() {
-    return await this.cartsRepository.find();
+  async deleteCart(id: number) {
+    return await this.cartsRepository.delete(id);
   }
 }

@@ -31,6 +31,7 @@ export class CartsRepository extends Repository<Cart> {
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
       .leftJoinAndSelect('product.category', 'category')
       .leftJoinAndSelect('cart.user', 'user')
+      .addSelect('true', 'is_selected') // 기본값을 true로 설정한 가상 컬럼 추가
       .select([
         'cart.id as id',
         'cart.amount as amount',
@@ -40,7 +41,7 @@ export class CartsRepository extends Repository<Cart> {
         'product.sellPrice as sell_Price',
         'category.name as category',
         'productImageUrl.storedFileName as stored_File_Name',
-        // 'product.sellPrice * cart.amount as total_Price',
+        'true as is_selected', // 추가한 가상 컬럼 선택
       ])
       .where('cart.paymentStatus = :status', {
         status: PaymentStatus.WAITING,

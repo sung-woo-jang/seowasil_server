@@ -38,7 +38,7 @@ export class CartsController {
   }
 
   @Delete('/:id')
-  async deleteCart() {
-    return await this.cartsService.deleteCart();
+  async deleteCart(@Param('id', ParseIntPipe) id: number) {
+    return await this.cartsService.deleteCart(id);
   }
 }
