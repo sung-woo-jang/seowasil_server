@@ -15,8 +15,7 @@ export class ProductsService {
     @InjectRepository(CategoriesRepository)
     private categoriesRepository: CategoriesRepository,
     @InjectRepository(ProductImageRepository)
-    private productImageRepository: ProductImageRepository /* @InjectRepository(ProductThumbnailRepository)
-    private productThumbnailRepository: ProductThumbnailRepository, */,
+    private productImageRepository: ProductImageRepository,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -28,16 +27,10 @@ export class ProductsService {
       id: createProductDto.productImage_id,
     });
 
-    /* const productThumbnailImageUrl =
-      await this.productThumbnailRepository.findOne({
-        id: createProductDto.productThumbnailImage_id,
-      }); */
-
     const product = await this.productsRepository.save({
       ...createProductDto,
       category,
       productImageUrl,
-      // productThumbnailImageUrl,
     });
 
     return this.productsRepository.getProductDetail(product.id);

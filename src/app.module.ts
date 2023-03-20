@@ -10,7 +10,7 @@ import { OrdersModule } from './api/orders/orders.module';
 import { DeliverAddressModule } from './api/deliver-address/deliver-address.module';
 import { ProductsModule } from './api/products/products.module';
 import { ProductImagesModule } from './api/product-images/product-images.module';
-import { ProductThumbnailModule } from './api/product-thumbnail/product-thumbnail.module';
+import { ProductDetailImagesModule } from './api/product-detail-images/product-detail-images.module';
 import { CategoriesModule } from './api/categories/categories.module';
 import { NoticesModule } from './api/notices/notices.module';
 import { CartsModule } from './api/carts/carts.module';
@@ -48,7 +48,7 @@ import { S3Module } from './api/s3/s3.module';
     DeliverAddressModule,
     ProductsModule,
     ProductImagesModule,
-    ProductThumbnailModule,
+    ProductDetailImagesModule,
     CategoriesModule,
     NoticesModule,
     CartsModule,
