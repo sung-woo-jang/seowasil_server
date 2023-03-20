@@ -13,6 +13,7 @@ import {
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 
+@Public()
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -20,7 +21,6 @@ export class ProductsController {
   /**
    * @description 상품 등록
    */
-  @Public()
   @Post()
   async createProduct(@Body() createProductDto: CreateProductDto) {
     const product = await this.productsService.createProduct(createProductDto);
@@ -32,7 +32,6 @@ export class ProductsController {
    * @description 상품 정보 상세보기
    */
   @Get('/:id')
-  @Public()
   getProductDetail(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.getProductDetail(id);
   }
@@ -44,8 +43,6 @@ export class ProductsController {
    * @Query (filter: 해시태그 키워드)
    * @Query (pagination: 페이지)
    */
-
-  @Public()
   @Get()
   getProductList() {
     return this.productsService.getProductList();

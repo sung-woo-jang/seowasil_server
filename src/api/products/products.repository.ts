@@ -51,7 +51,8 @@ export class ProductsRepository extends Repository<Product> {
         'product.createdAt',
         'productImageUrl.storedFileName',
         'category.name',
-      ]);
+      ])
+      .where('product.isBest = :isBest', { isBest: false });
     const result = await query.getMany();
     return result;
   }

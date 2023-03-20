@@ -33,10 +33,19 @@ export class ContactsService {
     return result;
   }
 
-  async getContact(id: number, password: string) {
-    const result = await this.contactsRepository.findOne({ id });
-    if (result.password !== password)
-      throw new Error('비밀번호가 맞지 않습니다.');
+  async getContact(id: number) {
+    const result = await this.contactsRepository
+      .createQueryBuilder('contact')
+      .select([
+        'contact.id',
+        'contact.title',
+        'contact.description',
+        'contact.name',
+        'contact.password',
+        'contact.category',
+      ])
+      .where('id = :id', { id })
+      .getOne();
 
     return result;
   }
