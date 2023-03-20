@@ -1,3 +1,4 @@
+import { ProductDetailImagesRepository } from './../product-detail-images/product-detail-images.respsitory';
 import { CategoriesRepository } from './../categories/categories.repository';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -16,6 +17,8 @@ export class ProductsService {
     private categoriesRepository: CategoriesRepository,
     @InjectRepository(ProductImageRepository)
     private productImageRepository: ProductImageRepository,
+    @InjectRepository(ProductDetailImagesRepository)
+    private productDetailImagesRepository: ProductDetailImagesRepository,
   ) {}
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
@@ -27,10 +30,16 @@ export class ProductsService {
       id: createProductDto.productImage_id,
     });
 
+    const productDetailImagesUrl =
+      await this.productDetailImagesRepository.findOne({
+        id: createProductDto.productDetailImage_id,
+      });
+
     const product = await this.productsRepository.save({
       ...createProductDto,
       category,
       productImageUrl,
+      productDetailImagesUrl,
     });
 
     return this.productsRepository.getProductDetail(product.id);

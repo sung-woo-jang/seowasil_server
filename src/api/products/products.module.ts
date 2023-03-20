@@ -1,3 +1,4 @@
+import { ProductDetailImagesRepository } from './../product-detail-images/product-detail-images.respsitory';
 import { ProductImageRepository } from './../product-images/product-images.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { CategoriesRepository } from '../categories/categories.repository';
       ProductsRepository,
       CategoriesRepository,
       ProductImageRepository,
+      ProductDetailImagesRepository,
     ]),
   ],
   controllers: [ProductsController],

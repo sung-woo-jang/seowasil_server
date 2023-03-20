@@ -87,8 +87,8 @@ export class Product extends CommonEntity {
 
   @OneToOne(() => ProductDetailImages) // 단방향 연결, 양방향도 가능
   @JoinColumn({
-    name: 'productThumbnailImageUrl_id',
+    name: 'productDetailImagesUrl_id',
     referencedColumnName: 'id',
   })
-  productThumbnailImageUrl: ProductDetailImages;
+  productDetailImagesUrl: ProductDetailImages;
 }

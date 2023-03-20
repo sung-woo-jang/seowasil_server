@@ -15,10 +15,10 @@ export class ProductsRepository extends Repository<Product> {
     const result = await query
       .leftJoinAndSelect('product.category', 'category')
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      /* .leftJoinAndSelect(
-        'product.productThumbnailImageUrl',
-        'productThumbnailImageUrl',
-      ) */
+      .leftJoinAndSelect(
+        'product.productDetailImagesUrl',
+        'productDetailImagesUrl',
+      )
       .select([
         'product.id',
         'product.title',
@@ -30,7 +30,7 @@ export class ProductsRepository extends Repository<Product> {
         'product.viewCount',
         'category.name',
         'productImageUrl.storedFileName',
-        // 'productThumbnailImageUrl.storedFileName',
+        'productDetailImagesUrl.storedFileName',
       ])
       .where('product.id = :id', { id })
       .getOne();

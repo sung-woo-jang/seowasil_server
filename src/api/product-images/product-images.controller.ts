@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Public } from 'src/common/decorators/skip-auth.decorator';
-import { ArraySharpPipe } from 'src/common/pipe/arraySharp.pipe';
+import { ImageSharpPipe } from 'src/common/pipe/imageSharp.pipe';
 import { ProductImagesService } from './product-images.service';
 
 @Public()
@@ -21,7 +21,7 @@ export class ProductImagesController {
   @Post()
   @UseInterceptors(FilesInterceptor('files', 10))
   async uploadProductImage(
-    @UploadedFiles(ArraySharpPipe) files: Array<Express.Multer.File>,
+    @UploadedFiles(ImageSharpPipe) files: Array<Express.Multer.File>,
   ) {
     return await this.productImagesService.uploadProductImage(files);
   }
