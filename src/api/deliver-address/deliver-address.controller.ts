@@ -41,8 +41,9 @@ export class DeliverAddressController {
     );
   }
 
-  // 기본 배송지 설정
+  // 배송지 변경
   @Patch()
+  // 기본 배송지 변경하는 API 생성하면 이름 바꾸기. (지금은 귀찮)
   async updateDefaultDeliverAddressByUserId(
     @Body() updateDeliverAddressDto: UpdateDeliverAddressDto,
   ) {

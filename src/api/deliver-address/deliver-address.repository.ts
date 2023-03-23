@@ -55,7 +55,7 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
   async updateDefaultDeliverAddressByUserId(
     updateDeliverAddressDto: UpdateDeliverAddressDto,
   ) {
-    const { id, user_id } = updateDeliverAddressDto;
+    const { user_id, address1, address2, address3 } = updateDeliverAddressDto;
     const query = this.createQueryBuilder('deliver_address').leftJoinAndSelect(
       'deliver_address.user',
       'user',
@@ -63,15 +63,8 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
 
     await query
       .update()
-      .set({ isDefault: false })
-      .where('id != :id', { id })
+      .set({ address1, address2, address3 })
       .andWhere('user.id = :user_id', { user_id })
-      .execute();
-
-    await query
-      .update()
-      .set({ isDefault: true })
-      .where('id = :id', { id })
       .execute();
 
     return await query
@@ -80,8 +73,9 @@ export class DeliverAddressRepository extends Repository<DeliverAddress> {
         'deliver_address.address1 as address1',
         'deliver_address.address2 as address2',
         'deliver_address.address3 as address3',
-        'deliver_address.is_default as is_default',
+        'user.id',
       ])
-      .getRawMany();
+      .where('user.id = :user_id', { user_id })
+      .getRawOne();
   }
 }

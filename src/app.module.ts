@@ -20,6 +20,7 @@ import { AuthModule } from './api/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ImagesModule } from './api/images/images.module';
 import { S3Module } from './api/s3/s3.module';
+import { SmsModule } from './api/sms/sms.module';
 
 @Module({
   imports: [
@@ -40,6 +41,10 @@ import { S3Module } from './api/s3/s3.module';
         AWS_ACCESS_KEY: Joi.string().required(),
         AWS_SECRET_KEY: Joi.string().required(),
         AWS_S3_BUCKET_NAME: Joi.string().required(),
+        NCP_SENS_ACCESS_KEY: Joi.string().required(),
+        NCP_SENS_SECRET_KEY: Joi.string().required(),
+        NCP_SENS_ID: Joi.string().required(),
+        NCP_SENS_URI: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
@@ -57,6 +62,7 @@ import { S3Module } from './api/s3/s3.module';
     AuthModule,
     ImagesModule,
     S3Module,
+    SmsModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
 })

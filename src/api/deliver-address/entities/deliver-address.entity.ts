@@ -17,7 +17,7 @@ export class DeliverAddress extends CommonEntity {
     type: 'boolean',
     comment: '기본 배송 주소',
     nullable: false,
-    default: false,
+    default: true,
   })
   isDefault: boolean;
 
