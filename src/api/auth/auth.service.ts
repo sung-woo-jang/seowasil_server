@@ -19,7 +19,6 @@ export class AuthService {
     const user = await this.userRepository.findByLogin(account);
 
     //사용자가 요청한 비밀번호와 DB에서 조회한 비밀번호 일치여부 검사
-    // if (user && user.password === password) {
     if (user && (await bcrypt.compare(password, user.password))) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;

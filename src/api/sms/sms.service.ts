@@ -36,12 +36,16 @@ export class SmsService {
     return signature.toString();
   }
 
-  async sendSMS(phoneNumber: string, content: string): Promise<any> {
+  async sendSMS(
+    phoneNumber: string,
+    content: string,
+    byteLength: number,
+  ): Promise<any> {
     const body = {
-      type: 'SMS',
+      type: byteLength < 80 ? 'SMS' : 'LMS',
       contentType: 'COMM',
       countryCode: '82',
-      from: `01076370623`, // 발신자 번호
+      from: `01076370624`, // 발신자 번호
       content: `${content} `,
       messages: [
         {

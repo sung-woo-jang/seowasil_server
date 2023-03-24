@@ -1,3 +1,4 @@
+import { numberWithCommas } from './../../common/utils/numberWithCommas';
 import { UsersRepository } from './../users/users.repository';
 import { ProductsRepository } from './../products/products.repository';
 import { SmsService } from './../sms/sms.service';
@@ -5,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { getByteLength } from 'src/common/utils/getByteLength';
 
 @Injectable()
 export class OrdersService {
@@ -27,10 +29,28 @@ export class OrdersService {
       user,
       product,
     });
-    const content = `서와실 농원 입금 정보.\n
-    상품명: ${product.title} \n
-    ${order.price}원을 352-0654-1560-03 농협(주민창)으로 입금해주시고 연락주시면 감사하겠습니다.`;
-    const result = await this.smsService.sendSMS(order.phoneNumber, content);
+
+    const content = [
+      '서와실 농원 상품 주문 완료.',
+      '\n',
+      '입금 정보: 352-0654-1560-03 농협(주민창)',
+      '\n',
+      `상품명: ${product.title}`,
+      '\n',
+      `주문 금액: ${numberWithCommas(order.price)}원`,
+      '\n',
+      `주문해 주셔서 감사합니다.`,
+      '\n',
+      `입금 완료 후 입금 완료 연락(문자/통화)을 주시면 감사하겠습니다.`,
+    ].join('');
+
+    const byteLength = getByteLength(content);
+
+    const result = await this.smsService.sendSMS(
+      createOrderDto.phoneNumber,
+      content,
+      byteLength,
+    );
     if (result) return await this.ordersRepository.save(order);
     else
       throw new HttpException(

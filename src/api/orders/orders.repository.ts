@@ -20,6 +20,7 @@ export class OrdersRepository extends Repository<Order> {
 
     const result = await query
       .select([
+        'order.id',
         'order.name',
         'order.phoneNumber',
         'order.deliveryRequest',
@@ -30,6 +31,7 @@ export class OrdersRepository extends Repository<Order> {
         'order.price',
         'product.title',
       ])
+      .orderBy('order.createdAt', 'ASC')
       .getMany();
 
     return result;

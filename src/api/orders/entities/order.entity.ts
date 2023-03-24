@@ -2,6 +2,7 @@ import { Product } from 'src/api/products/entities/product.entity';
 import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { User } from 'src/api/users/entities/user.entity';
+import { Transform } from 'class-transformer';
 
 @Entity()
 export class Order extends CommonEntity {
@@ -23,6 +24,7 @@ export class Order extends CommonEntity {
   @Column({ type: 'varchar', comment: '상세주소', nullable: false })
   address3: string;
 
+  @Transform(({ value }) => Number(value))
   @Column({ type: 'integer', comment: '주문 수량', nullable: false })
   amount: number;
 
