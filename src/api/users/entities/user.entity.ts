@@ -1,13 +1,7 @@
 import { Order } from './../../orders/entities/order.entity';
 import { CommonEntity } from 'src/common/entities/common.entity';
 import { Exclude } from 'class-transformer';
-import {
-  IsBoolean,
-  // IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { DeliverAddress } from 'src/api/deliver-address/entities/deliver-address.entity';
 import { Cart } from 'src/api/carts/entities/cart.entity';
@@ -38,7 +32,6 @@ export class User extends CommonEntity {
   phoneNumber: string;
 
   @IsOptional()
-  // @IsEmail()
   @Column({ type: 'varchar', comment: '이메일', nullable: true })
   email: string;
 

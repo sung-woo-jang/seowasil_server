@@ -22,11 +22,6 @@ export class CartsController {
     return await this.cartsService.createCart(createCartDto);
   }
 
-  // @Get('/:id')
-  // async getCartDetail(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.cartsService.getCartDetail(id);
-  // }
-
   @Get('/:user_id')
   async getCartByUser(@Param('user_id', ParseIntPipe) userId: number) {
     return await this.cartsService.getCartByUser(userId);

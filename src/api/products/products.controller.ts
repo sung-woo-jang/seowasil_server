@@ -74,13 +74,4 @@ export class ProductsController {
   restoreProduct(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.restoreProduct(id);
   }
-
-  /*   
-  하나로 합치는 쪽으로 구현
-  삭제된 게시글 복구
-  @Post('/:id')
-  restorationProduct(@Body() 제목, 내용, 해시태그){
-    TODO: Body내용 원본이랑 교체
-    return ''    
-  } */
 }

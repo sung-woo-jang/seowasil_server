@@ -7,7 +7,6 @@ export class CartsRepository extends Repository<Cart> {
     const result = await this.createQueryBuilder('cart')
       .leftJoinAndSelect('cart.product', 'product')
       .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      // .leftJoinAndSelect('cart.user', 'user')
       .select([
         'cart.id',
         'cart.amount',

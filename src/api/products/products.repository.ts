@@ -26,7 +26,6 @@ export class ProductsRepository extends Repository<Product> {
         'product.prevPrice',
         'product.sellPrice',
         'product.minAmount',
-        // 'product.status',
         'product.viewCount',
         'category.name',
         'productImageUrl.storedFileName',

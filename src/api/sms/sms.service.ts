@@ -76,7 +76,6 @@ export class SmsService {
       );
       return response.status === 202;
     } catch (error) {
-      // console.error(error);
       return false;
     }
   }
