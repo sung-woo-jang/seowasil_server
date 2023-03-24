@@ -8,9 +8,30 @@ export class OrdersRepository extends Repository<Order> {
     const result = await this.save({
       ...createOrderDto,
     });
-    if (result) {
-      console.log(result);
-    }
+
+    return result;
+  }
+
+  async getOrderList() {
+    const query = this.createQueryBuilder('order').leftJoinAndSelect(
+      'order.product',
+      'product',
+    );
+
+    const result = await query
+      .select([
+        'order.name',
+        'order.phoneNumber',
+        'order.deliveryRequest',
+        'order.address1',
+        'order.address2',
+        'order.address3',
+        'order.amount',
+        'order.price',
+        'product.title',
+      ])
+      .getMany();
+
     return result;
   }
 }
