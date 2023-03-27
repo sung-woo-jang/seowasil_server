@@ -20,7 +20,6 @@ export class CategoriesController {
   /**
    * @description 카테고리 등록
    */
-  @Public()
   @Post()
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
@@ -29,6 +28,7 @@ export class CategoriesController {
   /**
    * @description 카테고리 목록 가져오기
    */
+  @Public()
   @Get()
   getCategoryList() {
     return this.categoriesService.getCategoryList();
@@ -37,6 +37,7 @@ export class CategoriesController {
   /**
    * @description 카테고리 가져오기
    */
+  @Public()
   @Get('/:id')
   getCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.getCategory(id);
@@ -45,7 +46,6 @@ export class CategoriesController {
   /**
    * @description 카테고리 정보 수정
    */
-  @Public()
   @Patch('/:id')
   updateCategory(
     @Body() updateCategoryDto: UpdateCategoryDto,
@@ -57,7 +57,6 @@ export class CategoriesController {
   /**
    * @description 카테고리 삭제
    */
-  @Public()
   @Delete('/:id')
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.deleteCategory(id);

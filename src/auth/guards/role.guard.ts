@@ -31,7 +31,7 @@ export class RolesGuard implements CanActivate {
 
     const req = context.switchToHttp().getRequest();
     const token = req?.cookies?.AccessToken;
-    req.user = this.validateToken(token);
+    req.user = this.validateToken(token); // AccessToken이 유효한지 검증하여, 검증 결과를 HTTP 요청 객체에 저장
     const permssion = requiredRoles.includes(req.user.role);
     if (!permssion) {
       throw new ForbiddenException('접근 권한이 없는 사용자입니다.');

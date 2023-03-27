@@ -46,7 +46,7 @@ export class UsersController {
     res.cookie('AccessToken', accessToken, accessOption);
     res.cookie('RefreshToken', refreshToken, refreshOption);
 
-    return { user };
+    return user;
   }
 
   @UseGuards(JwtRefreshGuard)
@@ -62,19 +62,20 @@ export class UsersController {
   }
 
   @Get('/cookies')
-  getCookies(@Request() req, @Res() res: Response): any {
+  getCookies(@Request() req): any {
     const jwt = req.cookies['AccessToken'];
-    return res.send(jwt);
+
+    return jwt;
   }
 
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
   refresh(@Request() req, @Res({ passthrough: true }) res: Response) {
-    const user = req.user;
+    const { user } = req;
+
     const { accessToken, ...accessOption } =
-      this.authService.getCookieWithJwtAccessToken(user.id);
+      this.authService.getCookieWithJwtAccessToken({ ...user });
     res.cookie('AccessToken', accessToken, accessOption);
-    return user;
   }
 
   @Get('/:id')

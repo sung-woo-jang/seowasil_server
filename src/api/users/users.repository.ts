@@ -66,7 +66,7 @@ export class UsersRepository extends Repository<User> {
     );
   }
 
-  // DB에 발급받은 Refresh Token 암호화
+  // DB에 발급받은 Refresh Token 암호화 후 저장
   async setCurrentRefreshToken(refreshToken: string, id: number) {
     const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
     await this.update(id, { currentHashedRefreshToken });
