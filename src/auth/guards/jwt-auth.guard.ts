@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { IS_PUBLIC_KEY } from './../../../common/decorators/skip-auth.decorator';
+import { IS_PUBLIC_KEY } from '../../common/decorators/skip-auth.decorator';
 import { Reflector } from '@nestjs/core';
 import {
   Injectable,

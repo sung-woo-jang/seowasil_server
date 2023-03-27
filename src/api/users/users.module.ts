@@ -1,7 +1,7 @@
 import { DeliverAddressRepository } from './../deliver-address/deliver-address.repository';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { UsersRepository } from './users.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';

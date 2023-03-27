@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductImageRepository } from './product-images.repository';
-import { S3Service } from '../s3/s3.service';
+import { S3Service } from '../../s3/s3.service';
 
 @Injectable()
 export class ProductImagesService {

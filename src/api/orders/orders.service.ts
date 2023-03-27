@@ -1,7 +1,7 @@
 import { numberWithCommas } from './../../common/utils/numberWithCommas';
 import { UsersRepository } from './../users/users.repository';
 import { ProductsRepository } from './../products/products.repository';
-import { SmsService } from './../sms/sms.service';
+import { SmsService } from '../../sms/sms.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';

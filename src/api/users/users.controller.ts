@@ -1,6 +1,6 @@
-import { JwtRefreshGuard } from './../auth/guards/jwt-refresh.guard';
-import { AuthService } from './../auth/auth.service';
-import { LocalAuthGuard } from './../auth/guards/local-auth.guard';
+import { JwtRefreshGuard } from '../../auth/guards/jwt-refresh.guard';
+import { AuthService } from '../../auth/auth.service';
+import { LocalAuthGuard } from '../../auth/guards/local-auth.guard';
 import {
   Controller,
   Post,

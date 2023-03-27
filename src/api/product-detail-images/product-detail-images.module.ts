@@ -1,4 +1,4 @@
-import { S3Service } from '../s3/s3.service';
+import { S3Service } from '../../s3/s3.service';
 import { ProductDetailImagesRepository } from './product-detail-images.respsitory';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';

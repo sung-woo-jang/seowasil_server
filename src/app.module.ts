@@ -1,4 +1,4 @@
-import { JwtAuthGuard } from './api/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -16,10 +16,11 @@ import { NoticesModule } from './api/notices/notices.module';
 import { CartsModule } from './api/carts/carts.module';
 import { ContactsModule } from './api/contacts/contacts.module';
 import { CommentsModule } from './api/comments/comments.module';
-import { AuthModule } from './api/auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
-import { S3Module } from './api/s3/s3.module';
-import { SmsModule } from './api/sms/sms.module';
+import { S3Module } from './s3/s3.module';
+import { SmsModule } from './sms/sms.module';
+import { RolesGuard } from './auth/guards/role.guard';
 
 @Module({
   imports: [
@@ -62,7 +63,13 @@ import { SmsModule } from './api/sms/sms.module';
     S3Module,
     SmsModule,
   ],
-  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {
   // log middleware 적용

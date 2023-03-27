@@ -1,4 +1,4 @@
-import { UsersRepository } from './../../users/users.repository';
+import { UsersRepository } from '../../api/users/users.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
