@@ -13,7 +13,6 @@ import {
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductsService } from './products.service';
 
-@Public()
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
@@ -31,6 +30,7 @@ export class ProductsController {
   /**
    * @description 상품 정보 상세보기
    */
+  @Public()
   @Get('/:id')
   getProductDetail(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.getProductDetail(id);
@@ -43,6 +43,7 @@ export class ProductsController {
    * @Query (filter: 해시태그 키워드)
    * @Query (pagination: 페이지)
    */
+  @Public()
   @Get()
   getProductList() {
     return this.productsService.getProductList();

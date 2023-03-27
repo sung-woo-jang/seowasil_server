@@ -3,7 +3,6 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { Controller, Post, Get, Body } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 
-@Public()
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
@@ -11,6 +10,7 @@ export class OrdersController {
   /**
    * @description 주문하기
    */
+  @Public()
   @Post()
   createOrder(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.createOrder(createOrderDto);

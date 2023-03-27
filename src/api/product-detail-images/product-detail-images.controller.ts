@@ -1,4 +1,3 @@
-import { Public } from './../../common/decorators/skip-auth.decorator';
 import { ImageDetailSharpPipe } from '../../common/pipe/imageDetailSharp.pipe';
 import { ProductDetailImagesService } from './product-detail-images.service';
 import {
@@ -9,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 
-@Public()
 @Controller('product-detail-images')
 export class ProductDetailImagesController {
   constructor(

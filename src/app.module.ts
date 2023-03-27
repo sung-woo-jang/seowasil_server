@@ -18,7 +18,6 @@ import { ContactsModule } from './api/contacts/contacts.module';
 import { CommentsModule } from './api/comments/comments.module';
 import { AuthModule } from './api/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
-import { ImagesModule } from './api/images/images.module';
 import { S3Module } from './api/s3/s3.module';
 import { SmsModule } from './api/sms/sms.module';
 
@@ -60,7 +59,6 @@ import { SmsModule } from './api/sms/sms.module';
     ContactsModule,
     CommentsModule,
     AuthModule,
-    ImagesModule,
     S3Module,
     SmsModule,
   ],

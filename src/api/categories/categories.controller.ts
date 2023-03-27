@@ -13,7 +13,6 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
-@Public()
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
@@ -21,6 +20,7 @@ export class CategoriesController {
   /**
    * @description 카테고리 등록
    */
+  @Public()
   @Post()
   createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.createCategory(createCategoryDto);
@@ -45,6 +45,7 @@ export class CategoriesController {
   /**
    * @description 카테고리 정보 수정
    */
+  @Public()
   @Patch('/:id')
   updateCategory(
     @Body() updateCategoryDto: UpdateCategoryDto,
@@ -56,6 +57,7 @@ export class CategoriesController {
   /**
    * @description 카테고리 삭제
    */
+  @Public()
   @Delete('/:id')
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.deleteCategory(id);

@@ -10,9 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CartsService } from './carts.service';
-import { Public } from 'src/common/decorators/skip-auth.decorator';
 
-@Public()
 @Controller('carts')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}

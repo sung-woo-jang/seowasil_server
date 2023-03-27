@@ -18,6 +18,7 @@ import { User } from './entities/user.entity';
 import { Response } from 'express';
 import { Public } from 'src/common/decorators/skip-auth.decorator';
 
+@Public()
 @Controller('users')
 export class UsersController {
   constructor(
@@ -25,13 +26,11 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
-  @Public()
   @Post('/signup')
   signUp(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.signUp(createUserDto);
   }
 
-  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('/signin')
   async signIn(@Request() req, @Res({ passthrough: true }) res: Response) {
@@ -47,10 +46,9 @@ export class UsersController {
     res.cookie('AccessToken', accessToken, accessOption);
     res.cookie('RefreshToken', refreshToken, refreshOption);
 
-    return { accessToken, refreshToken, user };
+    return { user };
   }
 
-  @Public()
   @UseGuards(JwtRefreshGuard)
   @Post('logout')
   async logOut(@Request() req, @Res({ passthrough: true }) res: Response) {
@@ -69,7 +67,6 @@ export class UsersController {
     return res.send(jwt);
   }
 
-  @Public()
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
   refresh(@Request() req, @Res({ passthrough: true }) res: Response) {
@@ -80,7 +77,6 @@ export class UsersController {
     return user;
   }
 
-  @Public()
   @Get('/:id')
   async getUserById(@Param('id', ParseIntPipe) id: number) {
     return await this.usersService.getUserById(id);

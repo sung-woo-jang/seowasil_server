@@ -1,5 +1,4 @@
 import { UpdateDeliverAddressDto } from './dto/update-deliver-address.dto';
-import { Public } from './../../common/decorators/skip-auth.decorator';
 import { CreateDeliverAddressDto } from './dto/create-deliver-address.dto';
 import {
   Body,
@@ -12,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { DeliverAddressService } from './deliver-address.service';
 
-@Public()
 @Controller('deliver-address')
 export class DeliverAddressController {
   constructor(private readonly deliverAddressService: DeliverAddressService) {}

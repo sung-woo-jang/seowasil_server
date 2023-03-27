@@ -47,7 +47,7 @@ export class ProductsRepository extends Repository<Product> {
         'product.title',
         'product.description',
         'product.sellPrice',
-        'product.createdAt',
+        // 'product.createdAt',
         'productImageUrl.storedFileName',
         'category.name',
       ])

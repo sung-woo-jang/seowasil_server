@@ -13,6 +13,6 @@ export const typeOrmAsyncModuleOptions = {
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production
     // autoLoadEntities: true,
-    logging: process.env.MODE == 'dev',
+    // logging: process.env.MODE == 'dev',
   }),
 };

@@ -5,11 +5,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Public } from 'src/common/decorators/skip-auth.decorator';
 import { ImageSharpPipe } from 'src/common/pipe/imageSharp.pipe';
 import { ProductImagesService } from './product-images.service';
 
-@Public()
 @Controller('product-images')
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
