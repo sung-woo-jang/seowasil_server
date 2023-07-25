@@ -1,13 +1,13 @@
-import { S3Service } from '../../s3/s3.service';
-import { ProductDetailImagesRepository } from './product-detail-images.respsitory';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { ProductDetailImagesController } from './product-detail-images.controller';
 import { ProductDetailImagesService } from './product-detail-images.service';
+import { ProductDetailImagesController } from './product-detail-images.controller';
+
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProductDetailImage } from './entities/product-detail-image.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductDetailImagesRepository])],
+  imports: [TypeOrmModule.forFeature([ProductDetailImage])],
   controllers: [ProductDetailImagesController],
-  providers: [ProductDetailImagesService, S3Service],
+  providers: [ProductDetailImagesService],
 })
 export class ProductDetailImagesModule {}

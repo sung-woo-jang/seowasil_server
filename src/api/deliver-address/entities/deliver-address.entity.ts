@@ -1,6 +1,5 @@
-import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { CommonEntity } from 'src/common/entities/common.entity';
-import { User } from 'src/api/users/entities/user.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class DeliverAddress extends CommonEntity {
@@ -20,16 +19,4 @@ export class DeliverAddress extends CommonEntity {
     default: true,
   })
   isDefault: boolean;
-
-  @ManyToOne(() => User, (user: User) => user.address, {
-    onDelete: 'CASCADE', // 사용자가 삭제되면 연결된 것도 삭제된다.
-  })
-  @JoinColumn([
-    // foreignkey 정보들
-    {
-      name: 'user_id' /* db에 저장되는 필드 이름 */,
-      referencedColumnName: 'id' /* USER의 id */,
-    },
-  ])
-  user: User;
 }

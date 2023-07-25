@@ -1,16 +1,15 @@
-import { DeliverAddressRepository } from './../deliver-address/deliver-address.repository';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from '../../auth/auth.service';
-import { UsersRepository } from './users.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
+import { User } from './entities/user.entity';
+import { UsersRepository } from './users.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UsersRepository, DeliverAddressRepository]),
+    TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -25,6 +24,7 @@ import { UsersController } from './users.controller';
     }),
   ],
   controllers: [UsersController],
-  providers: [UsersService, AuthService],
+  providers: [UsersService, UsersRepository],
+  exports: [UsersRepository],
 })
 export class UsersModule {}

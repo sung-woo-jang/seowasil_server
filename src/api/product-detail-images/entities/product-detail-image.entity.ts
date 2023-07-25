@@ -2,7 +2,7 @@ import { CommonEntity } from 'src/common/entities/common.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class ProductDetailImages extends CommonEntity {
+export class ProductDetailImage extends CommonEntity {
   @Column({
     type: 'simple-array',
     comment: '서버에 저장 될 상품설명 이미지 파일명',

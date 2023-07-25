@@ -1,8 +1,6 @@
-import { Product } from 'src/api/products/entities/product.entity';
-import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
-import { CommonEntity } from 'src/common/entities/common.entity';
-import { User } from 'src/api/users/entities/user.entity';
 import { Transform } from 'class-transformer';
+import { CommonEntity } from 'src/common/entities/common.entity';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Order extends CommonEntity {
@@ -34,25 +32,4 @@ export class Order extends CommonEntity {
     nullable: false,
   })
   price: number;
-
-  @ManyToOne(() => User, (user: User) => user.orders, {
-    onDelete: 'CASCADE', // 사용자가 삭제되면 주문내역도 삭제된다.
-  })
-  @JoinColumn([
-    // foreignkey 정보들
-    {
-      name: 'user_id' /* db에 저장되는 필드 이름 */,
-      referencedColumnName: 'id' /* USER의 id */,
-    },
-  ])
-  user: User;
-
-  @ManyToOne(() => Product, (product: Product) => product.order)
-  @JoinColumn([
-    {
-      name: 'product_id',
-      referencedColumnName: 'id',
-    },
-  ])
-  product: Product;
 }

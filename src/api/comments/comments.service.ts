@@ -1,46 +1,6 @@
-import { CommentsRepository } from './comments.repository';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { Comment } from './entities/comment.entity';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
-export class CommentsService {
-  constructor(
-    @InjectRepository(CommentsRepository)
-    private commentsRepository: CommentsRepository,
-  ) {}
-
-  async createComment(createCommentDto: CreateCommentDto) {
-    const result = await this.commentsRepository.save({
-      ...createCommentDto,
-    });
-    return result;
-  }
-
-  async getCommentList() {
-    const result = await this.commentsRepository.find();
-    return result;
-  }
-
-  async getComment(id: number) {
-    const result = await this.commentsRepository.findOne({ id });
-
-    return result;
-  }
-
-  async updateComment(updateCommentDto: UpdateCommentDto, id: number) {
-    const result = await this.commentsRepository
-      .createQueryBuilder('comment')
-      .update(Comment)
-      .set({ ...updateCommentDto })
-      .where('id = :id', { id })
-      .execute();
-    return result;
-  }
-
-  async deleteComment(id: number) {
-    return await this.commentsRepository.delete(id);
-  }
-}
+export class CommentsService {}

@@ -1,37 +1,20 @@
-import { CreateCartDto } from './dto/create-cart.dto';
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  ParseIntPipe,
-  Patch,
   Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
 } from '@nestjs/common';
 import { CartsService } from './carts.service';
+import { CreateCartDto } from './dto/create-cart.dto';
+import { UpdateCartDto } from './dto/update-cart.dto';
 
 @Controller('carts')
 export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
-
-  @Post()
-  async createCart(@Body() createCartDto: CreateCartDto) {
-    return await this.cartsService.createCart(createCartDto);
-  }
-
-  @Get('/:user_id')
-  async getCartByUser(@Param('user_id', ParseIntPipe) userId: number) {
-    return await this.cartsService.getCartByUser(userId);
-  }
-
-  @Patch('/:id')
-  async updateCart() {
-    return await this.cartsService.updateCart();
-  }
-
-  @Delete('/:id')
-  async deleteCart(@Param('id', ParseIntPipe) id: number) {
-    return await this.cartsService.deleteCart(id);
-  }
+  // 장바구니에 상품 등록
+  // (사용자별) 장바구니 가져오기
+  // 장바구니에 상품 삭제
 }

@@ -1,26 +1,23 @@
 import {
   Controller,
+  Get,
   Post,
-  UploadedFiles,
-  UseInterceptors,
+  Body,
+  Patch,
+  Param,
+  Delete,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
-import { ImageSharpPipe } from 'src/common/pipe/imageSharp.pipe';
 import { ProductImagesService } from './product-images.service';
+import { CreateProductImageDto } from './dto/create-product-image.dto';
+import { UpdateProductImageDto } from './dto/update-product-image.dto';
 
 @Controller('product-images')
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
-
-  // 이미지를 먼저 서버에 업로드를 시킨다.
-  // 게시물 정보를 입력하고 저장을 한다.
-  // 이미지와 게시물을 연결시켜준다.
-
-  @Post()
-  @UseInterceptors(FilesInterceptor('files', 10))
-  async uploadProductImage(
-    @UploadedFiles(ImageSharpPipe) files: Array<Express.Multer.File>,
-  ) {
-    return await this.productImagesService.uploadProductImage(files);
-  }
+  // 상품 사진 저장
+  /* 
+  - 이미지 sharp
+  - 이미지 파일 시스템 저장
+  - 이미지 이름 DB저장
+  */
 }

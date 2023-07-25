@@ -1,5 +1,5 @@
 import { CommonEntity } from 'src/common/entities/common.entity';
-import { Entity, Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Comment extends CommonEntity {

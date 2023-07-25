@@ -12,6 +12,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     });
   }
 
+  // 일단 로그인 할 때만 사용하는 용도로 작성.
   async validate(account: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(account, password);
     if (!user) {
