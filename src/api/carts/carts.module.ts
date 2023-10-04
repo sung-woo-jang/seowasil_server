@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CartsService } from './carts.service';
 import { CartsController } from './carts.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cart } from './entities/cart.entity';
+import { CartsRepository } from './carts.repository';
+import { RepositoryModule } from 'src/database/repository/repository.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Cart])],
+  imports: [RepositoryModule.forCustomRepository([CartsRepository])],
   controllers: [CartsController],
   providers: [CartsService],
 })

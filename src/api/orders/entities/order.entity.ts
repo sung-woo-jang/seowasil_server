@@ -1,9 +1,11 @@
+import { Product } from '@app/products/entities/product.entity';
+import { User } from '@app/users/entities/user.entity';
+import { CommonEntity } from '@common/entities/common.entity';
 import { Transform } from 'class-transformer';
-import { CommonEntity } from 'src/common/entities/common.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Order extends CommonEntity {
+export class Order extends CommonEntity<Order> {
   @Column({ type: 'varchar', comment: '주문자명', nullable: false })
   name: string;
 
@@ -14,13 +16,13 @@ export class Order extends CommonEntity {
   deliveryRequest: string;
 
   @Column({ type: 'varchar', comment: '우편번호', nullable: false })
-  address1: string;
+  postalCode: string;
 
   @Column({ type: 'varchar', comment: '주소', nullable: false })
-  address2: string;
+  address1: string;
 
   @Column({ type: 'varchar', comment: '상세주소', nullable: false })
-  address3: string;
+  address2: string;
 
   @Transform(({ value }) => Number(value))
   @Column({ type: 'integer', comment: '주문 수량', nullable: false })
@@ -32,4 +34,30 @@ export class Order extends CommonEntity {
     nullable: false,
   })
   price: number;
+
+  @ManyToOne(() => User, (user: User) => user.orders, {
+    nullable: false,
+    onDelete: 'CASCADE', // 사용자가 삭제되면 주문내역도 삭제된다.
+  })
+  @JoinColumn([
+    // foreignkey 정보들
+    {
+      name: 'user_id' /* db에 저장되는 필드 이름 */,
+      referencedColumnName: 'id' /* USER의 id */,
+    },
+  ])
+  user: User;
+
+  @ManyToOne(() => Product, (product: Product) => product.orders, {
+    nullable: false,
+    onDelete: 'CASCADE', // 사용자가 삭제되면 주문내역도 삭제된다.
+  })
+  @JoinColumn([
+    // foreignkey 정보들
+    {
+      name: 'product_id' /* db에 저장되는 필드 이름 */,
+      referencedColumnName: 'id' /* USER의 id */,
+    },
+  ])
+  product: Product;
 }

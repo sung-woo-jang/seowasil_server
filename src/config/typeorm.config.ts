@@ -1,15 +1,21 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
+import {
+  TypeOrmModuleAsyncOptions,
+  TypeOrmModuleOptions,
+} from '@nestjs/typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-export const typeOrmAsyncModuleOptions = {
+export const typeOrmAsyncModuleOptions: TypeOrmModuleAsyncOptions = {
+  inject: [ConfigService],
   useFactory: async (): Promise<TypeOrmModuleOptions> => ({
     namingStrategy: new SnakeNamingStrategy(),
     type: 'postgres',
-    host: process.env.HOST,
+    host: 'localhost',
     port: 5432,
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    logging: false,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production
     // autoLoadEntities: true,

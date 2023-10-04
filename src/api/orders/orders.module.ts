@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from './entities/order.entity';
+import { OrdersRepository } from './orders.repository';
+import { RepositoryModule } from 'src/database/repository/repository.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order])],
+  imports: [RepositoryModule.forCustomRepository([OrdersRepository])],
   controllers: [OrdersController],
   providers: [OrdersService],
 })

@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { NoticesService } from './notices.service';
 import { NoticesController } from './notices.controller';
 
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Notice } from './entities/notice.entity';
+import { NoticesRepository } from './notices.repository';
+import { RepositoryModule } from 'src/database/repository/repository.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Notice])],
+  imports: [RepositoryModule.forCustomRepository([NoticesRepository])],
   controllers: [NoticesController],
   providers: [NoticesService],
 })

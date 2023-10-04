@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { DeliverAddressService } from './deliver-address.service';
 import { DeliverAddressController } from './deliver-address.controller';
 
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DeliverAddress } from './entities/deliver-address.entity';
+import { DeliverAddressRepository } from './deliver-address.repository';
+import { RepositoryModule } from 'src/database/repository/repository.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([DeliverAddress])],
+  imports: [RepositoryModule.forCustomRepository([DeliverAddressRepository])],
   controllers: [DeliverAddressController],
   providers: [DeliverAddressService],
 })

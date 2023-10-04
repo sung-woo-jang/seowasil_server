@@ -1,18 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { UsersRepository } from 'src/api/users/users.repository';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/api/users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
-import { CreateUserDto } from 'src/api/users/dto/create-user.dto';
+import { DataSource } from 'typeorm';
+import { User } from '@app/users/entities/user.entity';
+import { CreateUserAndAddressDto } from '@app/users/dto/create-user.dto';
+import { UsersRepository } from '@app/users/users.repository';
+import { UsersService } from '@app/users/users.service';
+import { DeliverAddressRepository } from '@app/deliver-address/deliver-address.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly dataSource: DataSource,
     private readonly userRepository: UsersRepository,
+    private readonly deliverAddressRepository: DeliverAddressRepository,
+    private readonly userService: UsersService,
     private jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
+
+  async createUser(createUserAndAddressDto: CreateUserAndAddressDto) {
+    const { postalCode, address1, address2, ...createUserDto } =
+      createUserAndAddressDto;
+
+    const hashedPassword = await bcrypt.hash(
+      createUserDto.password,
+      await bcrypt.genSalt(),
+    );
+
+    const user = await this.dataSource.transaction(async (manager) => {
+      const user = await manager
+        .withRepository(this.userRepository)
+        .createUser({ ...createUserDto, password: hashedPassword });
+      await manager
+        .withRepository(this.deliverAddressRepository)
+        .save({ postalCode, address1, address2, user });
+
+      return user;
+    });
+
+    return await this.userService.findById(user.id);
+  }
 
   async validateUser(account: string, password: string): Promise<any> {
     const user = await this.userRepository.findUserByAccount(account);
@@ -20,14 +49,12 @@ export class AuthService {
     if (user && (await bcrypt.compare(password, user.password))) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
+
       //비밀번호를 제외하고 유저 정보를 반환
       return result;
     }
-    return null;
-  }
 
-  async createUser(createUserDto: CreateUserDto) {
-    return await this.userRepository.createUser(createUserDto);
+    throw new ForbiddenException('아이디와 비밀번호를 다시 확인해주세요.');
   }
 
   async login(user: User) {
@@ -41,7 +68,7 @@ export class AuthService {
     };
   }
 
-  async logOut() {
+  logOut() {
     return {
       token: '',
       domain: 'localhost',

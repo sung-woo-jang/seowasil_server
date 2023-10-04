@@ -2,11 +2,17 @@ import { Module } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { ContactsController } from './contacts.controller';
 
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Contact } from './entities/contact.entity';
+import { ContactsRepository } from './contacts.repository';
+import { ContactCategoryRepository } from '@app/contact-category/contact-category.repository';
+import { RepositoryModule } from 'src/database/repository/repository.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Contact])],
+  imports: [
+    RepositoryModule.forCustomRepository([
+      ContactsRepository,
+      ContactCategoryRepository,
+    ]),
+  ],
   controllers: [ContactsController],
   providers: [ContactsService],
 })

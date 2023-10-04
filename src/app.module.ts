@@ -1,11 +1,9 @@
-import { Module } from '@nestjs/common';
+import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { UsersModule } from './api/users/users.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { CartsModule } from './api/carts/carts.module';
 import { CategoriesModule } from './api/categories/categories.module';
@@ -14,9 +12,10 @@ import { ContactsModule } from './api/contacts/contacts.module';
 import { DeliverAddressModule } from './api/deliver-address/deliver-address.module';
 import { NoticesModule } from './api/notices/notices.module';
 import { OrdersModule } from './api/orders/orders.module';
-import { ProductDetailImagesModule } from './api/product-detail-images/product-detail-images.module';
-import { ProductImagesModule } from './api/product-images/product-images.module';
 import { ProductsModule } from './api/products/products.module';
+import { ContactCategoryModule } from './api/contact-category/contact-category.module';
+import { DatabaseModule } from './database/database.module';
+import { RolesGuard } from './auth/guards/role.guard';
 
 @Module({
   imports: [
@@ -34,7 +33,7 @@ import { ProductsModule } from './api/products/products.module';
         JWT_EXPIRESIN: Joi.number().required(),
       }),
     }),
-    TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
+    // TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
     AuthModule,
     UsersModule,
     CartsModule,
@@ -44,13 +43,21 @@ import { ProductsModule } from './api/products/products.module';
     DeliverAddressModule,
     NoticesModule,
     OrdersModule,
-    ProductDetailImagesModule,
-    ProductImagesModule,
     ProductsModule,
+    ContactCategoryModule,
+    DatabaseModule,
   ],
   providers: [
     // 전역 가드
     { provide: APP_GUARD, useClass: JwtAuthGuard },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
   ],
 })
 export class AppModule {}

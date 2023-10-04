@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDeliverAddressDto } from './dto/create-deliver-address.dto';
-import { UpdateDeliverAddressDto } from './dto/update-deliver-address.dto';
+import { DeliverAddressRepository } from './deliver-address.repository';
 
 @Injectable()
-export class DeliverAddressService {}
+export class DeliverAddressService {
+  constructor(
+    private readonly deliverAddressRepository: DeliverAddressRepository,
+  ) {}
+}

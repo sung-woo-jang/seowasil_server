@@ -1,8 +1,10 @@
-import { CommonEntity } from 'src/common/entities/common.entity';
-import { Column, Entity } from 'typeorm';
+import { Comment } from '@app/comments/entities/comment.entity';
+import { ContactCategory } from '@app/contact-category/entities/contact-category.entity';
+import { CommonEntity } from '@common/entities/common.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 
 @Entity()
-export class Contact extends CommonEntity {
+export class Contact extends CommonEntity<Contact> {
   @Column({ type: 'varchar', comment: '문의 제목', nullable: false })
   title: string;
 
@@ -15,11 +17,18 @@ export class Contact extends CommonEntity {
   @Column({ type: 'varchar', comment: '문의글 비밀번호', nullable: false })
   password: string;
 
-  @Column({
-    type: 'varchar',
-    comment: '문의 카테고리',
-    nullable: false,
-    default: '기타',
-  })
-  category: string;
+  @ManyToOne(
+    () => ContactCategory,
+    (contactCategory: ContactCategory) => contactCategory.contact,
+    { nullable: false, onDelete: 'CASCADE' },
+  )
+  @JoinColumn({}) // 식별 관계에서는 @JoinColumn()를 자식 엔티티에 설정
+  contactCategory: ContactCategory;
+
+  @OneToOne(() => Comment, { cascade: true, nullable: true })
+  @JoinColumn({
+    name: 'comment_id' /* db에 저장되는 필드 이름 */,
+    referencedColumnName: 'id' /* USER의 id */,
+  }) // 식별 관계에서는 @JoinColumn()를 부모 엔티티에 설정
+  comment: Comment;
 }

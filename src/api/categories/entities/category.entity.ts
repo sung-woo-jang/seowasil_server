@@ -1,9 +1,10 @@
-import { CommonEntity } from 'src/common/entities/common.entity';
-import { Column, Entity, Index } from 'typeorm';
+import { Product } from '@app/products/entities/product.entity';
+import { CommonEntity } from '@common/entities/common.entity';
+import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 @Index(['name'], { unique: true })
 @Entity()
-export class Category extends CommonEntity {
+export class Category extends CommonEntity<Category> {
   @Column({ type: 'varchar', comment: '카테고리명', nullable: false })
   name: string;
 
@@ -16,4 +17,9 @@ export class Category extends CommonEntity {
 
   @Column({ type: 'varchar', comment: '과명(측백나무과)', nullable: true })
   department: string;
+
+  @OneToMany(() => Product, (products: Product) => products.category, {
+    cascade: true,
+  })
+  products: Product[];
 }

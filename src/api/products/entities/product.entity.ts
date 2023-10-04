@@ -1,6 +1,11 @@
 import { IsNumberString } from 'class-validator';
-import { CommonEntity } from 'src/common/entities/common.entity';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { ProductImage } from './product-image.entity';
+import { ProductDetailImage } from './product-detail-image.entity';
+import { Category } from '@app/categories/entities/category.entity';
+import { Order } from '@app/orders/entities/order.entity';
+import { Cart } from '@app/carts/entities/cart.entity';
+import { CommonEntity } from '@common/entities/common.entity';
 
 export enum Status {
   SALE = '판매중',
@@ -9,7 +14,7 @@ export enum Status {
 }
 
 @Entity()
-export class Product extends CommonEntity {
+export class Product extends CommonEntity<Product> {
   @Column({ type: 'varchar', comment: '상품명', nullable: false })
   title: string;
 
@@ -50,4 +55,31 @@ export class Product extends CommonEntity {
     default: 0,
   })
   viewCount: number;
+
+  @OneToMany(
+    () => ProductImage,
+    (productImage: ProductImage) => productImage.product,
+    { cascade: true },
+  )
+  productImageUrl: ProductImage[];
+
+  @OneToMany(
+    () => ProductDetailImage,
+    (productDetailImageUrl: ProductDetailImage) =>
+      productDetailImageUrl.product,
+    { cascade: true },
+  )
+  productDetailImageUrl: ProductDetailImage[];
+
+  @OneToMany(() => Cart, (cart: Cart) => cart.product, { cascade: true })
+  carts: Cart[];
+
+  @OneToMany(() => Order, (order: Order) => order.product, { cascade: true })
+  orders: Order[];
+
+  @ManyToOne(() => Category, (category: Category) => category.products, {
+    onDelete: 'CASCADE',
+    nullable: false,
+  })
+  category: Category;
 }

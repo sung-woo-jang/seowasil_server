@@ -1,12 +1,17 @@
-import { IsString, IsNotEmpty } from 'class-validator';
-import { PickType } from '@nestjs/swagger';
+import { IntersectionType, PickType } from '@nestjs/swagger';
 import { User } from '../entities/user.entity';
+import { CreateDeliverAddressDto } from '@app/deliver-address/dto/create-deliver-address.dto';
+// import { Transform } from 'class-transformer';
+// import * as bcrypt from 'bcryptjs';
 
 export class CreateUserDto extends PickType(User, [
   'account',
   'username',
-] as const) {
-  @IsString()
-  @IsNotEmpty({ message: '비밀번호를 작성해주세요.' })
-  password: string;
-}
+  'password',
+  'phoneNumber',
+] as const) {}
+
+export class CreateUserAndAddressDto extends IntersectionType(
+  CreateUserDto,
+  CreateDeliverAddressDto,
+) {}

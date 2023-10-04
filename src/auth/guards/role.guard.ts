@@ -8,7 +8,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { Role } from 'src/api/users/entities/user.entity';
+import { Role } from '@app/users/entities/user.entity';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -23,7 +23,6 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-
     if (!requiredRoles) {
       // roles 정보가 없다면 true 반환하여 모든 사용자가 접근 가능하게 함
       return true;

@@ -6,16 +6,17 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
 import { IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export abstract class CommonEntity extends BaseEntity {
+export abstract class CommonEntity<T> extends BaseEntity {
   @ApiProperty({
     example: 1,
     description: 'id',
     required: false,
   })
+  @Transform(({ value }) => Number(value))
   @IsNumber()
   @Index({ unique: true })
   @PrimaryGeneratedColumn('increment')
@@ -51,4 +52,9 @@ export abstract class CommonEntity extends BaseEntity {
   @Exclude()
   @DeleteDateColumn({ type: 'timestamptz' })
   deletedAt?: Date | null;
+
+  constructor(item: Partial<T>) {
+    super();
+    Object.assign(this, item);
+  }
 }
