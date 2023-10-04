@@ -12,9 +12,9 @@ export const typeOrmAsyncModuleOptions: TypeOrmModuleAsyncOptions = {
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    username: 'postgres',
+    password: 'Tjddn062$',
+    database: 'common',
     logging: false,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production
