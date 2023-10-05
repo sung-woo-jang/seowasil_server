@@ -16,17 +16,46 @@ export class ProductsRepository extends Repository<Product> {
 
   async getProductDetail(id: number) {
     return await this.createQueryBuilder('product')
-      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
-      .leftJoinAndSelect(
-        'product.productDetailImageUrl',
-        'productDetailImageUrl',
-      )
-      .where('id =:id', { id })
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+        'product.isBest',
+        'product.status',
+        'product.viewCount',
+        'productImageUrl.id',
+        'productImageUrl.storedFileName',
+        'productDetailImageUrl.id',
+        'productDetailImageUrl.storedFileName',
+      ])
+      .leftJoin('product.productImageUrl', 'productImageUrl')
+      .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
+
+      .where('product.id =:id', { id })
       .getOne();
   }
   async getProductList() {
     return await this.createQueryBuilder('product')
-      .leftJoinAndSelect('product.productImageUrl', 'productImageUrl')
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+        'product.isBest',
+        'product.status',
+        'product.viewCount',
+        'productImageUrl.id',
+        'productImageUrl.storedFileName',
+        'productDetailImageUrl.id',
+        'productDetailImageUrl.storedFileName',
+      ])
+      .leftJoin('product.productImageUrl', 'productImageUrl')
+      .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
       .getMany();
   }
   async updateProduct(id: number) {

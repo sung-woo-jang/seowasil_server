@@ -27,19 +27,21 @@ export class ProductsService {
       createProductDto.categoryId,
       false,
     );
-
-    await this.dataSource.transaction(async (manager) => {
-      await manager.withRepository(this.productImagesRepository);
-      await manager.withRepository(this.productDetailImagesRepository);
-      throw new Error('Method not implemented.');
+    const product = await this.dataSource.transaction(async (manager) => {
       const product = await manager
         .withRepository(this.productsRepository)
         .createProduct(createProductDto, category);
-      console.log(product);
+      await manager
+        .withRepository(this.productImagesRepository)
+        .createProductImage(files.productImages, product);
+      await manager
+        .withRepository(this.productDetailImagesRepository)
+        .createProductDetailImage(files.detailImages, product);
+      return product;
     });
-
-    console.log(category);
-    throw new Error('Method not implemented.');
+    console.log(product);
+    const result = await this.getProductDetail(product.id);
+    return result;
   }
   async getProductDetail(id: number) {
     return await this.productsRepository.getProductDetail(id);

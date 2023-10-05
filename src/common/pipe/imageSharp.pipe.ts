@@ -15,7 +15,6 @@ export class ImageSharpPipe
     detailImages: Express.Multer.File[];
   }) {
     const transformedFiles = { ...files };
-
     for (const field in files) {
       transformedFiles[field] = [];
       for (const [index, file] of files[field].entries()) {
@@ -27,6 +26,7 @@ export class ImageSharpPipe
             .resize(600, 600)
             .toFile(join('uploads', newFileName));
           file.path = join('uploads', newFileName);
+          file.filename = newFileName;
           transformedFiles[field].push(file);
         } catch (error) {
           console.error(
