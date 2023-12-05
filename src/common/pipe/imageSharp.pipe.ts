@@ -23,7 +23,7 @@ export class ImageSharpPipe
             file.originalname,
           )}`;
           await sharp(file.buffer)
-            .resize(600, 600)
+            // .resize(600, 600)
             .toFile(join('uploads', newFileName));
           file.path = join('uploads', newFileName);
           file.filename = newFileName;

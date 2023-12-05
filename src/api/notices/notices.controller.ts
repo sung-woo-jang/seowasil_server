@@ -6,13 +6,11 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   ParseIntPipe,
 } from '@nestjs/common';
 import { NoticesService } from './notices.service';
 import { CreateNoticeDto } from './dto/create-notice.dto';
 import { Public } from '@common/decorators/skip-auth.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('notices')
 export class NoticesController {

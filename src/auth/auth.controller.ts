@@ -20,6 +20,7 @@ export class AuthController {
 
   @Post('signup')
   createUser(@Body() createUserAndAddressDto: CreateUserAndAddressDto) {
+    console.log(2);
     return this.authService.createUser(createUserAndAddressDto);
   }
 

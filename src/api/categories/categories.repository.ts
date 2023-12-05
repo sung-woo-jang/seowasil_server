@@ -6,16 +6,32 @@ import { CustomRepository } from 'src/database/repository/repository.decorator';
 @CustomRepository(Category)
 export class CategoriesRepository extends Repository<Category> {
   async getCategories() {
-    return await this.createQueryBuilder('category').getOne();
+    return await this.createQueryBuilder('category').getMany();
   }
 
   async getProductsByCategoryId(id: number, products: boolean) {
-    return await this.findOne({
-      relations: { products },
-      where: {
-        id,
-      },
-    });
+    return await this.createQueryBuilder('category')
+      .select([
+        'category.id',
+        'category.name',
+        'category.scientific',
+        'category.department',
+
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+
+        'productImageUrl.id',
+        'productImageUrl.storedFileName',
+      ])
+      .leftJoin('category.products', 'product')
+      .leftJoin('product.productImageUrl', 'productImageUrl')
+      .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
+      .where('category.id =:id', { id })
+      .getOne();
   }
 
   async patchCategory(id: number) {

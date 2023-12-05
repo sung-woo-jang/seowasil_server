@@ -18,15 +18,15 @@ export class CategoriesController {
 
   // 카테고리 등록
   @Post()
-  createCategory(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.createCategory(createCategoryDto);
+  async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
+    return await this.categoriesService.createCategory(createCategoryDto);
   }
 
   // 카테고리 목록 가져오기
   @Public()
   @Get()
-  getCategories() {
-    return this.categoriesService.getCategories();
+  async getCategories() {
+    return await this.categoriesService.getCategories();
   }
 
   // 카테고리 가져오기
@@ -39,14 +39,14 @@ export class CategoriesController {
   // 카테고리 정보 수정
 
   @Patch('/:id')
-  patchCategory(@Param('id', ParseIntPipe) id: number) {
-    return this.categoriesService.patchCategory(id);
+  async patchCategory(@Param('id', ParseIntPipe) id: number) {
+    return await this.categoriesService.patchCategory(id);
   }
 
   // 카테고리 삭제
 
   @Delete('/:id')
-  deleteCategory(@Param('id', ParseIntPipe) id: number) {
-    return this.categoriesService.deleteCategory(id);
+  async deleteCategory(@Param('id', ParseIntPipe) id: number) {
+    return await this.categoriesService.deleteCategory(id);
   }
 }

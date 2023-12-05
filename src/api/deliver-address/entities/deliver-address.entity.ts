@@ -5,13 +5,13 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 @Entity()
 export class DeliverAddress extends CommonEntity<DeliverAddress> {
   @Column({ type: 'varchar', comment: '우편번호', nullable: false })
-  postalCode: string;
+  zoneCode: string;
 
   @Column({ type: 'varchar', comment: '주소', nullable: false })
-  address1: string;
+  roadAddress: string;
 
   @Column({ type: 'varchar', comment: '상세주소', nullable: false })
-  address2: string;
+  detailAddress: string;
 
   @Column({
     type: 'boolean',

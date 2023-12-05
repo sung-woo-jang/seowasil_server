@@ -57,6 +57,13 @@ export class ProductsController {
     return this.productsService.getProductList();
   }
 
+  // 상품 전체 가져오기 (페이지네이션 구현)
+  @Public()
+  @Get()
+  getProductListByCategories(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.getProductListByCategories(id);
+  }
+
   // 상품정보 수정
   @Patch('/:id')
   updateProduct(@Param('id', ParseIntPipe) id: number) {

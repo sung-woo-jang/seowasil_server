@@ -1,4 +1,4 @@
-import { IsNumberString } from 'class-validator';
+import { IsNumberString, IsOptional } from 'class-validator';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ProductImage } from './product-image.entity';
 import { ProductDetailImage } from './product-detail-image.entity';
@@ -21,6 +21,7 @@ export class Product extends CommonEntity<Product> {
   @Column({ type: 'varchar', comment: '상품 설명', nullable: false })
   description: string;
 
+  @IsOptional()
   @IsNumberString()
   @Column({ type: 'integer', comment: '상품 가격', nullable: true })
   prevPrice: number;
@@ -29,29 +30,32 @@ export class Product extends CommonEntity<Product> {
   @Column({ type: 'integer', comment: '판매 가격', nullable: false })
   sellPrice: number;
 
+  // @IsOptional()
   @IsNumberString()
-  @Column({ type: 'integer', comment: '최소 주문 수량', nullable: false })
+  @Column({ type: 'integer', comment: '최소 주문 수량', nullable: true })
   minAmount: number;
 
   @Column({
     type: 'boolean',
     comment: '최고 인기상품',
-    default: false,
+    default: true,
   })
   isBest: boolean;
 
+  @IsOptional()
   @Column({
     type: 'varchar',
     comment: '판매 상태',
-    nullable: false,
+    nullable: true,
     default: Status.SALE,
   })
   status: Status;
 
+  @IsOptional()
   @Column({
     type: 'integer',
     comment: '상품 설명',
-    nullable: false,
+    nullable: true,
     default: 0,
   })
   viewCount: number;

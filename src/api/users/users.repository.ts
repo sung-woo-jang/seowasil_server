@@ -29,9 +29,9 @@ export class UsersRepository extends Repository<User> {
         'user.role',
         'user.password',
         'address.id',
-        'address.postalCode',
-        'address.address1',
-        'address.address2',
+        'address.zoneCode',
+        'address.roadAddress',
+        'address.detailAddress',
       ])
       .getOne();
   }
@@ -48,9 +48,9 @@ export class UsersRepository extends Repository<User> {
         'user.role',
         'user.password',
         'address.id',
-        'address.postalCode',
-        'address.address1',
-        'address.address2',
+        'address.zoneCode',
+        'address.roadAddress',
+        'address.detailAddress',
       ])
       .getOne();
   }

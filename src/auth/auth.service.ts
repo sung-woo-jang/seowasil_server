@@ -21,25 +21,24 @@ export class AuthService {
   ) {}
 
   async createUser(createUserAndAddressDto: CreateUserAndAddressDto) {
-    const { postalCode, address1, address2, ...createUserDto } =
+    const { zoneCode, roadAddress, detailAddress, ...createUserDto } =
       createUserAndAddressDto;
 
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
       await bcrypt.genSalt(),
     );
-
+    console.log(3);
     const user = await this.dataSource.transaction(async (manager) => {
       const user = await manager
         .withRepository(this.userRepository)
         .createUser({ ...createUserDto, password: hashedPassword });
       await manager
         .withRepository(this.deliverAddressRepository)
-        .save({ postalCode, address1, address2, user });
+        .save({ zoneCode, roadAddress, detailAddress, user });
 
       return user;
     });
-
     return await this.userService.findById(user.id);
   }
 

@@ -30,14 +30,42 @@ export class ProductsRepository extends Repository<Product> {
         'productImageUrl.storedFileName',
         'productDetailImageUrl.id',
         'productDetailImageUrl.storedFileName',
+        'category.name',
+        'category.scientific',
+        'category.department',
       ])
       .leftJoin('product.productImageUrl', 'productImageUrl')
       .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
-
+      .leftJoin('product.category', 'category')
       .where('product.id =:id', { id })
       .getOne();
   }
   async getProductList() {
+    return await this.createQueryBuilder('product')
+      .select([
+        'product.id',
+        'product.title',
+        'product.description',
+        'product.prevPrice',
+        'product.sellPrice',
+        'product.minAmount',
+        'product.isBest',
+        'product.status',
+        'product.viewCount',
+        'productImageUrl.id',
+        'productImageUrl.storedFileName',
+        // 'productDetailImageUrl.id',
+        // 'productDetailImageUrl.storedFileName',
+        'category.name',
+        'category.scientific',
+        'category.department',
+      ])
+      .leftJoin('product.productImageUrl', 'productImageUrl')
+      .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
+      .leftJoin('product.category', 'category')
+      .getMany();
+  }
+  async getProductListByCategories(id: number) {
     return await this.createQueryBuilder('product')
       .select([
         'product.id',
@@ -56,6 +84,7 @@ export class ProductsRepository extends Repository<Product> {
       ])
       .leftJoin('product.productImageUrl', 'productImageUrl')
       .leftJoin('product.productDetailImageUrl', 'productDetailImageUrl')
+      .where('product.id =:id', { id })
       .getMany();
   }
   async updateProduct(id: number) {

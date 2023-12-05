@@ -1,11 +1,10 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductDetailImagesRepository } from './repository/product-detail-images.repository';
 import { ProductsRepository } from './repository/products.repository';
 import { ProductImagesRepository } from './repository/product-images.repository';
 import { DataSource } from 'typeorm';
 import { CategoriesRepository } from '@app/categories/categories.repository';
-import { Product } from './entities/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -39,7 +38,6 @@ export class ProductsService {
         .createProductDetailImage(files.detailImages, product);
       return product;
     });
-    console.log(product);
     const result = await this.getProductDetail(product.id);
     return result;
   }
@@ -47,7 +45,11 @@ export class ProductsService {
     return await this.productsRepository.getProductDetail(id);
   }
   async getProductList() {
-    return await this.productsRepository.getProductList();
+    const result = await this.productsRepository.getProductList();
+    return result;
+  }
+  async getProductListByCategories(id: number) {
+    return await this.productsRepository.getProductListByCategories(id);
   }
   async updateProduct(id: number) {
     return await this.productsRepository.updateProduct(id);
