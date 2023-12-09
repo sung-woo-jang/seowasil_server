@@ -8,6 +8,7 @@ export class ProductImage extends CommonEntity<ProductImage> {
     type: 'varchar',
     comment: '서버에 저장 될 파일명',
     nullable: false,
+    default: 'default_product.jpg',
   })
   storedFileName: string;
 

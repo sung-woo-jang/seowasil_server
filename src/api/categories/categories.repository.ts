@@ -23,7 +23,6 @@ export class CategoriesRepository extends Repository<Category> {
         'product.prevPrice',
         'product.sellPrice',
         'product.minAmount',
-
         'productImageUrl.id',
         'productImageUrl.storedFileName',
       ])

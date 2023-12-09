@@ -28,7 +28,6 @@ export class AuthService {
       createUserDto.password,
       await bcrypt.genSalt(),
     );
-    console.log(3);
     const user = await this.dataSource.transaction(async (manager) => {
       const user = await manager
         .withRepository(this.userRepository)
