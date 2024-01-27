@@ -16,6 +16,7 @@ export class CategoriesService {
   ) {}
 
   async createCategory(createCategoryDto: CreateCategoryDto) {
+    console.log(createCategoryDto);
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -27,7 +28,7 @@ export class CategoriesService {
 
       await queryRunner.commitTransaction();
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       await queryRunner.rollbackTransaction();
       if (error.code === '23505') {
         throw new ConflictException('중복된 이름입니다.');
