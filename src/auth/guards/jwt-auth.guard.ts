@@ -23,7 +23,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (isPublic) {
       return true;
     }
-
     if (request.cookies.Authentication === undefined) {
       throw new HttpException(
         '이 ID를 가진 사용자가 없습니다.',

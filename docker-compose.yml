@@ -1,11 +1,23 @@
 version: '3.8'
 services:
-  db:
+  seowasil-db:
+    container_name: seowasil-db
     image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Tjddn062$
-      POSTGRES_DB: common
+    restart: always # 컨테이너가 종료되면 항상 다시 시작
     ports:
       - 5432:5432
+    env_file:
+      - .env.development
+    environment:
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    volumes:
+      - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
+    networks:
+      - backbone # 컨테이너 간 통신을 위한 네트워크 설정
+
+networks:
+  backbone:
+    name: backbone # 네트워크의 이름을 'backbone'으로 설정
+    driver: bridge # 사용할 네트워크 드라이버를 'bridge'로 설정

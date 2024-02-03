@@ -1,0 +1,56 @@
+# 맥에서 구동 (ㄹㅇ개발용) , development
+# docker-compose -f docker-compose.local.yml up -d
+
+version: '3.8'
+
+services:
+  seowasil-nginx:
+    container_name: seowasil-nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile # nginx 서비스를 위한 Dockerfile을 사용
+    restart: always # 컨테이너가 종료되면 항상 다시 시작
+    ports:
+      - 80:80 # 호스트의 80 포트를 컨테이너의 80 포트로 매핑
+    depends_on:
+      - seowasil-server # seowasil-server 서비스가 준비되어야 함
+    networks:
+      - backbone # 컨테이너 간 통신을 위한 네트워크 설정
+
+  seowasil-server:
+    container_name: seowasil-server
+    build:
+      context: . # Dockerfile이 위치한 디렉토리
+      dockerfile: Dockerfile # 서버를 위한 Dockerfile을 사용
+    environment:
+      NODE_ENV: development # 개발 환경으로 설정
+    ports:
+      - 8000:8000 # 호스트의 5432 포트를 컨테이너의 5432 포트로 매핑
+    command: npm run start:dev # 컨테이너 시작 시 실행할 명령어
+    networks:
+      - backbone # 컨테이너 간 통신을 위한 네트워크 설정
+    volumes:
+      - .:/usr/src/app # 현재 디렉토리를 컨테이너의 /usr/src/app에 마운트
+      - /usr/src/app/node_modules # node_modules 디렉토리는 호스트와 공유하지 않고 컨테이너에만 존재
+
+  seowasil-db:
+    container_name: seowasil-db
+    image: postgres
+    restart: always # 컨테이너가 종료되면 항상 다시 시작
+    ports:
+      - 5432:5432
+    env_file:
+      - .env.development
+    environment:
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    volumes:
+      - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
+    networks:
+      - backbone # 컨테이너 간 통신을 위한 네트워크 설정
+
+networks:
+  backbone:
+    name: backbone # 네트워크의 이름을 'backbone'으로 설정
+    driver: bridge # 사용할 네트워크 드라이버를 'bridge'로 설정

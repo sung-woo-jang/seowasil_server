@@ -16,11 +16,12 @@ import { ProductsModule } from './api/products/products.module';
 import { ContactCategoryModule } from './api/contact-category/contact-category.module';
 import { DatabaseModule } from './database/database.module';
 import { RolesGuard } from './auth/guards/role.guard';
+import { SseModule } from './sse/sse.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: '.env.development',
       isGlobal: true,
       validationSchema: Joi.object({
         MODE: Joi.string().valid('dev', 'prod').required(),
@@ -46,6 +47,7 @@ import { RolesGuard } from './auth/guards/role.guard';
     ProductsModule,
     ContactCategoryModule,
     DatabaseModule,
+    SseModule,
   ],
   providers: [
     // 전역 가드

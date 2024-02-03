@@ -44,3 +44,6 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 crud_1.db
+
+# DB
+db/*
