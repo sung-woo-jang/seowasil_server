@@ -3,7 +3,7 @@
 # production
 # 나중에 다시 손 봐야함 (https://github.com/boostcampwm-2022/web13-moyeomoyeo/blob/develop/backend/docker-compose.prod.yml)
 
-# docker-compose -f docker-compose.dev.yml up -d
+# docker-compose -f docker-compose.prod.yml up -d
 version: '3.8'
 services:
   seowasil-nginx:
