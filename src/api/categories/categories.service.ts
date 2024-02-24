@@ -16,7 +16,6 @@ export class CategoriesService {
   ) {}
 
   async createCategory(createCategoryDto: CreateCategoryDto) {
-    console.log(createCategoryDto);
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();

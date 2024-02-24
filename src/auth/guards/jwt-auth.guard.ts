@@ -29,7 +29,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         HttpStatus.NOT_FOUND,
       );
     }
-
     return super.canActivate(context);
   }
 }
