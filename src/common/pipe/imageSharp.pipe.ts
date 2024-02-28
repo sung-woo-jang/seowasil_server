@@ -1,6 +1,7 @@
 import { Injectable, PipeTransform } from '@nestjs/common';
 import { extname, join } from 'path';
 import * as sharp from 'sharp';
+import * as fs from 'fs';
 
 @Injectable()
 export class ImageSharpPipe
@@ -22,10 +23,15 @@ export class ImageSharpPipe
           const newFileName = `${Date.now()}-${index}${extname(
             file.originalname,
           )}`;
+          const outputPath = join('uplodas', newFileName);
+
+          if (!fs.existsSync('uplodas')) {
+            fs.mkdirSync('uplodas', { recursive: true });
+          }
           await sharp(file.buffer)
             // .resize(600, 600)
-            .toFile(join('uploads', newFileName));
-          file.path = join('uploads', newFileName);
+            .toFile(outputPath);
+          file.path = outputPath;
           file.filename = newFileName;
           transformedFiles[field].push(file);
         } catch (error) {

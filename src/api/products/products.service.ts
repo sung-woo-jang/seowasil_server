@@ -46,6 +46,7 @@ export class ProductsService {
   }
   async getProductList() {
     const result = await this.productsRepository.getProductList();
+
     return result;
   }
   async getProductListByCategories(id: number) {

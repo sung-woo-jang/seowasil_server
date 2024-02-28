@@ -13,6 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "cross-env node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js seed",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -49,6 +50,7 @@
     "sharp": "^0.32.3",
     "sqlite3": "^5.1.6",
     "typeorm": "^0.3.17",
+    "typeorm-extension": "^3.5.0",
     "typeorm-naming-strategies": "^4.1.0",
     "typeorm-transactional": "^0.4.1"
   },
