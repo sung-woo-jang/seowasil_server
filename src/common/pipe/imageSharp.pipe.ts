@@ -23,10 +23,10 @@ export class ImageSharpPipe
           const newFileName = `${Date.now()}-${index}${extname(
             file.originalname,
           )}`;
-          const outputPath = join('uplodas', newFileName);
+          const outputPath = join('uploads', newFileName);
 
-          if (!fs.existsSync('uplodas')) {
-            fs.mkdirSync('uplodas', { recursive: true });
+          if (!fs.existsSync('uploads')) {
+            fs.mkdirSync('uploads', { recursive: true });
           }
           await sharp(file.buffer)
             // .resize(600, 600)
