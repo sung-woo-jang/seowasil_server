@@ -10,11 +10,11 @@ export const typeOrmAsyncModuleOptions: TypeOrmModuleAsyncOptions = {
   useFactory: async (): Promise<TypeOrmModuleOptions> => ({
     namingStrategy: new SnakeNamingStrategy(),
     type: 'postgres',
-    host: 'localhost',
     port: 5432,
-    username: 'postgres',
-    password: 'Tjddn062$',
-    database: 'common',
+    host: process.env.HOST,
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
     logging: false,
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production

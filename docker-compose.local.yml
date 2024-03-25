@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+  seowasil_nginx:
+    container_name: seowasil_nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - seowasil_server
+  
+  seowasil_db:
+    container_name: seowasil_db
+    image: postgres
+    restart: always # 컨테이너가 종료되면 항상 다시 시작
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${USERNAME}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    volumes: # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
+      - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
+ 
+  # docker logs -f seowasil_server
+  seowasil_server:
+    container_name: seowasil_server
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+      - PORT=${PORT}
+    ports:
+      - '8000:8000'
+    depends_on:
+      - seowasil_db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=seastory624@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=Tjddn062$
+    ports:
+      - '5050:80'
+    depends_on:
+      - seowasil_db
+
+
+

@@ -21,7 +21,7 @@ import { SseModule } from './sse/sse.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env.development',
+      envFilePath: '.env',
       isGlobal: true,
       validationSchema: Joi.object({
         MODE: Joi.string().valid('dev', 'prod').required(),
