@@ -3,8 +3,6 @@ import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { ProductImage } from './product-image.entity';
 import { ProductDetailImage } from './product-detail-image.entity';
 import { Category } from '@app/categories/entities/category.entity';
-import { Order } from '@app/orders/entities/order.entity';
-import { Cart } from '@app/carts/entities/cart.entity';
 import { CommonEntity } from '@common/entities/common.entity';
 
 export enum Status {
@@ -74,12 +72,6 @@ export class Product extends CommonEntity<Product> {
     { cascade: true },
   )
   productDetailImageUrl: ProductDetailImage[];
-
-  @OneToMany(() => Cart, (cart: Cart) => cart.product, { cascade: true })
-  carts: Cart[];
-
-  @OneToMany(() => Order, (order: Order) => order.product, { cascade: true })
-  orders: Order[];
 
   @ManyToOne(() => Category, (category: Category) => category.products, {
     onDelete: 'CASCADE',

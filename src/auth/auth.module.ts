@@ -10,14 +10,10 @@ import { jwtModuleOptionsFactory } from 'src/config/jwtModuleOptionsFactory.conf
 import { UsersService } from '@app/users/users.service';
 import { RepositoryModule } from 'src/database/repository/repository.module';
 import { UsersRepository } from '@app/users/users.repository';
-import { DeliverAddressRepository } from '@app/deliver-address/deliver-address.repository';
 
 @Module({
   imports: [
-    RepositoryModule.forCustomRepository([
-      UsersRepository,
-      DeliverAddressRepository,
-    ]),
+    RepositoryModule.forCustomRepository([UsersRepository]),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

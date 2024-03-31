@@ -7,9 +7,9 @@ export default new DataSource({
   username: 'postgres',
   password: 'Tjddn062$',
   database: 'common',
-  logging: false,
+  logging: true,
   entities: ['src/**/*.entity.ts'],
-  synchronize: false, //process.env.MODE === 'dev', //! set 'false' in production
+  synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production
   // autoLoadEntities: true,
   // logging: process.env.MODE == 'dev',
 });

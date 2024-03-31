@@ -7,22 +7,19 @@ import { User } from '@app/users/entities/user.entity';
 import { CreateUserAndAddressDto } from '@app/users/dto/create-user.dto';
 import { UsersRepository } from '@app/users/users.repository';
 import { UsersService } from '@app/users/users.service';
-import { DeliverAddressRepository } from '@app/deliver-address/deliver-address.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly dataSource: DataSource,
     private readonly userRepository: UsersRepository,
-    private readonly deliverAddressRepository: DeliverAddressRepository,
     private readonly userService: UsersService,
     private jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
 
   async createUser(createUserAndAddressDto: CreateUserAndAddressDto) {
-    const { zoneCode, roadAddress, detailAddress, ...createUserDto } =
-      createUserAndAddressDto;
+    const { ...createUserDto } = createUserAndAddressDto;
 
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
@@ -32,9 +29,6 @@ export class AuthService {
       const user = await manager
         .withRepository(this.userRepository)
         .createUser({ ...createUserDto, password: hashedPassword });
-      await manager
-        .withRepository(this.deliverAddressRepository)
-        .save({ zoneCode, roadAddress, detailAddress, user });
 
       return user;
     });

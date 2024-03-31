@@ -1,9 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Order } from '@app/orders/entities/order.entity';
 import { CommonEntity } from '@common/entities/common.entity';
-import { Cart } from '@app/carts/entities/cart.entity';
-import { DeliverAddress } from '@app/deliver-address/entities/deliver-address.entity';
 
 export enum Role {
   ADMIN = 'ADMIN',
@@ -34,20 +31,4 @@ export class User extends CommonEntity<User> {
   @IsBoolean()
   @Column({ type: 'varchar', comment: '유저 권한', default: Role.CUSTOMER })
   role: Role;
-
-  @OneToMany(() => DeliverAddress, (address: DeliverAddress) => address.user, {
-    nullable: false,
-    cascade: true,
-  }) // 단방향 연결, 양방향도 가능
-  address: DeliverAddress[];
-
-  @OneToMany(() => Order, (order: Order) => order.user, {
-    cascade: true,
-  })
-  orders: Order[];
-
-  @OneToMany(() => Cart, (cart: Cart) => cart, {
-    cascade: true,
-  })
-  cart: Cart[];
 }

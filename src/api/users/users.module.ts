@@ -22,7 +22,7 @@ import { RepositoryModule } from 'src/database/repository/repository.module';
       },
     }),
   ],
-  controllers: [UsersController],
   providers: [UsersService],
+  controllers: [UsersController],
 })
 export class UsersModule {}

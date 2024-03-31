@@ -5,5 +5,4 @@ export class GetProfileResponseDto extends PickType(User, [
   'id',
   'username',
   'role',
-  'address',
 ] as const) {}
