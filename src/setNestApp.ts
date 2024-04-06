@@ -7,7 +7,6 @@ import * as express from 'express';
 import * as path from 'path';
 
 export const setNestApp = (app: INestApplication) => {
-  app.setGlobalPrefix('/api');
   app.use(cookieParser());
   app.enableCors({
     origin: process.env.NODE_ENV === 'development' ? true : true,
