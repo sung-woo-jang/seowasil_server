@@ -26,11 +26,9 @@ export class AuthService {
       await bcrypt.genSalt(),
     );
     const user = await this.dataSource.transaction(async (manager) => {
-      const user = await manager
+      return await manager
         .withRepository(this.userRepository)
         .createUser({ ...createUserDto, password: hashedPassword });
-
-      return user;
     });
     return await this.userService.findById(user.id);
   }
@@ -56,7 +54,7 @@ export class AuthService {
       domain: 'localhost',
       path: '/',
       httpOnly: true,
-      maxAge: Number(this.configService.get('JWT_EXPIRESIN')),
+      maxAge: Number(this.configService.get('JWT_EXPIRES_IN')),
     };
   }
 

@@ -24,7 +24,7 @@ services:
       POSTGRES_PASSWORD: ${PASSWORD}
       POSTGRES_DB: ${DATABASE}
     volumes: # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
-      - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
+      - ./local/db:/var/lib/postgresql/data # 호스트의 ./data/db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
  
   # docker logs -f seowasil_server
   seowasil_server:
@@ -44,16 +44,3 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-
-  
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    container_name: nest-pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=seastory624@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=Tjddn062$
-    ports:
-      - '5050:80'
-    depends_on:
-      - seowasil_db

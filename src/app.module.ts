@@ -2,11 +2,11 @@ import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { UsersModule } from './api/users/users.module';
+import { UsersModule } from '@app/users/users.module';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
-import { CategoriesModule } from './api/categories/categories.module';
-import { ProductsModule } from './api/products/products.module';
+import { CategoriesModule } from '@app/categories/categories.module';
+import { ProductsModule } from '@app/products/products.module';
 import { DatabaseModule } from './database/database.module';
 import { RolesGuard } from './auth/guards/role.guard';
 import { SseModule } from './sse/sse.module';
@@ -24,7 +24,7 @@ import { SseModule } from './sse/sse.module';
         DATABASE: Joi.string().required(),
         HOST: Joi.string().required(),
         JWT_SECRET_KEY: Joi.string().required(),
-        JWT_EXPIRESIN: Joi.number().required(),
+        JWT_EXPIRES_IN: Joi.number().required(),
       }),
     }),
     AuthModule,

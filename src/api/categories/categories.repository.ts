@@ -9,14 +9,13 @@ export class CategoriesRepository extends Repository<Category> {
     return await this.createQueryBuilder('category').getMany();
   }
 
-  async getProductsByCategoryId(id: number, products: boolean) {
+  async getProductsByCategoryId(id: number, _products: boolean) {
     return await this.createQueryBuilder('category')
       .select([
         'category.id',
         'category.name',
         'category.scientific',
         'category.department',
-
         'product.id',
         'product.title',
         'product.description',
