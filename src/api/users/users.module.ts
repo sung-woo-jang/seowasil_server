@@ -16,7 +16,7 @@ import { RepositoryModule } from 'src/database/repository/repository.module';
         return {
           secret: configService.get<string>('JWT_SECRET_KEY'),
           signOptions: {
-            expiresIn: configService.get<string>('JWT_EXPIRES_IN'),
+            expiresIn: configService.get<string>('JWT_EXPIRESIN'),
           },
         };
       },

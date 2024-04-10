@@ -5,9 +5,9 @@ services:
     image: nginx:1.15-alpine
     restart: unless-stopped
     volumes:
-      - ./prod/data/nginx:/etc/nginx/conf.d
-      - ./prod/data/certbot/conf:/etc/letsencrypt
-      - ./prod/data/certbot/www:/var/www/certbot
+      - ./data/nginx:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     ports:
       - "80:80"
       - "443:443"
@@ -20,23 +20,20 @@ services:
     ports:
       - 5432:5432
     env_file:
-      - ./.env
-    environment:
-      POSTGRES_USER: ${USERNAME}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_DB: ${DATABASE}
+      - ./.env.production
     volumes: # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
-      - ./prod/db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
+      - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
  
   # docker logs -f seowasil_server
   seowasil_server:
     container_name: seowasil_server
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.local
     env_file:
-      - ./.env.production
+      - ./.env
     environment:
+      - NODE_ENV=development
       - PORT=${PORT}
     ports:
       - '8000:8000'
@@ -64,8 +61,8 @@ services:
     restart: unless-stopped
     container_name: certbot
     volumes: 
-        - ./prod/data/certbot/conf:/etc/letsencrypt    #nginx컨테이너에 certbot컨테이너 연결
-        - ./prod/data/certbot/www:/var/www/certbot
+        - ./data/certbot/conf:/etc/letsencrypt    #nginx컨테이너에 certbot컨테이너 연결
+        - ./data/certbot/www:/var/www/certbot
     depends_on:
         - seowasil_nginx
     entrypoint : "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

@@ -6,6 +6,6 @@ export const jwtModuleOptionsFactory = async (
 ) => ({
   secret: configService.get('JWT_SECRET_KEY'),
   signOptions: {
-    expiresIn: `${configService.get('JWT_EXPIRES_IN')}s`,
+    expiresIn: `${configService.get('JWT_EXPIRESIN')}s`,
   },
 });

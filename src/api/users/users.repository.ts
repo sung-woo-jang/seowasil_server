@@ -19,6 +19,7 @@ export class UsersRepository extends Repository<User> {
 
   async findById(id: number): Promise<User> {
     return await this.createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'address')
       .where('user.id = :id', { id })
       .select([
         'user.id',
@@ -27,6 +28,10 @@ export class UsersRepository extends Repository<User> {
         'user.phoneNumber',
         'user.role',
         'user.password',
+        'address.id',
+        'address.zoneCode',
+        'address.roadAddress',
+        'address.detailAddress',
       ])
       .getOne();
   }
@@ -34,6 +39,7 @@ export class UsersRepository extends Repository<User> {
   // 유저 정보 조회
   async findUserByAccount(account: string): Promise<User> {
     return await this.createQueryBuilder('user')
+      .leftJoinAndSelect('user.address', 'address')
       .where('user.account = :account', { account })
       .select([
         'user.id',
@@ -41,6 +47,10 @@ export class UsersRepository extends Repository<User> {
         'user.phoneNumber',
         'user.role',
         'user.password',
+        'address.id',
+        'address.zoneCode',
+        'address.roadAddress',
+        'address.detailAddress',
       ])
       .getOne();
   }
