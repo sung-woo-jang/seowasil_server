@@ -50,3 +50,4 @@ db/*
 
 # volume
 data/*
+local/*
