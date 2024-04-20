@@ -7,5 +7,3 @@ export class CreateUserDto extends PickType(User, [
   'password',
   'phoneNumber',
 ] as const) {}
-
-export class CreateUserAndAddressDto extends IntersectionType(CreateUserDto) {}

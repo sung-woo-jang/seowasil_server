@@ -50,4 +50,5 @@ db/*
 
 # volume
 data/*
-local/db
+local/db/*
+prod/*
