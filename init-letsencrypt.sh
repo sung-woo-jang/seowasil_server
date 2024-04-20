@@ -18,7 +18,7 @@ if [ -d "$data_path" ]; then
   fi
 fi
 
-
+/Users/jangseong-u/Desktop/project/seowasil/seowasil_server/
 if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/ssl-dhparams.pem" ]; then
   echo "### Downloading recommended TLS parameters ..."
   mkdir -p "$data_path/conf"
@@ -28,7 +28,7 @@ if [ ! -e "$data_path/conf/options-ssl-nginx.conf" ] || [ ! -e "$data_path/conf/
 fi
 
 echo "### Creating dummy certificate for $domains ..."
-path="/etc/letsencrypt/live/$domains"
+path="./prod/data/certbot/conf/live/$domains"
 mkdir -p "$data_path/conf/live/$domains"
 docker-compose -f ./docker-compose.prod.yml run --rm --entrypoint "\
   openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
