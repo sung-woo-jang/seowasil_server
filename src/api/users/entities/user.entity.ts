@@ -1,5 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
-import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { IsBoolean, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { Column, Entity, Index } from 'typeorm';
 import { CommonEntity } from '@common/entities/common.entity';
 
 export enum Role {
@@ -29,6 +29,7 @@ export class User extends CommonEntity<User> {
   phoneNumber: string;
 
   @IsBoolean()
+  @IsEnum(Role)
   @Column({ type: 'varchar', comment: '유저 권한', default: Role.CUSTOMER })
   role: Role;
 }

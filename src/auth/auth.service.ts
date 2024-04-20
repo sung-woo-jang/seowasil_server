@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { User } from '@app/users/entities/user.entity';
-import { CreateUserAndAddressDto } from '@app/users/dto/create-user.dto';
+import { CreateUserDto } from '@app/users/dto/create-user.dto';
 import { UsersRepository } from '@app/users/users.repository';
 import { UsersService } from '@app/users/users.service';
 
@@ -18,9 +18,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async createUser(createUserAndAddressDto: CreateUserAndAddressDto) {
-    const { ...createUserDto } = createUserAndAddressDto;
-
+  async createUser(createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
       await bcrypt.genSalt(),

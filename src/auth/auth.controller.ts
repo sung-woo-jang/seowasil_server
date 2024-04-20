@@ -11,7 +11,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Public } from '@common/decorators/skip-auth.decorator';
-import { CreateUserAndAddressDto } from '@app/users/dto/create-user.dto';
+import { CreateUserDto } from '@app/users/dto/create-user.dto';
 
 @Public()
 @Controller('auth')
@@ -19,8 +19,8 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('signup')
-  createUser(@Body() createUserAndAddressDto: CreateUserAndAddressDto) {
-    return this.authService.createUser(createUserAndAddressDto);
+  createUser(@Body() createUserDto: CreateUserDto) {
+    return this.authService.createUser(createUserDto);
   }
 
   @UseGuards(LocalAuthGuard)

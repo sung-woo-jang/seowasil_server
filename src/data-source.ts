@@ -2,11 +2,11 @@ import { DataSource } from 'typeorm';
 
 export default new DataSource({
   type: 'postgres',
-  host: 'localhost',
   port: 5432,
-  username: 'postgres',
-  password: 'Tjddn062$',
-  database: 'common',
+  host: process.env.HOST,
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
   logging: true,
   entities: ['src/**/*.entity.ts'],
   synchronize: true, //process.env.MODE === 'dev', //! set 'false' in production

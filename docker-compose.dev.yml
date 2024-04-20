@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: nginx.Dockerfile
     ports:
-      - 80:80
+      - '80:80'
     restart: always
     depends_on:
       - seowasil_server
@@ -16,7 +16,7 @@ services:
     image: postgres
     restart: always # 컨테이너가 종료되면 항상 다시 시작
     ports:
-      - 5432:5432
+      - '5432:5432'
     env_file:
       - ./.env.development
     volumes: # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
