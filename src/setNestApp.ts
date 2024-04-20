@@ -8,6 +8,7 @@ import * as path from 'path';
 
 export const setNestApp = (app: INestApplication) => {
   app.use(cookieParser());
+  app.setGlobalPrefix('api');
   app.enableCors({
     origin: process.env.NODE_ENV === 'development' ? true : true,
     credentials: true,

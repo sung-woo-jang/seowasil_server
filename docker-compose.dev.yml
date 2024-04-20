@@ -1,3 +1,4 @@
+# 쓸 일 없을듯
 version: '3.8'
 services:
   seowasil_nginx:
@@ -10,7 +11,7 @@ services:
     restart: always
     depends_on:
       - seowasil_server
-  
+
   seowasil_db:
     container_name: seowasil_db
     image: postgres
@@ -19,9 +20,10 @@ services:
       - '5432:5432'
     env_file:
       - ./.env.development
-    volumes: # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
+    volumes:
+      # 명명된 볼륨으로 바꾸는거 고민해봐야 함. 최소 배포환경에선 명명된 볼륨 사용으로. 이유도 같이
       - ./db:/var/lib/postgresql/data # 호스트의 ./db 디렉토리를 컨테이너의 /var/lib/postgresql/data에 마운트
- 
+
   # docker logs -f seowasil_server
   seowasil_server:
     container_name: seowasil_server
@@ -41,7 +43,6 @@ services:
       - .:/app
       - /app/node_modules
 
-  
   pgadmin:
     image: dpage/pgadmin4
     restart: always
