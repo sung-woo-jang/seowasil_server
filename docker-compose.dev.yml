@@ -1,4 +1,4 @@
-# 쓸 일 없을듯
+# 포트 개방만 하고 다른 pc로 테스트 하는 용도
 version: '3.8'
 services:
   seowasil_nginx:
